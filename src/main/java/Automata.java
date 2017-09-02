@@ -86,7 +86,9 @@ public class Automata {
 
         List<String> matriz = Splitter.on(',').splitToList(aux.toString());
 
-        System.out.println(matriz);
+        for (int i = 0; i < FILAS; i++)
+            for (int j = 0; j < COLUMNAS; j++)
+                matrizEstados[i][j] = Integer.parseInt(matriz.remove(0));
 
     }
 }
