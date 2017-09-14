@@ -106,4 +106,3 @@ public class Automata {
     }
 }
 
-//eltincho se la re come

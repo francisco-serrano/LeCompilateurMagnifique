@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="fc209cf7-11b0-453a-8451-08b6d174be70" name="Default" comment="Soporte de lectura de matriz de acciones semánticas">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/La Matrix.xlsx" afterPath="$PROJECT_DIR$/La Matrix.xlsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/matriz-estados.txt" afterPath="$PROJECT_DIR$/matriz-estados.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Automata.java" afterPath="$PROJECT_DIR$/src/main/java/Automata.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
+=======
+    <list default="true" id="fc209cf7-11b0-453a-8451-08b6d174be70" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+>>>>>>> origin/master
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -43,11 +48,17 @@
       <file leaf-file-name="Automata.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Automata.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="119">
               <caret line="16" column="73" lean-forward="false" selection-start-line="16" selection-start-column="73" selection-end-line="16" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+=======
+            <state relative-caret-position="1323">
+              <caret line="81" column="33" lean-forward="true" selection-start-line="81" selection-start-column="33" selection-end-line="81" selection-end-column="33" />
+              <folding />
+>>>>>>> origin/master
             </state>
           </provider>
         </entry>
@@ -739,7 +750,39 @@
       <option name="project" value="LOCAL" />
       <updated>1504395643773</updated>
     </task>
+<<<<<<< HEAD
     <option name="localTasksCounter" value="2" />
+=======
+    <task id="LOCAL-00002" summary="Se armó la matriz a partir del archivo de texto &quot;matriz-estados.txt&quot;">
+      <created>1505414088524</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1505414088524</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Se armó la matriz a partir del archivo de texto &quot;matriz-estados.txt&quot;">
+      <created>1505415019117</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1505415019117</updated>
+    </task>
+    <task id="LOCAL-00004" summary="el tincho se la lastra">
+      <created>1505420972183</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1505420972183</updated>
+    </task>
+    <task id="LOCAL-00005" summary="cambio en la matric de excel">
+      <created>1505421256905</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1505421256905</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+>>>>>>> origin/master
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -802,8 +845,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Se armó la matriz a partir del archivo de texto &quot;matriz-estados.txt&quot;" />
+<<<<<<< HEAD
     <MESSAGE value="Soporte de lectura de matriz de acciones semánticas" />
     <option name="LAST_COMMIT_MESSAGE" value="Soporte de lectura de matriz de acciones semánticas" />
+=======
+    <MESSAGE value="el tincho se la lastra" />
+    <MESSAGE value="cambio en la matric de excel" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambio en la matric de excel" />
+>>>>>>> origin/master
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -902,11 +951,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Automata.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="119">
           <caret line="16" column="73" lean-forward="false" selection-start-line="16" selection-start-column="73" selection-end-line="16" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="1323">
+          <caret line="81" column="33" lean-forward="true" selection-start-line="81" selection-start-column="33" selection-end-line="81" selection-end-column="33" />
+          <folding />
+>>>>>>> origin/master
         </state>
       </provider>
     </entry>
