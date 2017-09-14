@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc209cf7-11b0-453a-8451-08b6d174be70" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/La Matrix.xlsx" afterPath="$PROJECT_DIR$/La Matrix.xlsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Automata.java" afterPath="$PROJECT_DIR$/src/main/java/Automata.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -413,7 +411,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505420972183</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="cambio en la matric de excel">
+      <created>1505421256905</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1505421256905</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -465,7 +470,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Se armó la matriz a partir del archivo de texto &quot;matriz-estados.txt&quot;" />
     <MESSAGE value="el tincho se la lastra" />
-    <option name="LAST_COMMIT_MESSAGE" value="el tincho se la lastra" />
+    <MESSAGE value="cambio en la matric de excel" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambio en la matric de excel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
