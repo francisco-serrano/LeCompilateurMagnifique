@@ -93,4 +93,4 @@ public class Automata {
     }
 }
 
-//asjofdhhgirehgrovsalkndveibvrieacdlksavoirwqLACONCHADETUMADRE
+//eltincho se la re come
