@@ -14,12 +14,14 @@ public class Automata {
     private static final int FILAS = 8;
     private static final int COLUMNAS = 24;
 
+    private enum tipo_matriz {MATRIZ_ESTADOS, MATRIZ_ACCIONES_SEMANTICAS}
+
     private List<Integer> archivo = new ArrayList<>();
     private Map<Character, Integer> mapeoColumna = new HashMap<>();
     private int[][] matrizEstados = new int[FILAS][COLUMNAS];
+    private int[][] matrizAccionesSemanticas = new int[FILAS][COLUMNAS];
 
-    public Automata(String fileDir, String matrixDir)
-    {
+    public Automata(String fileDir, String dir_matEstados, String dir_matSemantica) {
         // [a-zA-Z]
         // [0-9]
 
@@ -46,7 +48,8 @@ public class Automata {
         mapeoColumna.put('\t', 22);
 
         readFile(fileDir);
-        generateMatrix(matrixDir);
+        generateMatrix(dir_matEstados, tipo_matriz.MATRIZ_ESTADOS);
+        generateMatrix(dir_matSemantica, tipo_matriz.MATRIZ_ACCIONES_SEMANTICAS);
     }
 
     private void readFile(String dir) {
@@ -66,8 +69,7 @@ public class Automata {
         }
     }
 
-    private void generateMatrix(String matrixDir)
-    {
+    private void generateMatrix(String matrixDir, tipo_matriz tipoMatriz) {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(matrixDir));
@@ -84,12 +86,23 @@ public class Automata {
             e.printStackTrace();
         }
 
-        List<String> matriz = Splitter.on(',').splitToList(aux.toString());
+        System.out.println(aux);
+
+        List<String> matriz = new ArrayList<>(Splitter.on(',').splitToList(aux.toString()));
+//        matriz.remove(matriz.size() - 1);
+
+//        for (String tuvieja : matriz)
+//            System.out.println(tuvieja);
 
         for (int i = 0; i < FILAS; i++)
-            for (int j = 0; j < COLUMNAS; j++)
-                matrizEstados[i][j] = Integer.parseInt(matriz.remove(0));
+            for (int j = 0; j < COLUMNAS; j++) {
+                if (tipoMatriz == tipo_matriz.MATRIZ_ESTADOS)
+                    matrizEstados[i][j] = Integer.parseInt(matriz.remove(0));
 
+                if (tipoMatriz == tipo_matriz.MATRIZ_ACCIONES_SEMANTICAS)
+                    matrizAccionesSemanticas[i][j] = Integer.parseInt(matriz.remove(0));
+
+            }
     }
 }
 
