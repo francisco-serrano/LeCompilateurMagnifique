@@ -12,7 +12,7 @@ import java.util.Map;
 public class Automata {
 
     private static final int FILAS = 8;
-    private static final int COLUMNAS = 24;
+    private static final int COLUMNAS = 22;
 
     private enum tipo_matriz {MATRIZ_ESTADOS, MATRIZ_ACCIONES_SEMANTICAS}
 
@@ -86,13 +86,9 @@ public class Automata {
             e.printStackTrace();
         }
 
-        System.out.println(aux);
+        //       System.out.println(aux);
 
         List<String> matriz = new ArrayList<>(Splitter.on(',').splitToList(aux.toString()));
-//        matriz.remove(matriz.size() - 1);
-
-//        for (String tuvieja : matriz)
-//            System.out.println(tuvieja);
 
         for (int i = 0; i < FILAS; i++)
             for (int j = 0; j < COLUMNAS; j++) {
@@ -101,8 +97,27 @@ public class Automata {
 
                 if (tipoMatriz == tipo_matriz.MATRIZ_ACCIONES_SEMANTICAS)
                     matrizAccionesSemanticas[i][j] = Integer.parseInt(matriz.remove(0));
-
             }
+
+    }
+
+    public void imprimimeLasMatrices(){
+
+        System.out.println("matriz de estados: ");
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                System.out.print(" " + matrizEstados[i][j]);
+            }
+            System.out.println();
+        }
+
+        System.out.println("matriz de acciones semanticas");
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                System.out.print(" " + matrizAccionesSemanticas[i][j]);
+            }
+            System.out.println();
+        }
+
     }
 }
-
