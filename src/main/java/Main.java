@@ -8,6 +8,6 @@ public class Main {
         String dirMatrizSemantica = "matriz-acc-semanticas.txt";
 
         Automata automata = new Automata(fileDir, dirMatrizEstados, dirMatrizSemantica);
-        automata.imprimimeLasMatrices();
+        automata.imprimeLasMatrices();
     }
 }
