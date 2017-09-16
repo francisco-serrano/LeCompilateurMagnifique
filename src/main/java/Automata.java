@@ -101,7 +101,7 @@ public class Automata {
 
     }
 
-    public void imprimimeLasMatrices(){
+    public void imprimeLasMatrices(){
 
         System.out.println("matriz de estados: ");
         for (int i = 0; i < FILAS; i++) {
