@@ -1,5 +1,5 @@
 
-interface AccionSemantica {
+public abstract class AccionSemantica {
 
-    void aplicarAccion();
+    public abstract void aplicarAccion();
 }
