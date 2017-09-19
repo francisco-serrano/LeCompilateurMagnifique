@@ -1,7 +1,7 @@
 hola
-que
-tal
+que()-
+tal)
 como andas
-chau
-culoroto
-maquinola
+chau*
+culoroto-
+maquinola+{aó}

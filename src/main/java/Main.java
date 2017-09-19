@@ -7,7 +7,9 @@ public class Main {
         String dirMatrizEstados = "matriz-estados.txt";
         String dirMatrizSemantica = "matriz-acc-semanticas.txt";
 
-        Automata automata = new Automata(fileDir, dirMatrizEstados, dirMatrizSemantica);
-        automata.imprimeLasMatrices();
+        AnalizadorLexico analizadorLexico = new AnalizadorLexico(fileDir, dirMatrizEstados, dirMatrizSemantica);
+
+//        for (Integer i : analizadorLexico.getArchivo())
+//            System.out.print(i + " ");
     }
 }
