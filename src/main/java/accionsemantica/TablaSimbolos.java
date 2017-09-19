@@ -3,6 +3,9 @@ package accionsemantica;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+import java.util.Collection;
+import java.util.Set;
+
 public class TablaSimbolos {
 
     private Multimap<String, String> multimap = ArrayListMultimap.create();
@@ -17,6 +20,14 @@ public class TablaSimbolos {
 
     public boolean contains(String tipoToken) {
         return multimap.keySet().contains(tipoToken);
+    }
+
+    public Set<String> keySet() {
+        return multimap.keySet();
+    }
+
+    public Collection<String> getLexemas(String tipoToken) {
+        return multimap.get(tipoToken);
     }
 
     private void addReservedWords() {
@@ -39,6 +50,6 @@ public class TablaSimbolos {
         multimap.put("RETURN", null);
         multimap.put("MOVE", null);
 
-        // HAY QUE AGREGAR +, -, /, etc????
+        // TODO: HAY QUE AGREGAR +, -, /, etc????
     }
 }
