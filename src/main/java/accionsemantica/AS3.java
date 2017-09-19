@@ -8,6 +8,6 @@ public class AS3 extends AccionSemantica {
     public void aplicarAccion(char a) {
         //buscar en tabla de simbolos el identificador/palabra reservada
         //si no esta hacer el alta y devolver
-        devolucion=
+
     }
 }
