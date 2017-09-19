@@ -1,3 +1,4 @@
+import accionsemantica.AccionSemantica;
 import com.google.common.base.Splitter;
 
 import java.io.BufferedReader;
@@ -16,15 +17,19 @@ public class Automata {
 
     private enum tipo_matriz {MATRIZ_ESTADOS, MATRIZ_ACCIONES_SEMANTICAS}
 
-    private List<Integer> archivo = new ArrayList<>();
+    private List<Character> archivo = new ArrayList<>();
     private Map<Character, Integer> mapeoColumna = new HashMap<>();
     private int[][] matrizEstados = new int[FILAS][COLUMNAS];
     private int[][] matrizAccionesSemanticas = new int[FILAS][COLUMNAS];
 
-    public Automata(String fileDir, String dir_matEstados, String dir_matSemantica) {
-        // [a-zA-Z]
-        // [0-9]
+    private int cantidadLineas = 0;
+    private int estadoActual = 0;
+    private int idAccSemantica = 0;
 
+    public Automata(String fileDir, String dir_matEstados, String dir_matSemantica) {
+
+        mapeoColumna.put('L', 0);
+        mapeoColumna.put('D', 1);
         mapeoColumna.put('_', 2);
         mapeoColumna.put('[', 3);
         mapeoColumna.put(']', 4);
@@ -50,6 +55,23 @@ public class Automata {
         readFile(fileDir);
         generateMatrix(dir_matEstados, tipo_matriz.MATRIZ_ESTADOS);
         generateMatrix(dir_matSemantica, tipo_matriz.MATRIZ_ACCIONES_SEMANTICAS);
+
+        for (int i = 0; i < archivo.size(); i++) {
+            Integer columna = mapeoColumna.get(archivo.get(i));
+
+            if (columna != null) {
+                estadoActual = matrizEstados[estadoActual][columna];
+                idAccSemantica = matrizAccionesSemanticas[estadoActual][columna];
+
+                AccionSemantica accionSemantica = getAccion(idAccSemantica);
+
+                continue;
+            }
+
+            System.out.println("ERROR -> tu vieja en tanga"); // ACCION SEMANTICA ERROR
+        }
+
+
     }
 
     private void readFile(String dir) {
@@ -62,8 +84,13 @@ public class Automata {
 
         int aux;
         try {
-            while ((aux = fr.read()) != -1)
-                archivo.add(aux);
+            while ((aux = fr.read()) != -1) {
+                if (aux == 10)
+                    cantidadLineas++;
+
+                if (aux != 13)
+                    archivo.add(getId(aux));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,7 +128,7 @@ public class Automata {
 
     }
 
-    public void imprimeLasMatrices(){
+    public void imprimeLasMatrices() {
 
         System.out.println("matriz de estados: ");
         for (int i = 0; i < FILAS; i++) {
@@ -119,5 +146,26 @@ public class Automata {
             System.out.println();
         }
 
+    }
+
+    public List<Character> getArchivo() {
+        return this.archivo;
+    }
+
+    private char getId(int valor) {
+        if ((valor >= 65 && valor <= 90) || (valor >= 97 && valor <= 122))
+            return 'L';
+
+        if (valor >= 48 && valor <= 57)
+            return 'D';
+
+        return (char) valor;
+    }
+
+    private AccionSemantica getAccion(int id) {
+        switch (id) {
+            default:
+                throw new IllegalArgumentException("ID INVALIDO");
+        }
     }
 }
