@@ -39,10 +39,12 @@ public class AnalizadorLexico {
             Integer columna = mapeoColumna.get(archivo.get(i));
 
             if (columna != null) {
-                estadoActual = matrizEstados[estadoActual][columna];
-                idAccSemantica = matrizAccionesSemanticas[estadoActual][columna];
 
-                AccionSemantica accionSemantica = getAccion(idAccSemantica);
+                // TODO: contemplar los estados inválidos porque sino tira ArrayIndexOutOfBoundsException
+//                estadoActual = matrizEstados[estadoActual][columna];
+//                idAccSemantica = matrizAccionesSemanticas[estadoActual][columna];
+
+//                AccionSemantica accionSemantica = getAccion(idAccSemantica);
 
                 continue;
             }
