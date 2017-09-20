@@ -7,8 +7,10 @@ import java.util.*;
 
 public class TablaSimbolos {
 
+    // La tabla de símbolos contiene información de tokens que representen MÁS de un lexema
+
     private static final String[] arr_reservedWords = {"IF", "THEN", "ELSE", "END_IF", "BEGIN", "END", "OUT",
-            "WHILE", "FUNCTION", "RETURN", "MOVE"};
+            "WHILE", "DO", "FUNCTION", "RETURN", "MOVE"};
 
     private Multimap<String, String> multimap = ArrayListMultimap.create();
     private List<String> reservedWords = Arrays.asList(arr_reservedWords);
