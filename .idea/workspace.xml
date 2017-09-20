@@ -2,10 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92c0ce96-084a-4565-b9c3-a93a6054e1bc" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/AnalizadorLexico$tipo_matriz.class" afterPath="$PROJECT_DIR$/target/classes/AnalizadorLexico$tipo_matriz.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/AnalizadorLexico.class" afterPath="$PROJECT_DIR$/target/classes/AnalizadorLexico.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/accionsemantica/AS1.class" afterPath="$PROJECT_DIR$/target/classes/accionsemantica/AS1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/accionsemantica/AccionSemantica.class" afterPath="$PROJECT_DIR$/target/classes/accionsemantica/AccionSemantica.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/accionsemantica/TablaSimbolos.class" afterPath="$PROJECT_DIR$/target/classes/accionsemantica/TablaSimbolos.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/archivo-prueba.txt" afterPath="$PROJECT_DIR$/archivo-prueba.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/AnalizadorLexico.java" afterPath="$PROJECT_DIR$/src/main/java/AnalizadorLexico.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/accionsemantica/AS1.java" afterPath="$PROJECT_DIR$/src/main/java/accionsemantica/AS1.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/accionsemantica/AccionSemantica.java" afterPath="$PROJECT_DIR$/src/main/java/accionsemantica/AccionSemantica.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" afterPath="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" />
     </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,15 +32,28 @@
       <file leaf-file-name="AnalizadorLexico.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/AnalizadorLexico.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
-              <caret line="52" column="9" lean-forward="true" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+            <state relative-caret-position="1105">
+              <caret line="65" column="104" lean-forward="false" selection-start-line="65" selection-start-column="104" selection-end-line="65" selection-end-column="104" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-                <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-                <element signature="e#2985#2986#0" expanded="true" />
-                <element signature="e#3020#3021#0" expanded="true" />
+                <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+                <element signature="e#3795#3796#0" expanded="true" />
+                <element signature="e#3830#3831#0" expanded="true" />
+                <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+                <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+                <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+                <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="List.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/util/List.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="599" column="6" lean-forward="false" selection-start-line="599" selection-start-column="6" selection-end-line="599" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -36,21 +61,34 @@
       <file leaf-file-name="TablaSimbolos.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="884">
-              <caret line="52" column="17" lean-forward="false" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
+            <state relative-caret-position="50">
+              <caret line="9" column="91" lean-forward="true" selection-start-line="9" selection-start-column="91" selection-end-line="9" selection-end-column="91" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#308#309#0" expanded="true" />
-                <element signature="e#342#343#0" expanded="true" />
-                <element signature="e#398#399#0" expanded="true" />
-                <element signature="e#445#446#0" expanded="true" />
-                <element signature="e#494#495#0" expanded="true" />
-                <element signature="e#554#555#0" expanded="true" />
-                <element signature="e#589#590#0" expanded="true" />
-                <element signature="e#629#630#0" expanded="true" />
-                <element signature="e#691#692#0" expanded="true" />
-                <element signature="e#737#738#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AccionSemantica.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AccionSemantica.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+              <folding>
+                <element signature="e#886#887#0" expanded="true" />
+                <element signature="e#915#916#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AS1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS1.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="8" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,9 +96,11 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="78" lean-forward="true" selection-start-line="20" selection-start-column="78" selection-end-line="20" selection-end-column="78" />
-              <folding />
+            <state relative-caret-position="51">
+              <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,12 +110,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/AnalizadorLexico.java" />
         <option value="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" />
+        <option value="$PROJECT_DIR$/src/main/java/accionsemantica/AS1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/accionsemantica/AccionSemantica.java" />
+        <option value="$PROJECT_DIR$/src/main/java/AnalizadorLexico.java" />
       </list>
     </option>
   </component>
@@ -84,6 +131,11 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-7" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -100,20 +152,14 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="LeCompilateurMagnifique" type="b2602c69:ProjectViewProjectNode" />
               <item name="Le Compilateur Magnifique" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LeCompilateurMagnifique" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Le Compilateur Magnifique" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LeCompilateurMagnifique" type="b2602c69:ProjectViewProjectNode" />
@@ -146,7 +192,12 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -266,36 +317,45 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="92c0ce96-084a-4565-b9c3-a93a6054e1bc" name="Default" comment="" />
+      <created>1505865245073</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1505865245073</updated>
+      <workItem from="1505865259573" duration="675000" />
+      <workItem from="1505873828320" duration="598000" />
+      <workItem from="1505879663680" duration="10117000" />
+    </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="771000" />
+    <option name="totallyTimeSpent" value="12641000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5045386" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6694079" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45826513" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45723686" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.49546143" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32894737" sideWeight="0.49546143" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22768533" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49607536" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -306,13 +366,19 @@
       <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_ID.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_CONST.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_CADENA.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_MENOR.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_MAYOR.java" />
@@ -324,10 +390,13 @@
           <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
+            <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#3830#3831#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -353,10 +422,13 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
+            <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#3830#3831#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -374,10 +446,13 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
+            <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#3830#3831#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -395,10 +470,13 @@
           <caret line="21" column="72" lean-forward="true" selection-start-line="21" selection-start-column="72" selection-end-line="21" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
+            <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#3830#3831#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -416,10 +494,13 @@
           <caret line="103" column="36" lean-forward="false" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
+            <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#3830#3831#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -437,10 +518,13 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
+            <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#3830#3831#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -458,10 +542,13 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
+            <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#3830#3831#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -589,7 +676,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -601,60 +687,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS1.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/23.0/guava-23.0-sources.jar!/com/google/common/collect/Multimap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="194">
+          <caret line="307" column="16" lean-forward="false" selection-start-line="307" selection-start-column="16" selection-end-line="307" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AccionSemantica.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
+        <state relative-caret-position="119">
+          <caret line="7" column="8" lean-forward="false" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="78" lean-forward="true" selection-start-line="20" selection-start-column="78" selection-end-line="20" selection-end-column="78" />
+        <state relative-caret-position="51">
+          <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/util/List.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="599" column="6" lean-forward="false" selection-start-line="599" selection-start-column="6" selection-end-line="599" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AccionSemantica.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+          <folding>
+            <element signature="e#886#887#0" expanded="true" />
+            <element signature="e#915#916#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/AnalizadorLexico.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="52" column="9" lean-forward="true" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+        <state relative-caret-position="1105">
+          <caret line="65" column="104" lean-forward="false" selection-start-line="65" selection-start-column="104" selection-end-line="65" selection-end-column="104" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#readFile#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="method#imprimeLasMatrices#0;class#AnalizadorLexico#0" expanded="false" />
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
+            <element signature="method#printMatrices#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#3830#3831#0" expanded="true" />
+            <element signature="method#buildMatrix#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getId#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#getAccion#0;class#AnalizadorLexico#0" expanded="false" />
+            <element signature="method#buildMapeoColumna#0;class#AnalizadorLexico#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="52" column="17" lean-forward="false" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
+        <state relative-caret-position="50">
+          <caret line="9" column="91" lean-forward="true" selection-start-line="9" selection-start-column="91" selection-end-line="9" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#308#309#0" expanded="true" />
-            <element signature="e#342#343#0" expanded="true" />
-            <element signature="e#398#399#0" expanded="true" />
-            <element signature="e#445#446#0" expanded="true" />
-            <element signature="e#494#495#0" expanded="true" />
-            <element signature="e#554#555#0" expanded="true" />
-            <element signature="e#589#590#0" expanded="true" />
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#691#692#0" expanded="true" />
-            <element signature="e#737#738#0" expanded="true" />
           </folding>
         </state>
       </provider>
