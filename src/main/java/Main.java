@@ -19,10 +19,5 @@ public class Main {
 
         for (String key : tablaSimbolos.keySet())
             System.out.println(key + " --> " + tablaSimbolos.getLexemas(key));
-
-
-
-//        for (Integer i : analizadorLexico.getArchivo())
-//            System.out.print(i + " ");
     }
 }

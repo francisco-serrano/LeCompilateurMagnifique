@@ -3,23 +3,30 @@ package accionsemantica;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 public class TablaSimbolos {
 
-    private Multimap<String, String> multimap = ArrayListMultimap.create();
+    private static final String[] arr_reservedWords = {"IF", "THEN", "ELSE", "END_IF", "BEGIN", "END", "OUT",
+            "WHILE", "FUNCTION", "RETURN", "MOVE"};
 
-    public TablaSimbolos() {
-        addReservedWords();
-    }
+    private Multimap<String, String> multimap = ArrayListMultimap.create();
+    private List<String> reservedWords = Arrays.asList(arr_reservedWords);
 
     public void add(String tipoToken, String lexema) {
-        multimap.put(tipoToken, lexema);
+        if (tipoToken.equals("ID") || tipoToken.equals("CTE"))
+            multimap.put(tipoToken, lexema);
+        else
+            throw new IllegalArgumentException("Los tipos de token disponibles son ID y CTE");
+
     }
 
-    public boolean contains(String tipoToken) {
-        return multimap.keySet().contains(tipoToken);
+    public boolean contains(String tipoToken, String lexema) {
+        return multimap.get(tipoToken).contains(lexema);
+    }
+
+    public boolean containsReservedWord(String reservedWord) {
+        return reservedWords.contains(reservedWord);
     }
 
     public Set<String> keySet() {
@@ -28,28 +35,5 @@ public class TablaSimbolos {
 
     public Collection<String> getLexemas(String tipoToken) {
         return multimap.get(tipoToken);
-    }
-
-    private void addReservedWords() {
-        // Variables y constantes
-        multimap.put("ID", null);
-        multimap.put("CTE", null);
-
-        // Palabras reservadas
-        multimap.put("IF", null);
-        multimap.put("THEN", null);
-        multimap.put("ELSE", null);
-        multimap.put("END_IF", null);
-        multimap.put("BEGIN", null);
-        multimap.put("END", null);
-        multimap.put("OUT", null);
-
-        // Palabras reservadas adicionales
-        multimap.put("WHILE", null);
-        multimap.put("FUNCTION", null);
-        multimap.put("RETURN", null);
-        multimap.put("MOVE", null);
-
-        // TODO: HAY QUE AGREGAR +, -, /, etc????
     }
 }
