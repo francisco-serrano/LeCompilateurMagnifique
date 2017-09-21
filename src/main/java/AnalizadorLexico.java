@@ -1,4 +1,4 @@
-import accionsemantica.AccionSemantica;
+import accionsemantica.*;
 import com.google.common.base.Splitter;
 
 import java.io.BufferedReader;
@@ -10,22 +10,26 @@ import java.util.*;
 public class AnalizadorLexico {
 
     // _	[	]	<	>	=	(	)	{	}	:	.	 '	,	+	-	*	/	BL SL TAB
-    private static final List<Integer> CARACTERES_RECONOCIDOS = Arrays.asList(95, 91, 93, 60, 62, 61, 40, 41, 123, 125, 58, 46, 39, 44, 43, 45, 42, 47, 32, 10, 9);
+    private static final List<Integer> CARACTERES_RECONOCIDOS = Arrays.asList(95, 91, 93, 60, 62, 61, 40, 41, 123, 125, 58, 46, 39, 44, 43, 45, 42, 47, 32, 9);
     private static final int FILAS = 8;
-    private static final int COLUMNAS = 22;
+    private static final int COLUMNAS = 23;
 
     private Map<String, Integer> tiposToken = new HashMap<>();
 
     private enum tipo_matriz {MATRIZ_ESTADOS, MATRIZ_ACCIONES_SEMANTICAS}
 
+    private TablaSimbolos ts = new TablaSimbolos();
     private List<Character> archivo = new ArrayList<>();
+    private List<Character> noconvertida = new ArrayList<>();
     private Map<Character, Integer> mapeoColumna = new HashMap<>();
     private int[][] matrizEstados = new int[FILAS][COLUMNAS];
     private int[][] matrizAccionesSemanticas = new int[FILAS][COLUMNAS];
 
-    private int cantidadLineas = 0;
+    private int cantidadLineas = 1;
+    private int lineaactual = 1;
     private int estadoActual = 0;
     private int idAccSemantica = 0;
+    private int estadoAnterior = 0;
 
     private List<String> listaTokens = new ArrayList<>();
 
@@ -48,25 +52,51 @@ public class AnalizadorLexico {
             // Obtengo caracter
             char caracter_actual = archivo.get(i);
 
-            // Obtengo columna correspondiente al caracter
-            Integer columna = mapeoColumna.get(caracter_actual);
+            if (caracter_actual != '¶') {
+                // Obtengo columna correspondiente al caracter
+                Integer columna = mapeoColumna.get(caracter_actual);
 
-            // Acceso a matrices
-            estadoActual = matrizEstados[estadoActual][columna];
-            idAccSemantica = matrizAccionesSemanticas[estadoActual][columna];
+                // Acceso a matrices
+                estadoAnterior=estadoActual;
+                estadoActual = matrizEstados[estadoActual][columna];
+                idAccSemantica = matrizAccionesSemanticas[estadoAnterior][columna];
 
-            if (estadoActual == -1)
-                System.out.println("ERROR");
+                //System.out.println(caracter_actual + " " + columna + " " + noconvertida.get(i));
+                //System.out.println(estadoActual + " " + idAccSemantica);
+                //System.out.println(lineaactual);
 
-            if (estadoActual == -2)
-                System.out.println("ESTADO FINAL");
+                if (estadoActual == -2 && idAccSemantica == 0) {
+                    //devuelvo el caracter derecho
+                    System.out.println(noconvertida.get(i));
+                    estadoActual = 0;
+                    estadoAnterior = 0;
+                }
 
-            AccionSemantica accionSemantica = getAccion(idAccSemantica);
+                if (idAccSemantica != 0){
+                    AccionSemantica accionSemantica = getAccion(idAccSemantica);
 
-            // Usar éstos dos métodos para contemplar todos los casos, en AccionSemantica está explicado
-            accionSemantica.aplicarAccion(caracter_actual, i);
-            i = accionSemantica.getIndice();
+                    // Usar éstos dos métodos para contemplar todos los casos, en AccionSemantica está explicado
+                    accionSemantica.aplicarAccion(noconvertida.get(i), i);
+                    i = accionSemantica.getIndice();
+                    if (idAccSemantica == 3 || idAccSemantica == 6 || idAccSemantica == 9 || idAccSemantica == 11 || idAccSemantica == 16){
+                        estadoActual = 0;
+                        estadoAnterior = 0;
+                        if (caracter_actual == 'E'){
+                            lineaactual++;
+                        }
+                    }
+                }
+
+                if (idAccSemantica == 0 && estadoActual == 6)
+                    if (caracter_actual == 'E')
+                        lineaactual++;
+
+            }else{
+                if (estadoActual == 6 || estadoActual == 5)
+                    System.out.println("WARNING: fin de archivo con comentario/cadena abierto/a");
+            }
         }
+
     }
 
     // TODO: PROVISORIO, revisarlo al final
@@ -106,7 +136,7 @@ public class AnalizadorLexico {
     }
 
     public List<Character> getArchivo() {
-        return this.archivo;
+        return this.noconvertida;
     }
 
     private void assignTokenIds() {
@@ -190,10 +220,15 @@ public class AnalizadorLexico {
             while ((aux = fr.read()) != -1) {
                 if (aux == 10)
                     cantidadLineas++;
-
-                if (aux != 13)
+                if (aux != 13){
                     archivo.add(getId(aux));
+                    noconvertida.add((char) aux);
+                }
             }
+            archivo.add(getId(32));
+            noconvertida.add((char) 32);
+            archivo.add('¶');
+            noconvertida.add('¶');
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -238,6 +273,10 @@ public class AnalizadorLexico {
         if (valor >= 48 && valor <= 57)
             return 'D';
 
+        if (valor == 10)
+            return 'E';
+
+
         // Reconoce los caracteres especificados en el excel
         if (CARACTERES_RECONOCIDOS.contains(valor))
             return (char) valor;
@@ -246,63 +285,55 @@ public class AnalizadorLexico {
         return 'C';
     }
 
+    public TablaSimbolos getTablaSimbolos(){return ts;}
+
     private AccionSemantica getAccion(int id) {
+        AccionSemantica AS1 = new AS1(ts);
+        AccionSemantica AS2 = new AS2(ts);
+        AccionSemantica AS3 = new AS3(ts);
+        AccionSemantica AS6 = new AS6(ts);
+        AccionSemantica AS9 = new AS9(ts);
+        AccionSemantica AS11 = new AS11(ts);
+        AccionSemantica AS16 = new AS16(ts);
+        AccionSemantica ASError = new ASError(ts);
+        AccionSemantica a;
+
         switch (id) {
             case 1:
-                // return new AS1(....)
-                System.out.println("ACCION SEMANTICA 1");
+                a = AS1;
                 break;
             case 2:
-                System.out.println("ACCION SEMANTICA 2");
+                a = AS2;
                 break;
             case 3:
-                System.out.println("ACCION SEMANTICA 3");
-                break;
-            case 4:
-                System.out.println("ACCION SEMANTICA 4");
-                break;
-            case 5:
-                System.out.println("ACCION SEMANTICA 5");
+                AS3.setearlinea(lineaactual);
+                a = AS3;
                 break;
             case 6:
-                System.out.println("ACCION SEMANTICA 6");
-                break;
-            case 7:
-                System.out.println("ACCION SEMANTICA 7");
-                break;
-            case 8:
-                System.out.println("ACCION SEMANTICA 8");
+                AS6.setearlinea(lineaactual);
+                a = AS6;
                 break;
             case 9:
-                System.out.println("ACCION SEMANTICA 9");
-                break;
-            case 10:
-                System.out.println("ACCION SEMANTICA 10");
+                a = AS9;
                 break;
             case 11:
-                System.out.println("ACCION SEMANTICA 11");
+                a = AS11;
                 break;
-            case 12:
-                System.out.println("ACCION SEMANTICA 12");
-                break;
-            case 13:
-                System.out.println("ACCION SEMANTICA 13");
-                break;
-            case 14:
-                System.out.println("ACCION SEMANTICA 14");
-                break;
-            case 15:
-                System.out.println("ACCION SEMANTICA 15");
+            case 16:
+                a = AS16;
                 break;
             case -1:
-                System.out.println("ERROR");
+                estadoActual = 0;
+                estadoAnterior = 0;
+                ASError.setearlinea(lineaactual);
+                a = ASError;
                 break;
             default:
                 throw new IllegalArgumentException("ID INVALIDO");
         }
-
-        return null; // provisorio para que el compilador no se queje mientras tanto
+        return a;
     }
+
 
     private void buildMapeoColumna() {
         mapeoColumna.put('L', 0);
@@ -326,8 +357,8 @@ public class AnalizadorLexico {
         mapeoColumna.put('*', 18);
         mapeoColumna.put('/', 19);
         mapeoColumna.put(' ', 20);
-        mapeoColumna.put('\n', 20);
         mapeoColumna.put('\t', 20);
-        mapeoColumna.put('C', 21);
+        mapeoColumna.put('E', 21); //enter
+        mapeoColumna.put('C', 22);
     }
 }
