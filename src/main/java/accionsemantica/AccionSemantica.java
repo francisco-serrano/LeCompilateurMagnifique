@@ -4,10 +4,13 @@ public abstract class AccionSemantica {
 
     protected static StringBuilder token;
     protected int indice;
-//
-//    private TablaSimbolos devolucion;
-//    //tabla de simbolos
-//
+    protected TablaSimbolos tablita = new TablaSimbolos();
+    protected int linea;
+
+    public AccionSemantica(TablaSimbolos t){
+        this.tablita=t;
+    }
+
     /*
         Hacer que adentro del aplicarAcción se edite el índice atributo de la clase, luego desde el analizador
         se obtiene el nuevo índice llamando al getIndice()
@@ -25,6 +28,7 @@ public abstract class AccionSemantica {
         return indice;
     }
 
+    public void setearlinea(int l){this.linea=l;}
 
     public String getToken() {
         // TODO: acomodar, acceder a la tabla de símbolos
@@ -34,5 +38,6 @@ public abstract class AccionSemantica {
         // tengan un solo lexema
         return token.toString();
     }
+
 }
     

@@ -1,11 +1,18 @@
 package accionsemantica;
 
-/**
- * Created by Pancho on 18/09/2017.
- */
-public class AS11 extends AccionSemantica {
-    @Override
-    public void aplicarAccion(char a) {
 
+public class AS11 extends AccionSemantica {
+    public AS11(TablaSimbolos t) {
+        super(t);
+    }
+
+    @Override
+    public void aplicarAccion(char a, int indice) {
+        token.append(a);
+
+
+        System.out.println(token.toString());
+
+        this.indice = indice;
     }
 }
