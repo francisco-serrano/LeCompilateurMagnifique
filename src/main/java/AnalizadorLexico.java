@@ -65,6 +65,10 @@ public class AnalizadorLexico {
                 //System.out.println(estadoActual + " " + idAccSemantica);
                 //System.out.println(lineaactual);
 
+                if (noconvertida.get(i) == 10 && archivo.get(i) == 'E'){
+                    lineaactual++;
+                }
+
                 if (estadoActual == -2 && idAccSemantica == 0) {
                     //devuelvo el caracter derecho
                     System.out.println(noconvertida.get(i));
@@ -81,15 +85,11 @@ public class AnalizadorLexico {
                     if (idAccSemantica == 3 || idAccSemantica == 6 || idAccSemantica == 9 || idAccSemantica == 11 || idAccSemantica == 16){
                         estadoActual = 0;
                         estadoAnterior = 0;
-                        if (caracter_actual == 'E'){
-                            lineaactual++;
+                        if (caracter_actual == 'E' && idAccSemantica != 9){
+                            lineaactual--;
                         }
                     }
                 }
-
-                if (idAccSemantica == 0 && estadoActual == 6)
-                    if (caracter_actual == 'E')
-                        lineaactual++;
 
             }else{
                 if (estadoActual == 6 || estadoActual == 5)
@@ -136,7 +136,7 @@ public class AnalizadorLexico {
     }
 
     public List<Character> getArchivo() {
-        return this.noconvertida;
+        return this.archivo;
     }
 
     private void assignTokenIds() {

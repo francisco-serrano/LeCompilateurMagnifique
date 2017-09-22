@@ -2,9 +2,7 @@ package accionsemantica;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
-/**
- * Created by Pancho on 18/09/2017.
- */
+
 public class AS9 extends AccionSemantica {
     public AS9(TablaSimbolos t) {
         super(t);
