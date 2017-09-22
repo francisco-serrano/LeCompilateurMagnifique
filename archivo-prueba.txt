@@ -1,2 +1,18 @@
-lala
-'asd'
+var1, var2, var3 : ULONG.
+
+var1 = 2.
+
+IF (var1 == 2) THEN 
+	var2 = 100000000000000. 
+ELSE 
+	BEGIN
+		var2 = 200. 
+		var3 = 300.
+	END
+END_IF
+
+WHILE (var1 == 2) DO
+BEGIN
+	OUT 'tu vieja en tanga'.
+	var3 = 500.
+END
