@@ -1,4 +1,4 @@
-%token ID CTE_UINT ASIGN
+%token ID CTE ASIGN ADD SUB MULT DIV
 %start programa
 
 %%
@@ -9,13 +9,13 @@ programa : asignacion
 asignacion : ID ASIGN expresion
 ;
 
-expresion : expresion '+' termino | expresion '-' termino | termino
+expresion : expresion ADD termino | expresion SUB termino | termino
 ;
 
-termino : termino '*' factor | termino '/' factor | factor
+termino : termino MULT factor | termino DIV factor | factor
 ;
 
-factor : ID | CTE_UINT
+factor : ID | CTE
 ;
 
 %%

@@ -113,6 +113,10 @@ public class AnalizadorLexico {
         }
     }
 
+    public void yyerror(String error) {
+        System.err.println(error);
+    }
+
     public void printMatrices() {
         System.out.println("matriz de estados: ");
         for (int i = 0; i < FILAS; i++) {
@@ -176,17 +180,24 @@ public class AnalizadorLexico {
          */
 
         // Identificadores y constantes
-        tiposToken.put("ID", 10);
-        tiposToken.put("CTE", 11);
+//        tiposToken.put("ID", 10);
+//        tiposToken.put("CTE", 11);
+        tiposToken.put("ID", 257);
+        tiposToken.put("CTE", 258);
 
         // Operadores aritméticos
-        tiposToken.put("+", 20);
-        tiposToken.put("-", 21);
-        tiposToken.put("*", 22);
-        tiposToken.put("/", 23);
+//        tiposToken.put("+", 20);
+//        tiposToken.put("-", 21);
+//        tiposToken.put("*", 22);
+//        tiposToken.put("/", 23);
+        tiposToken.put("+", 260);
+        tiposToken.put("-", 261);
+        tiposToken.put("*", 262);
+        tiposToken.put("/", 263);
 
         // Operadores de asignación
-        tiposToken.put("=", 30);
+//        tiposToken.put("=", 30);
+        tiposToken.put("=", 259);
 
         // Operadores de comparación
         tiposToken.put(">=", 40);
