@@ -22,7 +22,7 @@ public abstract class AccionSemantica {
         Después si alguna acción semántica no tiene que tocar el índice no importa, hacemos simplemente
         un this.indice = indice para que quede igual
      */
-    public abstract void aplicarAccion(char a, int indice);
+    public abstract String aplicarAccion(char a, int indice);
 
     public int getIndice() {
         return indice;
