@@ -20,7 +20,7 @@ public class AnalizadorLexico {
 
     private TablaSimbolos ts = new TablaSimbolos();
     private List<Character> archivo = new ArrayList<>();
-    private List<Character> noconvertida = new ArrayList<>();
+    private List<Character> noConvertida = new ArrayList<>();
     private Map<Character, Integer> mapeoColumna = new HashMap<>();
     private int[][] matrizEstados = new int[FILAS][COLUMNAS];
     private int[][] matrizAccionesSemanticas = new int[FILAS][COLUMNAS];
@@ -31,7 +31,7 @@ public class AnalizadorLexico {
     private int idAccSemantica = 0;
     private int estadoAnterior = 0;
 
-    private List<String> listaTokens = new ArrayList<>();
+    private List<Integer> listaTokens = new ArrayList<>();
 
     public AnalizadorLexico(String fileDir, String fileDir_matEstados, String fileDir_matSemantica) {
 
@@ -48,6 +48,8 @@ public class AnalizadorLexico {
         // Mapeo cada tipo de token con un identifidor numérico (así queda como en las filminas)
         assignTokenIds();
 
+        List<String> listaTokensAux = new ArrayList<>();
+
         for (int i = 0; i < archivo.size(); i++) {
             // Obtengo caracter
             char caracter_actual = archivo.get(i);
@@ -57,66 +59,61 @@ public class AnalizadorLexico {
                 Integer columna = mapeoColumna.get(caracter_actual);
 
                 // Acceso a matrices
-                estadoAnterior=estadoActual;
+                estadoAnterior = estadoActual;
                 estadoActual = matrizEstados[estadoActual][columna];
                 idAccSemantica = matrizAccionesSemanticas[estadoAnterior][columna];
 
-                //System.out.println(caracter_actual + " " + columna + " " + noconvertida.get(i));
-                //System.out.println(estadoActual + " " + idAccSemantica);
-                //System.out.println(lineaactual);
-
-                if (noconvertida.get(i) == 10 && archivo.get(i) == 'E'){
+                if (noConvertida.get(i) == 10 && archivo.get(i) == 'E')
                     lineaactual++;
-                }
 
                 if (estadoActual == -2 && idAccSemantica == 0) {
                     //devuelvo el caracter derecho
-                    System.out.println(noconvertida.get(i));
+//                    System.out.println(noConvertida.get(i));
+                    listaTokensAux.add("->" + noConvertida.get(i).toString());
                     estadoActual = 0;
                     estadoAnterior = 0;
                 }
 
-                if (idAccSemantica != 0){
+                if (idAccSemantica != 0) {
                     AccionSemantica accionSemantica = getAccion(idAccSemantica);
 
                     // Usar éstos dos métodos para contemplar todos los casos, en AccionSemantica está explicado
-                    accionSemantica.aplicarAccion(noconvertida.get(i), i);
+
+                    String resultado = accionSemantica.aplicarAccion(noConvertida.get(i), i);
+
+                    if (resultado != null)
+                        listaTokensAux.add(resultado);
+
                     i = accionSemantica.getIndice();
-                    if (idAccSemantica == 3 || idAccSemantica == 6 || idAccSemantica == 9 || idAccSemantica == 11 || idAccSemantica == 16){
+                    if (idAccSemantica == 3 || idAccSemantica == 6 || idAccSemantica == 9 || idAccSemantica == 11 || idAccSemantica == 16) {
                         estadoActual = 0;
                         estadoAnterior = 0;
-                        if (caracter_actual == 'E' && idAccSemantica != 9){
+
+                        if (caracter_actual == 'E' && idAccSemantica != 9)
                             lineaactual--;
-                        }
+
                     }
                 }
 
-            }else{
+            } else {
                 if (estadoActual == 6 || estadoActual == 5)
                     System.out.println("WARNING: fin de archivo con comentario/cadena abierto/a");
             }
         }
 
+        formatTokens(listaTokensAux);
+
     }
 
-    // TODO: PROVISORIO, revisarlo al final
-    public String getToken() {
-
-        /*
-            Voy removiendo los tokens de la lista así se van consumiendo
-
-            Sí el índice es inválido, se captura la excepción que lance el remove, y devuelvo null, así le indico
-            al analizador sintáctico que ya no quedan tokens por consumir
-         */
+    public int yylex() {
         try {
             return listaTokens.remove(0);
         } catch (IndexOutOfBoundsException e) {
-            return null;
+            return 0;
         }
     }
 
     public void printMatrices() {
-
         System.out.println("matriz de estados: ");
         for (int i = 0; i < FILAS; i++) {
             for (int j = 0; j < COLUMNAS; j++) {
@@ -135,8 +132,34 @@ public class AnalizadorLexico {
 
     }
 
-    public List<Character> getArchivo() {
-        return this.archivo;
+    public String getTipoToken(int id) {
+        for (String key : tiposToken.keySet())
+            if (tiposToken.get(key) == id)
+                return key;
+
+        return null;
+    }
+
+    private void formatTokens(List<String> listaTokensAux) {
+        List<String> listaTokensPosta = new ArrayList<>();
+
+        for (String token : listaTokensAux) {
+            List<String> aux = Splitter.on("->").splitToList(token);
+
+            String izq = aux.get(0), der = aux.get(1);
+
+            if (izq.equals("PALABRA RESERVADA"))
+                listaTokensPosta.add(der);
+
+            if (izq.equals("ID") || izq.equals("CTE") || izq.equals("CADENA"))
+                listaTokensPosta.add(izq);
+
+            if (izq.length() == 0)
+                listaTokensPosta.add(der);
+        }
+
+        for (String tokenPosta : listaTokensPosta)
+            listaTokens.add(tiposToken.get(tokenPosta));
     }
 
     private void assignTokenIds() {
@@ -182,6 +205,8 @@ public class AnalizadorLexico {
         tiposToken.put("BL", 55);
         tiposToken.put("SL", 56);
         tiposToken.put("TAB", 57);
+        tiposToken.put("{", 58);
+        tiposToken.put("}", 59);
 
         // Palabras reservadas
         tiposToken.put("IF", 60);
@@ -191,6 +216,7 @@ public class AnalizadorLexico {
         tiposToken.put("BEGIN", 64);
         tiposToken.put("END", 65);
         tiposToken.put("OUT", 66);
+        tiposToken.put("CADENA", 67);
 
         // Palabras reservadas (específicas del grupo)
         tiposToken.put("WHILE", 70);
@@ -198,6 +224,8 @@ public class AnalizadorLexico {
         tiposToken.put("FUNCTION", 72);
         tiposToken.put("RETURN", 73);
         tiposToken.put("MOVE", 74);
+        tiposToken.put("UINT", 75);
+        tiposToken.put("ULONG", 76);
 
         // Comentarios multilínea
         tiposToken.put("[", 80);
@@ -220,15 +248,15 @@ public class AnalizadorLexico {
             while ((aux = fr.read()) != -1) {
                 if (aux == 10)
                     cantidadLineas++;
-                if (aux != 13){
+                if (aux != 13) {
                     archivo.add(getId(aux));
-                    noconvertida.add((char) aux);
+                    noConvertida.add((char) aux);
                 }
             }
             archivo.add(getId(32));
-            noconvertida.add((char) 32);
+            noConvertida.add((char) 32);
             archivo.add('¶');
-            noconvertida.add('¶');
+            noConvertida.add('¶');
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -285,7 +313,9 @@ public class AnalizadorLexico {
         return 'C';
     }
 
-    public TablaSimbolos getTablaSimbolos(){return ts;}
+    public TablaSimbolos getTablaSimbolos() {
+        return ts;
+    }
 
     private AccionSemantica getAccion(int id) {
         AccionSemantica AS1 = new AS1(ts);

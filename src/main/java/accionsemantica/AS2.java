@@ -8,10 +8,12 @@ public class AS2 extends AccionSemantica {
     }
 
     @Override
-    public void aplicarAccion(char a, int indice) {
+    public String aplicarAccion(char a, int indice) {
 
         token.append(a);
 
         this.indice = indice;
+
+        return null;
     }
 }
