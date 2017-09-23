@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class AnalizadorLexico {
+public class Lexer {
 
     // _	[	]	<	>	=	(	)	{	}	:	.	 '	,	+	-	*	/	BL SL TAB
     private static final List<Integer> CARACTERES_RECONOCIDOS = Arrays.asList(95, 91, 93, 60, 62, 61, 40, 41, 123, 125, 58, 46, 39, 44, 43, 45, 42, 47, 32, 9);
@@ -33,7 +33,7 @@ public class AnalizadorLexico {
 
     private List<Integer> listaTokens = new ArrayList<>();
 
-    public AnalizadorLexico(String fileDir, String fileDir_matEstados, String fileDir_matSemantica) {
+    public Lexer(String fileDir, String fileDir_matEstados, String fileDir_matSemantica) {
 
         // Leo el archivo y genero la lista de chars
         readFile(fileDir);
