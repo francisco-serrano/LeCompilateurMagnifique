@@ -1,1 +1,34 @@
-var1 = = 50 + 10
+BEGIN
+    ULONG FUNCTION funcion {
+        BEGIN
+            var1 : UINT .
+            var1 = 200 .
+        END
+
+        RETURN ( 2 + 2 ) .
+    }
+
+    var1, var2, var3 : ULONG .
+
+    var3 = 500 .
+
+    IF ( var3 > 500 ) THEN
+        BEGIN
+            var3 = 200 .
+            var2 = 100 + 2.
+        END
+    ELSE
+        var1 = 150 .
+    END_IF
+
+    IF ( var3 * 5 <> var2 + var3 * 38) THEN
+        OUT ( 'quince pesos' ) .
+    END_IF
+
+    var1 = 50 + 10 - 100 / 1 .
+    var2 = var3 * 34 .
+
+    var3 = funcion() + 32 .
+
+    OUT ( 'tu vieja en tanga' ) .
+END

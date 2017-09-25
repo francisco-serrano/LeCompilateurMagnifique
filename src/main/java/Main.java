@@ -12,6 +12,7 @@ public class Main {
 //        while ((token = lexer.yylex()) != 0)
 //            System.out.println(token + ", " + lexer.getTipoToken(token));
 
+        // PARSER: 0 -> ACEPTADA; 1 -> RECHAZADA
         Parser parser = new Parser(lexer);
         System.out.println(parser.yyparse());
 
