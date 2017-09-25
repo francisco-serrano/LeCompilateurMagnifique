@@ -2,15 +2,19 @@
 public class Main {
 
     public static void main(String[] args) {
-        String fileDir = "archivo-prueba.txt";
+        String fileDir = "archivo-prueba2.txt";
         String dirMatrizEstados = "matriz-estados.txt";
         String dirMatrizSemantica = "matriz-acc-semanticas.txt";
 
-        AnalizadorLexico analizadorLexico = new AnalizadorLexico(fileDir, dirMatrizEstados, dirMatrizSemantica);
+        Lexer lexer = new Lexer(fileDir, dirMatrizEstados, dirMatrizSemantica);
 
-        int token;
-        while ((token = analizadorLexico.yylex()) != 0)
-            System.out.println(token + ", " + analizadorLexico.getTipoToken(token));
+//        int token;
+//        while ((token = lexer.yylex()) != 0)
+//            System.out.println(token + ", " + lexer.getTipoToken(token));
+
+        // PARSER: 0 -> ACEPTADA; 1 -> RECHAZADA
+        Parser parser = new Parser(lexer);
+        System.out.println(parser.yyparse());
 
     }
 }

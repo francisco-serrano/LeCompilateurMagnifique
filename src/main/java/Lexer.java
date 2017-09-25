@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class AnalizadorLexico {
+public class Lexer {
 
     // _	[	]	<	>	=	(	)	{	}	:	.	 '	,	+	-	*	/	BL SL TAB
     private static final List<Integer> CARACTERES_RECONOCIDOS = Arrays.asList(95, 91, 93, 60, 62, 61, 40, 41, 123, 125, 58, 46, 39, 44, 43, 45, 42, 47, 32, 9);
@@ -33,7 +33,7 @@ public class AnalizadorLexico {
 
     private List<Integer> listaTokens = new ArrayList<>();
 
-    public AnalizadorLexico(String fileDir, String fileDir_matEstados, String fileDir_matSemantica) {
+    public Lexer(String fileDir, String fileDir_matEstados, String fileDir_matSemantica) {
 
         // Leo el archivo y genero la lista de chars
         readFile(fileDir);
@@ -109,8 +109,12 @@ public class AnalizadorLexico {
         try {
             return listaTokens.remove(0);
         } catch (IndexOutOfBoundsException e) {
-            return 0;
+            return 0; // Indico EOF
         }
+    }
+
+    public void yyerror(String error) {
+        System.err.println(error);
     }
 
     public void printMatrices() {
@@ -175,64 +179,102 @@ public class AnalizadorLexico {
             quede como en las filminas
          */
 
-        // Identificadores y constantes
-        tiposToken.put("ID", 10);
-        tiposToken.put("CTE", 11);
+        // Para que coincida con yacc
+        tiposToken.put("ID", 257);
+        tiposToken.put("CTE", 258);
+        tiposToken.put("=", 259);
+        tiposToken.put("+", 260);
+        tiposToken.put("-", 261);
+        tiposToken.put("*", 262);
+        tiposToken.put("/", 263);
+        tiposToken.put(".", 264);
+        tiposToken.put("BEGIN", 265);
+        tiposToken.put("END", 266);
+        tiposToken.put(":", 267);
+        tiposToken.put(",", 268);
+        tiposToken.put("UINT", 269);
+        tiposToken.put("ULONG", 270);
+        tiposToken.put("IF", 271);
+        tiposToken.put("(", 272);
+        tiposToken.put(")", 273);
+        tiposToken.put("THEN", 274);
+        tiposToken.put("ELSE", 275);
+        tiposToken.put("END_IF", 276);
+        tiposToken.put("<=", 277);
+        tiposToken.put(">=", 278);
+        tiposToken.put("<", 279);
+        tiposToken.put(">", 280);
+        tiposToken.put("==", 281);
+        tiposToken.put("<>", 282);
+        tiposToken.put("OUT", 283);
+        tiposToken.put("CADENA", 284);
+        tiposToken.put("FUNCTION", 285);
+        tiposToken.put("MOVE", 286);
+        tiposToken.put("{", 287);
+        tiposToken.put("}", 288);
+        tiposToken.put("RETURN", 289);
 
-        // Operadores aritméticos
-        tiposToken.put("+", 20);
-        tiposToken.put("-", 21);
-        tiposToken.put("*", 22);
-        tiposToken.put("/", 23);
 
-        // Operadores de asignación
-        tiposToken.put("=", 30);
 
-        // Operadores de comparación
-        tiposToken.put(">=", 40);
-        tiposToken.put("<=", 41);
-        tiposToken.put(">", 42);
-        tiposToken.put("<", 43);
-        tiposToken.put("==", 44);
-        tiposToken.put("<>", 45);
 
-        // Otros
-        tiposToken.put("(", 50);
-        tiposToken.put(")", 51);
-        tiposToken.put(",", 52);
-        tiposToken.put(":", 53);
-        tiposToken.put(".", 54);
-        tiposToken.put("BL", 55);
-        tiposToken.put("SL", 56);
-        tiposToken.put("TAB", 57);
-        tiposToken.put("{", 58);
-        tiposToken.put("}", 59);
-
-        // Palabras reservadas
-        tiposToken.put("IF", 60);
-        tiposToken.put("THEN", 61);
-        tiposToken.put("ELSE", 62);
-        tiposToken.put("END_IF", 63);
-        tiposToken.put("BEGIN", 64);
-        tiposToken.put("END", 65);
-        tiposToken.put("OUT", 66);
-        tiposToken.put("CADENA", 67);
-
-        // Palabras reservadas (específicas del grupo)
-        tiposToken.put("WHILE", 70);
-        tiposToken.put("DO", 71);
-        tiposToken.put("FUNCTION", 72);
-        tiposToken.put("RETURN", 73);
-        tiposToken.put("MOVE", 74);
-        tiposToken.put("UINT", 75);
-        tiposToken.put("ULONG", 76);
-
-        // Comentarios multilínea
-        tiposToken.put("[", 80);
-        tiposToken.put("]", 81);
-
-        // Cadenas monolínea
-        tiposToken.put("'", 90);
+//        // Identificadores y constantes
+//        tiposToken.put("ID", 10);
+//        tiposToken.put("CTE", 11);
+//
+//        // Operadores aritméticos
+//        tiposToken.put("+", 20);
+//        tiposToken.put("-", 21);
+//        tiposToken.put("*", 22);
+//        tiposToken.put("/", 23);
+//
+//        // Operadores de asignación
+//        tiposToken.put("=", 30);
+//
+//        // Operadores de comparación
+//        tiposToken.put(">=", 40);
+//        tiposToken.put("<=", 41);
+//        tiposToken.put(">", 42);
+//        tiposToken.put("<", 43);
+//        tiposToken.put("==", 44);
+//        tiposToken.put("<>", 45);
+//
+//        // Otros
+//        tiposToken.put("(", 50);
+//        tiposToken.put(")", 51);
+//        tiposToken.put(",", 52);
+//        tiposToken.put(":", 53);
+//        tiposToken.put(".", 54);
+//        tiposToken.put("BL", 55);
+//        tiposToken.put("SL", 56);
+//        tiposToken.put("TAB", 57);
+//        tiposToken.put("{", 58);
+//        tiposToken.put("}", 59);
+//
+//        // Palabras reservadas
+//        tiposToken.put("IF", 60);
+//        tiposToken.put("THEN", 61);
+//        tiposToken.put("ELSE", 62);
+//        tiposToken.put("END_IF", 63);
+//        tiposToken.put("BEGIN", 64);
+//        tiposToken.put("END", 65);
+//        tiposToken.put("OUT", 66);
+//        tiposToken.put("CADENA", 67);
+//
+//        // Palabras reservadas (específicas del grupo)
+//        tiposToken.put("WHILE", 70);
+//        tiposToken.put("DO", 71);
+//        tiposToken.put("FUNCTION", 72);
+//        tiposToken.put("RETURN", 73);
+//        tiposToken.put("MOVE", 74);
+//        tiposToken.put("UINT", 75);
+//        tiposToken.put("ULONG", 76);
+//
+//        // Comentarios multilínea
+//        tiposToken.put("[", 80);
+//        tiposToken.put("]", 81);
+//
+//        // Cadenas monolínea
+//        tiposToken.put("'", 90);
     }
 
     private void readFile(String dir) {
