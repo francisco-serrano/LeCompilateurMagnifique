@@ -213,6 +213,8 @@ public class Lexer {
         tiposToken.put("{", 287);
         tiposToken.put("}", 288);
         tiposToken.put("RETURN", 289);
+        tiposToken.put("WHILE", 290);
+        tiposToken.put("DO", 291);
 
 
 
