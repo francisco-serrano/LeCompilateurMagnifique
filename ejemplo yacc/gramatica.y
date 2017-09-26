@@ -1,4 +1,4 @@
-%token ID CTE ASIGN ADD SUB MULT DIV DOT BEGIN END COLON COMMA UINT ULONG IF OPEN_PAR CLOSE_PAR THEN ELSE END_IF LEQ GEQ LT GT EQ NEQ OUT CADENA FUNCTION MOVE OPEN_BRACE CLOSE_BRACE RETURN
+%token ID CTE ASIGN ADD SUB MULT DIV DOT BEGIN END COLON COMMA UINT ULONG IF OPEN_PAR CLOSE_PAR THEN ELSE END_IF LEQ GEQ LT GT EQ NEQ OUT CADENA FUNCTION MOVE OPEN_BRACE CLOSE_BRACE RETURN WHILE DO
 %start programa
 
 %%
@@ -21,7 +21,7 @@ invocacion_funcion : ID OPEN_PAR CLOSE_PAR
 declaracion : declaracion_variables | declaracion_funcion
 ;
 
-declaracion_variables : lista_variables COLON tipo DOT | funcion
+declaracion_variables : lista_variables COLON tipo DOT
 ;
 
 declaracion_funcion : funcion
@@ -42,7 +42,7 @@ condicion : expresion comparador expresion
 expresion : invocacion_funcion | expresion ADD termino | expresion SUB termino | termino
 ;
 
-termino : termino MULT factor | termino MULT factor | factor
+termino : termino MULT factor | termino DIV factor | factor
 ;
 
 factor : ID | CTE
