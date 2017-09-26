@@ -30,6 +30,7 @@ public class Lexer {
     private int estadoActual = 0;
     private int idAccSemantica = 0;
     private int estadoAnterior = 0;
+    private int indice = 0;
 
     private List<Integer> listaTokens = new ArrayList<>();
 
@@ -47,12 +48,16 @@ public class Lexer {
 
         // Mapeo cada tipo de token con un identifidor numérico (así queda como en las filminas)
         assignTokenIds();
+    }
+
+    private void hacertokens() {
 
         List<String> listaTokensAux = new ArrayList<>();
 
-        for (int i = 0; i < archivo.size(); i++) {
+
+        while ((indice < archivo.size()) && (listaTokensAux.size() == 0)) {
             // Obtengo caracter
-            char caracter_actual = archivo.get(i);
+            char caracter_actual = archivo.get(indice);
 
             if (caracter_actual != '¶') {
                 // Obtengo columna correspondiente al caracter
@@ -63,13 +68,11 @@ public class Lexer {
                 estadoActual = matrizEstados[estadoActual][columna];
                 idAccSemantica = matrizAccionesSemanticas[estadoAnterior][columna];
 
-                if (noConvertida.get(i) == 10 && archivo.get(i) == 'E')
+                if (noConvertida.get(indice) == 10 && archivo.get(indice) == 'E')
                     lineaactual++;
 
                 if (estadoActual == -2 && idAccSemantica == 0) {
-                    //devuelvo el caracter derecho
-//                    System.out.println(noConvertida.get(i));
-                    listaTokensAux.add("->" + noConvertida.get(i).toString());
+                    listaTokensAux.add("->" + noConvertida.get(indice).toString());
                     estadoActual = 0;
                     estadoAnterior = 0;
                 }
@@ -79,12 +82,12 @@ public class Lexer {
 
                     // Usar éstos dos métodos para contemplar todos los casos, en AccionSemantica está explicado
 
-                    String resultado = accionSemantica.aplicarAccion(noConvertida.get(i), i);
+                    String resultado = accionSemantica.aplicarAccion(noConvertida.get(indice), indice);
 
                     if (resultado != null)
                         listaTokensAux.add(resultado);
 
-                    i = accionSemantica.getIndice();
+                    indice = accionSemantica.getIndice();
                     if (idAccSemantica == 3 || idAccSemantica == 6 || idAccSemantica == 9 || idAccSemantica == 11 || idAccSemantica == 16) {
                         estadoActual = 0;
                         estadoAnterior = 0;
@@ -99,13 +102,16 @@ public class Lexer {
                 if (estadoActual == 6 || estadoActual == 5)
                     System.out.println("WARNING: fin de archivo con comentario/cadena abierto/a");
             }
+            indice++;
         }
 
         formatTokens(listaTokensAux);
-
     }
 
+
     public int yylex() {
+        hacertokens();
+
         try {
             return listaTokens.remove(0);
         } catch (IndexOutOfBoundsException e) {
@@ -151,6 +157,7 @@ public class Lexer {
             List<String> aux = Splitter.on("->").splitToList(token);
 
             String izq = aux.get(0), der = aux.get(1);
+            //System.out.println(izq + " " + der);
 
             if (izq.equals("PALABRA RESERVADA"))
                 listaTokensPosta.add(der);
@@ -215,8 +222,6 @@ public class Lexer {
         tiposToken.put("RETURN", 289);
         tiposToken.put("WHILE", 290);
         tiposToken.put("DO", 291);
-
-
 
 
 //        // Identificadores y constantes

@@ -16,6 +16,10 @@ public class TablaSimbolos {
     private List<String> reservedWords = Arrays.asList(arr_reservedWords);
 
     public void add(String tipoToken, String lexema) {
+        /*
+            ID -> <LEXEMA, NRO.LINEA>
+         */
+
         if (tipoToken.equals("ID") || tipoToken.equals("CTE"))
             multimap.put(tipoToken, lexema);
         else

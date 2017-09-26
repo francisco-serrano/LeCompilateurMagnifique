@@ -1,34 +1,75 @@
+var1, var2, var3 : ULONG .
+var4, var5 : UINT.
+var6 : ULONG.
+
+ULONG FUNCTION funcion {
+    BEGIN
+        OUT ('hola').
+        OUT ('chat').
+
+        IF (var5 >= 8) THEN
+            BEGIN
+                var1 = var3 * 5.
+                OUT ('puto').
+            END
+        END_IF
+
+        WHILE (var10 < 123123) DO
+            var3 = 3000.
+
+        WHILE (var10 > 412) DO
+            BEGIN
+                OUT('adsfasdf').
+                OUT('asfdasdfas').
+            END
+
+        var5 = 12341234.
+
+    END
+
+    RETURN (var1) .
+}
+
+UINT MOVE FUNCTION tuVieja {
+    RETURN (2+2+2+2+2+2+2+2+2+2+2+2*3).
+}
+
+UINT FUNCTION holiz {
+
+    RETURN (var1).
+}
+
+UINT FUNCTION caca {
+    RETURN (2).
+}
+
 BEGIN
-    ULONG FUNCTION funcion {
+    var1 = 100 + caca() / 50 .
+
+    IF (var2 <> 12312 * 8) THEN
         BEGIN
-            var1 : UINT .
-            var1 = 200 .
-        END
-
-        RETURN ( 2 + 2 ) .
-    }
-
-    var1, var2, var3 : ULONG .
-
-    var3 = 500 .
-
-    IF ( var3 > 500 ) THEN
-        BEGIN
-            var3 = 200 .
-            var2 = 100 + 2.
+            OUT ('hola').
+            OUT ('chau').
         END
     ELSE
-        var1 = 150 .
+        var2 = var3.
     END_IF
 
-    IF ( var3 * 5 <> var2 + var3 * 38) THEN
-        OUT ( 'quince pesos' ) .
-    END_IF
+    WHILE (var5 == funcion()) DO
+    BEGIN
+        IF (var1 == 2) THEN
+            OUT ('tu vieja').
+        END_IF
 
-    var1 = 50 + 10 - 100 / 1 .
-    var2 = var3 * 34 .
+        WHILE (var5 == 1) DO
+            BEGIN
 
-    var3 = funcion() + 32 .
+                OUT ('wololooo').
+                var1 = 100.
+            END
 
-    OUT ( 'tu vieja en tanga' ) .
+        OUT ('wololooo').
+        var1 = funcion().
+    END
+
 END
