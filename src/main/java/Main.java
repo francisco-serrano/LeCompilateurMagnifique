@@ -13,7 +13,8 @@ public class Main {
 //            System.out.println(token + ", " + lexer.getTipoToken(token));
 
         // PARSER: 0 -> ACEPTADA; 1 -> RECHAZADA
-        Parser parser = new Parser(lexer);
+        Parser parser = new Parser();
+        parser.setLexico(lexer);
         System.out.println(parser.yyparse());
 
 

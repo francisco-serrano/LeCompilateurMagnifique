@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92c0ce96-084a-4565-b9c3-a93a6054e1bc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archivo-prueba3.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Lexer.class" afterPath="$PROJECT_DIR$/target/classes/Lexer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Parser.class" afterPath="$PROJECT_DIR$/target/classes/Parser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ParserVal.class" afterPath="$PROJECT_DIR$/target/classes/ParserVal.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/accionsemantica/TablaSimbolos.class" afterPath="$PROJECT_DIR$/target/classes/accionsemantica/TablaSimbolos.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/archivo-prueba2.txt" afterPath="$PROJECT_DIR$/archivo-prueba2.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ejemplo yacc/Parser.java" afterPath="$PROJECT_DIR$/ejemplo yacc/Parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ejemplo yacc/ParserVal.java" afterPath="$PROJECT_DIR$/ejemplo yacc/ParserVal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Lexer.java" afterPath="$PROJECT_DIR$/src/main/java/Lexer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" afterPath="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +23,8 @@
       <file leaf-file-name="Lexer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="37">
-              <caret line="222" column="8" lean-forward="false" selection-start-line="222" selection-start-column="8" selection-end-line="223" selection-end-column="34" />
+            <state relative-caret-position="105">
+              <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4368#4369#0" expanded="true" />
@@ -57,12 +48,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ejemplo yacc/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="418" column="0" lean-forward="false" selection-start-line="418" selection-start-column="0" selection-end-line="418" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="177">
+              <caret line="601" column="50" lean-forward="false" selection-start-line="601" selection-start-column="50" selection-end-line="601" selection-end-column="50" />
+              <folding>
+                <element signature="e#2171#2172#0" expanded="true" />
+                <element signature="e#2204#2205#0" expanded="true" />
+                <element signature="e#2237#2238#0" expanded="true" />
+                <element signature="e#2259#2260#0" expanded="true" />
+                <element signature="e#2296#2297#0" expanded="true" />
+                <element signature="e#2336#2337#0" expanded="true" />
+                <element signature="e#14645#14646#0" expanded="true" />
+                <element signature="e#14670#14671#0" expanded="true" />
+                <element signature="e#14796#14797#0" expanded="true" />
+                <element signature="e#14819#14820#0" expanded="true" />
+                <element signature="e#23349#23350#0" expanded="true" />
+                <element signature="e#23364#23365#0" expanded="true" />
+                <element signature="e#23758#23759#0" expanded="true" />
+                <element signature="e#23779#23780#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,29 +76,22 @@
       <file leaf-file-name="ParserVal.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ejemplo yacc/ParserVal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="46" column="5" lean-forward="false" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+            <state relative-caret-position="952">
+              <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
               <folding>
-                <element signature="e#901#902#0" expanded="true" />
-                <element signature="e#927#928#0" expanded="true" />
-                <element signature="e#1012#1013#0" expanded="true" />
-                <element signature="e#1038#1039#0" expanded="true" />
-                <element signature="e#1123#1124#0" expanded="true" />
-                <element signature="e#1149#1150#0" expanded="true" />
-                <element signature="e#1235#1236#0" expanded="true" />
-                <element signature="e#1260#1261#0" expanded="true" />
+                <element signature="e#1061#1062#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="272">
+              <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
               <folding>
-                <marker date="1506468614772" expanded="true" signature="782:788" ph="{...}" />
+                <marker date="1506474789093" expanded="true" signature="630:636" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -103,16 +102,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
               <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="archivo-prueba3.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/archivo-prueba3.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -133,6 +122,7 @@
       <find>ParserVal</find>
       <find>yylex</find>
       <find>parserval</find>
+      <find>asignaci</find>
     </findStrings>
     <replaceStrings>
       <replace>lexer.yylex()</replace>
@@ -164,11 +154,11 @@
         <option value="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" />
         <option value="$PROJECT_DIR$/ejemplo yacc/caca.java" />
         <option value="$PROJECT_DIR$/ejemplo yacc/ParserVal.java" />
-        <option value="$PROJECT_DIR$/ejemplo yacc/Parser.java" />
         <option value="$PROJECT_DIR$/archivo-prueba2.txt" />
         <option value="$PROJECT_DIR$/archivo-prueba3.txt" />
         <option value="$PROJECT_DIR$/src/main/java/Lexer.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/ejemplo yacc/Parser.java" />
       </list>
     </option>
   </component>
@@ -398,12 +388,12 @@
       <workItem from="1506304361458" duration="12096000" />
       <workItem from="1506398625076" duration="9558000" />
       <workItem from="1506449481579" duration="3365000" />
-      <workItem from="1506466989644" duration="1661000" />
+      <workItem from="1506466989644" duration="3914000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68655000" />
+    <option name="totallyTimeSpent" value="70908000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -448,21 +438,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ejemplo yacc/Parser.java</url>
-          <line>588</line>
-          <properties />
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Lexer.java</url>
-          <line>115</line>
-          <properties />
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="23" />
+      <option name="time" value="24" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -731,51 +707,20 @@
         <state relative-caret-position="391">
           <caret line="28" column="27" lean-forward="false" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#192#193#0" expanded="true" />
-            <element signature="e#236#237#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#192#193#0" expanded="false" />
+            <element signature="e#236#237#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ejemplo yacc/ParserVal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="46" column="5" lean-forward="false" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+        <state relative-caret-position="952">
+          <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
           <folding>
-            <element signature="e#901#902#0" expanded="true" />
-            <element signature="e#927#928#0" expanded="true" />
-            <element signature="e#1012#1013#0" expanded="true" />
-            <element signature="e#1038#1039#0" expanded="true" />
-            <element signature="e#1123#1124#0" expanded="true" />
-            <element signature="e#1149#1150#0" expanded="true" />
-            <element signature="e#1235#1236#0" expanded="true" />
-            <element signature="e#1260#1261#0" expanded="true" />
+            <element signature="e#1061#1062#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ejemplo yacc/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="418" column="0" lean-forward="false" selection-start-line="418" selection-start-column="0" selection-end-line="418" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/archivo-prueba2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/archivo-prueba3.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -789,10 +734,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/archivo-prueba3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archivo-prueba2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding>
+            <marker date="1506474789093" expanded="true" signature="630:636" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="222" column="8" lean-forward="false" selection-start-line="222" selection-start-column="8" selection-end-line="223" selection-end-column="34" />
+        <state relative-caret-position="105">
+          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4368#4369#0" expanded="true" />
@@ -803,12 +774,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+    <entry file="file://$PROJECT_DIR$/ejemplo yacc/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="42" lean-forward="true" selection-start-line="18" selection-start-column="42" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="177">
+          <caret line="601" column="50" lean-forward="false" selection-start-line="601" selection-start-column="50" selection-end-line="601" selection-end-column="50" />
           <folding>
-            <marker date="1506468614772" expanded="true" signature="782:788" ph="{...}" />
+            <element signature="e#2171#2172#0" expanded="true" />
+            <element signature="e#2204#2205#0" expanded="true" />
+            <element signature="e#2237#2238#0" expanded="true" />
+            <element signature="e#2259#2260#0" expanded="true" />
+            <element signature="e#2296#2297#0" expanded="true" />
+            <element signature="e#2336#2337#0" expanded="true" />
+            <element signature="e#14645#14646#0" expanded="true" />
+            <element signature="e#14670#14671#0" expanded="true" />
+            <element signature="e#14796#14797#0" expanded="true" />
+            <element signature="e#14819#14820#0" expanded="true" />
+            <element signature="e#23349#23350#0" expanded="true" />
+            <element signature="e#23364#23365#0" expanded="true" />
+            <element signature="e#23758#23759#0" expanded="true" />
+            <element signature="e#23779#23780#0" expanded="true" />
           </folding>
         </state>
       </provider>
