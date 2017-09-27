@@ -18,15 +18,17 @@ public class Lexer {
 
     private enum tipo_matriz {MATRIZ_ESTADOS, MATRIZ_ACCIONES_SEMANTICAS}
 
-    private TablaSimbolos ts = new TablaSimbolos();
+    private TablaSimbolos tablaSimbolos;
     private List<Character> archivo = new ArrayList<>();
     private List<Character> noConvertida = new ArrayList<>();
     private Map<Character, Integer> mapeoColumna = new HashMap<>();
     private int[][] matrizEstados = new int[FILAS][COLUMNAS];
     private int[][] matrizAccionesSemanticas = new int[FILAS][COLUMNAS];
 
-    private int cantidadLineas = 1;
     private int currentLine = 1;
+    private String currentLexema;
+
+    private int cantidadLineas = 1;
     private int estadoActual = 0;
     private int idAccSemantica = 0;
     private int estadoAnterior = 0;
@@ -34,7 +36,8 @@ public class Lexer {
 
     private List<Integer> listaTokens = new ArrayList<>();
 
-    public Lexer(String fileDir, String fileDir_matEstados, String fileDir_matSemantica) {
+    public Lexer(String fileDir, String fileDir_matEstados, String fileDir_matSemantica, TablaSimbolos tablaSimbolos) {
+        this.tablaSimbolos = tablaSimbolos;
 
         // Leo el archivo y genero la lista de chars
         readFile(fileDir);
@@ -84,8 +87,10 @@ public class Lexer {
 
                     String resultado = accionSemantica.aplicarAccion(noConvertida.get(indice), indice);
 
-                    if (resultado != null)
+                    if (resultado != null) {
                         listaTokensAux.add(resultado);
+                        currentLexema = accionSemantica.getToken();
+                    }
 
                     indice = accionSemantica.getIndice();
                     if (idAccSemantica == 3 || idAccSemantica == 6 || idAccSemantica == 9 || idAccSemantica == 11 || idAccSemantica == 16) {
@@ -119,12 +124,12 @@ public class Lexer {
         }
     }
 
-    public void yyerror(String error) {
-        System.err.println(error);
-    }
-
     public int getCurrentLine() {
         return this.currentLine;
+    }
+
+    public String getCurrentLexema() {
+        return currentLexema;
     }
 
     public void printMatrices() {
@@ -366,19 +371,15 @@ public class Lexer {
         return 'C';
     }
 
-    public TablaSimbolos getTablaSimbolos() {
-        return ts;
-    }
-
     private AccionSemantica getAccion(int id) {
-        AccionSemantica AS1 = new AS1(ts);
-        AccionSemantica AS2 = new AS2(ts);
-        AccionSemantica AS3 = new AS3(ts);
-        AccionSemantica AS6 = new AS6(ts);
-        AccionSemantica AS9 = new AS9(ts);
-        AccionSemantica AS11 = new AS11(ts);
-        AccionSemantica AS16 = new AS16(ts);
-        AccionSemantica ASError = new ASError(ts);
+        AccionSemantica AS1 = new AS1(tablaSimbolos);
+        AccionSemantica AS2 = new AS2(tablaSimbolos);
+        AccionSemantica AS3 = new AS3(tablaSimbolos);
+        AccionSemantica AS6 = new AS6(tablaSimbolos);
+        AccionSemantica AS9 = new AS9(tablaSimbolos);
+        AccionSemantica AS11 = new AS11(tablaSimbolos);
+        AccionSemantica AS16 = new AS16(tablaSimbolos);
+        AccionSemantica ASError = new ASError(tablaSimbolos);
         AccionSemantica a;
 
         switch (id) {

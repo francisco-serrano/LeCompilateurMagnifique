@@ -1,7 +1,21 @@
 var1, var2: ULONG.
 
+UINT MOVE FUNCTION funcion {
+    OUT('tu vieja').
+    RETURN (var1).
+}
+
 BEGIN
     var1 = 500.
     var2 = 300.
-    OUT('que onda bigote').
+
+    IF (var1 > var2) THEN
+        BEGIN
+            OUT('es mayor').
+            var2 = 800.
+        END
+    END_IF
+
+    WHILE (var1 > 10) DO
+        OUT('tu vieja').
 END

@@ -1,3 +1,4 @@
+import accionsemantica.TablaSimbolos;
 
 public class Main {
 
@@ -6,7 +7,9 @@ public class Main {
         String dirMatrizEstados = "matriz-estados.txt";
         String dirMatrizSemantica = "matriz-acc-semanticas.txt";
 
-        Lexer lexer = new Lexer(fileDir, dirMatrizEstados, dirMatrizSemantica);
+        TablaSimbolos tablaSimbolos = new TablaSimbolos();
+
+        Lexer lexer = new Lexer(fileDir, dirMatrizEstados, dirMatrizSemantica, tablaSimbolos);
 
 //        int token;
 //        while ((token = lexer.yylex()) != 0)
@@ -15,10 +18,11 @@ public class Main {
         // PARSER: 0 -> ACEPTADA; 1 -> RECHAZADA
         Parser parser = new Parser();
         parser.setLexico(lexer);
+        parser.setTablaSimbolos(tablaSimbolos);
         System.out.println(parser.yyparse());
 
-//        for (String key : lexer.getTablaSimbolos().keySet())
-//            System.out.println(key + " -> " + lexer.getTablaSimbolos().getLexemas(key));
+//        for (String key : tablaSimbolos.keySet())
+//            System.out.println(key + " -> " + tablaSimbolos.getLexemas(key));
 
 
     }
