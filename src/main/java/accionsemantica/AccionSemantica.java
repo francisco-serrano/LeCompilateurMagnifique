@@ -4,7 +4,8 @@ public abstract class AccionSemantica {
 
     protected static StringBuilder token;
     protected int indice;
-    protected TablaSimbolos tablita = new TablaSimbolos();
+//    protected TablaSimbolos tablita = new TablaSimbolos();
+    protected TablaSimbolos tablita;
     protected int linea;
 
     public AccionSemantica(TablaSimbolos t){

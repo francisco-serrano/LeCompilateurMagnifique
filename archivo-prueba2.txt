@@ -4,10 +4,12 @@ var6 : ULONG.
 
 ULONG FUNCTION funcion {
     BEGIN
+        var7 : UINT.
+
         OUT ('hola').
         OUT ('chat').
 
-        IF (var5 >= 8) THEN
+        IF (var7 >= 8) THEN
             BEGIN
                 var1 = var3 * 5.
                 OUT ('puto').
@@ -16,6 +18,8 @@ ULONG FUNCTION funcion {
 
         WHILE (var10 < 123123) DO
             var3 = 3000.
+
+
 
         WHILE (var10 > 412) DO
             BEGIN
