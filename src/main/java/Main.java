@@ -2,7 +2,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        String fileDir = "archivo-prueba2.txt";
+        String fileDir = "archivo-prueba4.txt";
         String dirMatrizEstados = "matriz-estados.txt";
         String dirMatrizSemantica = "matriz-acc-semanticas.txt";
 
@@ -10,12 +10,15 @@ public class Main {
 
 //        int token;
 //        while ((token = lexer.yylex()) != 0)
-//            System.out.println(token + ", " + lexer.getTipoToken(token));
+//            System.out.println("<" + token + ", " + lexer.getTipoToken(token) + ">");
 
         // PARSER: 0 -> ACEPTADA; 1 -> RECHAZADA
         Parser parser = new Parser();
         parser.setLexico(lexer);
         System.out.println(parser.yyparse());
+
+//        for (String key : lexer.getTablaSimbolos().keySet())
+//            System.out.println(key + " -> " + lexer.getTablaSimbolos().getLexemas(key));
 
 
     }

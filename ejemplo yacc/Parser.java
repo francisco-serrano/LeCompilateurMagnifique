@@ -382,8 +382,9 @@ void yyerror(String error) {
 
 int yylex() {
 	int val = lexer.yylex();
-
-	yylval = new ParserVal(val);
+	
+	yylval = new ParserVal();
+	yylval.ival = lexer.getCurrentLine();
 
 	return val;
 }
@@ -395,7 +396,7 @@ public void setLexico(Lexer lexer) {
 
 
 Lexer lexer;
-//#line 327 "Parser.java"
+//#line 328 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -551,57 +552,57 @@ boolean doaction;
 //########## USER-SUPPLIED ACTIONS ##########
 case 8:
 //#line 20 "gramatica.y"
-{ System.out.println("Invocación a función"); }
+{ System.out.println("Invocación a función. Línea " + val_peek(2).ival); }
 break;
 case 11:
 //#line 27 "gramatica.y"
-{ System.out.println("Declaración de Variables"); }
+{ System.out.println("Declaración de Variables. Línea " + val_peek(2).ival); }
 break;
 case 12:
 //#line 30 "gramatica.y"
-{ System.out.println("Declaración de Función"); }
+{ System.out.println("Declaración de Función. Línea " + val_peek(0).ival); }
 break;
 case 15:
 //#line 37 "gramatica.y"
-{ System.out.println("Sentencia IF"); }
+{ System.out.println("Sentencia IF. Línea " + val_peek(8).ival); }
 break;
 case 16:
 //#line 38 "gramatica.y"
-{ System.out.println("Sentencia IF"); }
+{ System.out.println("Sentencia IF. Línea " + val_peek(6).ival); }
 break;
 case 17:
 //#line 39 "gramatica.y"
-{ System.out.println("Sentencia OUT"); }
+{ System.out.println("Sentencia OUT. Línea " + val_peek(4).ival); }
 break;
 case 18:
 //#line 42 "gramatica.y"
-{ System.out.println("Sentencia WHILE"); }
+{ System.out.println("Sentencia WHILE. Línea " + val_peek(5).ival); }
 break;
 case 19:
 //#line 45 "gramatica.y"
-{ System.out.println("Comparación"); }
+{ System.out.println("Comparación. Línea " + val_peek(2).ival); }
 break;
 case 20:
 //#line 48 "gramatica.y"
-{ System.out.println("SUMA"); }
+{ System.out.println("SUMA. Línea " + val_peek(1).ival); }
 break;
 case 21:
 //#line 49 "gramatica.y"
-{ System.out.println("RESTA"); }
+{ System.out.println("RESTA. Línea " + val_peek(1).ival); }
 break;
 case 23:
 //#line 53 "gramatica.y"
-{ System.out.println("MULTIPLICACION"); }
+{ System.out.println("MULTIPLICACION. Línea " + val_peek(1).ival); }
 break;
 case 24:
 //#line 54 "gramatica.y"
-{ System.out.println("DIVISION"); }
+{ System.out.println("DIVISION. Línea " + val_peek(1).ival); }
 break;
 case 35:
 //#line 71 "gramatica.y"
-{ System.out.println("Asignación " + val_peek(3).ival); }
+{ System.out.println("Asignación. Línea " + val_peek(3).ival); }
 break;
-//#line 528 "Parser.java"
+//#line 529 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

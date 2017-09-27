@@ -26,7 +26,7 @@ public class Lexer {
     private int[][] matrizAccionesSemanticas = new int[FILAS][COLUMNAS];
 
     private int cantidadLineas = 1;
-    private int lineaactual = 1;
+    private int currentLine = 1;
     private int estadoActual = 0;
     private int idAccSemantica = 0;
     private int estadoAnterior = 0;
@@ -50,7 +50,7 @@ public class Lexer {
         assignTokenIds();
     }
 
-    private void hacertokens() {
+    private void readTokens() {
 
         List<String> listaTokensAux = new ArrayList<>();
 
@@ -69,7 +69,7 @@ public class Lexer {
                 idAccSemantica = matrizAccionesSemanticas[estadoAnterior][columna];
 
                 if (noConvertida.get(indice) == 10 && archivo.get(indice) == 'E')
-                    lineaactual++;
+                    currentLine++;
 
                 if (estadoActual == -2 && idAccSemantica == 0) {
                     listaTokensAux.add("->" + noConvertida.get(indice).toString());
@@ -93,7 +93,7 @@ public class Lexer {
                         estadoAnterior = 0;
 
                         if (caracter_actual == 'E' && idAccSemantica != 9)
-                            lineaactual--;
+                            currentLine--;
 
                     }
                 }
@@ -110,7 +110,7 @@ public class Lexer {
 
 
     public int yylex() {
-        hacertokens();
+        readTokens();
 
         try {
             return listaTokens.remove(0);
@@ -121,6 +121,10 @@ public class Lexer {
 
     public void yyerror(String error) {
         System.err.println(error);
+    }
+
+    public int getCurrentLine() {
+        return this.currentLine;
     }
 
     public void printMatrices() {
@@ -385,11 +389,11 @@ public class Lexer {
                 a = AS2;
                 break;
             case 3:
-                AS3.setearlinea(lineaactual);
+                AS3.setearlinea(currentLine);
                 a = AS3;
                 break;
             case 6:
-                AS6.setearlinea(lineaactual);
+                AS6.setearlinea(currentLine);
                 a = AS6;
                 break;
             case 9:
@@ -404,7 +408,7 @@ public class Lexer {
             case -1:
                 estadoActual = 0;
                 estadoAnterior = 0;
-                ASError.setearlinea(lineaactual);
+                ASError.setearlinea(currentLine);
                 a = ASError;
                 break;
             default:

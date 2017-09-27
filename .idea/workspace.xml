@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92c0ce96-084a-4565-b9c3-a93a6054e1bc" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archivo-prueba4.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Lexer.class" afterPath="$PROJECT_DIR$/target/classes/Lexer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Parser.class" afterPath="$PROJECT_DIR$/target/classes/Parser.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/accionsemantica/AS9.class" afterPath="$PROJECT_DIR$/target/classes/accionsemantica/AS9.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/accionsemantica/TablaSimbolos.class" afterPath="$PROJECT_DIR$/target/classes/accionsemantica/TablaSimbolos.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ejemplo yacc/Parser.java" afterPath="$PROJECT_DIR$/ejemplo yacc/Parser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ejemplo yacc/ParserVal.java" afterPath="$PROJECT_DIR$/ejemplo yacc/ParserVal.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Lexer.java" afterPath="$PROJECT_DIR$/src/main/java/Lexer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/accionsemantica/AS9.java" afterPath="$PROJECT_DIR$/src/main/java/accionsemantica/AS9.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" afterPath="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,14 +31,16 @@
       <file leaf-file-name="Lexer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+            <state relative-caret-position="203">
+              <caret line="119" column="5" lean-forward="true" selection-start-line="119" selection-start-column="5" selection-end-line="119" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4368#4369#0" expanded="true" />
-                <element signature="e#4409#4410#0" expanded="true" />
-                <marker date="1506468474927" expanded="false" signature="12017:12028" ph=" { " />
-                <marker date="1506468474927" expanded="false" signature="12038:12044" ph=" }" />
+                <element signature="e#4366#4367#0" expanded="true" />
+                <element signature="e#4407#4408#0" expanded="true" />
+                <element signature="e#4442#4443#0" expanded="true" />
+                <element signature="e#4481#4482#0" expanded="true" />
+                <marker date="1506476862537" expanded="false" signature="12089:12100" ph=" { " />
+                <marker date="1506476862537" expanded="false" signature="12110:12116" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -39,8 +49,8 @@
       <file leaf-file-name="TablaSimbolos.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+            <state relative-caret-position="232">
+              <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,11 +58,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AS9.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS9.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="12" column="37" lean-forward="false" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ejemplo yacc/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="601" column="50" lean-forward="false" selection-start-line="601" selection-start-column="50" selection-end-line="601" selection-end-column="50" />
+            <state relative-caret-position="194">
+              <caret line="602" column="64" lean-forward="false" selection-start-line="602" selection-start-column="64" selection-end-line="602" selection-end-column="64" />
               <folding>
                 <element signature="e#2171#2172#0" expanded="true" />
                 <element signature="e#2204#2205#0" expanded="true" />
@@ -62,12 +82,19 @@
                 <element signature="e#2336#2337#0" expanded="true" />
                 <element signature="e#14645#14646#0" expanded="true" />
                 <element signature="e#14670#14671#0" expanded="true" />
-                <element signature="e#14796#14797#0" expanded="true" />
-                <element signature="e#14819#14820#0" expanded="true" />
-                <element signature="e#23349#23350#0" expanded="true" />
-                <element signature="e#23364#23365#0" expanded="true" />
-                <element signature="e#23758#23759#0" expanded="true" />
-                <element signature="e#23779#23780#0" expanded="true" />
+                <element signature="e#14833#14834#0" expanded="true" />
+                <element signature="e#14856#14857#0" expanded="true" />
+                <marker date="1506477866445" expanded="true" signature="21547:21625" ph="//..." />
+                <marker date="1506477866445" expanded="true" signature="23380:23514" ph="//..." />
+                <marker date="1506477866445" expanded="true" signature="23515:23698" ph="/**...*/" />
+                <marker date="1506477866445" expanded="true" signature="23716:23721" ph=" { " />
+                <marker date="1506477866445" expanded="true" signature="23731:23733" ph=" }" />
+                <marker date="1506477866445" expanded="true" signature="23734:23868" ph="//..." />
+                <marker date="1506477866445" expanded="true" signature="23869:23932" ph="/**...*/" />
+                <marker date="1506477866445" expanded="true" signature="23949:23970" ph="{}" />
+                <marker date="1506477866445" expanded="true" signature="23973:24094" ph="/**...*/" />
+                <marker date="1506477866445" expanded="true" signature="24125:24130" ph=" { " />
+                <marker date="1506477866445" expanded="true" signature="24146:24148" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -76,10 +103,12 @@
       <file leaf-file-name="ParserVal.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ejemplo yacc/ParserVal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
+            <state relative-caret-position="934">
               <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
               <folding>
-                <element signature="e#1061#1062#0" expanded="true" />
+                <element signature="e#0#1202#0" expanded="true" />
+                <element signature="e#964#965#0" expanded="true" />
+                <element signature="e#978#979#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -88,20 +117,20 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+            <state relative-caret-position="68">
+              <caret line="4" column="41" lean-forward="false" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
               <folding>
-                <marker date="1506474789093" expanded="true" signature="630:636" ph="{...}" />
+                <marker date="1506477670723" expanded="true" signature="797:803" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="archivo-prueba2.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/archivo-prueba2.txt">
+      <file leaf-file-name="archivo-prueba4.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/archivo-prueba4.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+            <state relative-caret-position="85">
+              <caret line="5" column="27" lean-forward="false" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -149,16 +178,17 @@
         <option value="$PROJECT_DIR$/src/main/java/accionsemantica/AS11.java" />
         <option value="$PROJECT_DIR$/src/main/java/accionsemantica/AS6.java" />
         <option value="$PROJECT_DIR$/src/main/java/accionsemantica/AS16.java" />
-        <option value="$PROJECT_DIR$/src/main/java/accionsemantica/AS9.java" />
         <option value="$PROJECT_DIR$/src/main/java/AnalizadorLexico.java" />
-        <option value="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" />
         <option value="$PROJECT_DIR$/ejemplo yacc/caca.java" />
         <option value="$PROJECT_DIR$/ejemplo yacc/ParserVal.java" />
         <option value="$PROJECT_DIR$/archivo-prueba2.txt" />
         <option value="$PROJECT_DIR$/archivo-prueba3.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/Lexer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/ejemplo yacc/Parser.java" />
+        <option value="$PROJECT_DIR$/archivo-prueba4.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/Lexer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java" />
+        <option value="$PROJECT_DIR$/src/main/java/accionsemantica/AS9.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
       </list>
     </option>
   </component>
@@ -225,14 +255,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LeCompilateurMagnifique" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Le Compilateur Magnifique" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="accionsemantica" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -388,12 +410,12 @@
       <workItem from="1506304361458" duration="12096000" />
       <workItem from="1506398625076" duration="9558000" />
       <workItem from="1506449481579" duration="3365000" />
-      <workItem from="1506466989644" duration="3914000" />
+      <workItem from="1506466989644" duration="6165000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70908000" />
+    <option name="totallyTimeSpent" value="73159000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -407,7 +429,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5045386" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6694079" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31578946" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45826513" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.49546143" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -449,31 +471,12 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4368#4369#0" expanded="true" />
-            <element signature="e#4409#4410#0" expanded="true" />
-            <marker date="1506468474927" expanded="false" signature="12017:12028" ph=" { " />
-            <marker date="1506468474927" expanded="false" signature="12038:12044" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="38" lean-forward="false" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4368#4369#0" expanded="true" />
-            <element signature="e#4409#4410#0" expanded="true" />
-            <marker date="1506468474927" expanded="false" signature="12017:12028" ph=" { " />
-            <marker date="1506468474927" expanded="false" signature="12038:12044" ph=" }" />
+            <element signature="e#4366#4367#0" expanded="true" />
+            <element signature="e#4407#4408#0" expanded="true" />
+            <element signature="e#4442#4443#0" expanded="true" />
+            <element signature="e#4481#4482#0" expanded="true" />
+            <marker date="1506476862537" expanded="false" signature="12089:12100" ph=" { " />
+            <marker date="1506476862537" expanded="false" signature="12110:12116" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -491,10 +494,12 @@
           <caret line="21" column="72" lean-forward="true" selection-start-line="21" selection-start-column="72" selection-end-line="21" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4368#4369#0" expanded="true" />
-            <element signature="e#4409#4410#0" expanded="true" />
-            <marker date="1506468474927" expanded="false" signature="12017:12028" ph=" { " />
-            <marker date="1506468474927" expanded="false" signature="12038:12044" ph=" }" />
+            <element signature="e#4366#4367#0" expanded="true" />
+            <element signature="e#4407#4408#0" expanded="true" />
+            <element signature="e#4442#4443#0" expanded="true" />
+            <element signature="e#4481#4482#0" expanded="true" />
+            <marker date="1506476862537" expanded="false" signature="12089:12100" ph=" { " />
+            <marker date="1506476862537" expanded="false" signature="12110:12116" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -512,10 +517,12 @@
           <caret line="103" column="36" lean-forward="false" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4368#4369#0" expanded="true" />
-            <element signature="e#4409#4410#0" expanded="true" />
-            <marker date="1506468474927" expanded="false" signature="12017:12028" ph=" { " />
-            <marker date="1506468474927" expanded="false" signature="12038:12044" ph=" }" />
+            <element signature="e#4366#4367#0" expanded="true" />
+            <element signature="e#4407#4408#0" expanded="true" />
+            <element signature="e#4442#4443#0" expanded="true" />
+            <element signature="e#4481#4482#0" expanded="true" />
+            <marker date="1506476862537" expanded="false" signature="12089:12100" ph=" { " />
+            <marker date="1506476862537" expanded="false" signature="12110:12116" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -533,10 +540,12 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4368#4369#0" expanded="true" />
-            <element signature="e#4409#4410#0" expanded="true" />
-            <marker date="1506468474927" expanded="false" signature="12017:12028" ph=" { " />
-            <marker date="1506468474927" expanded="false" signature="12038:12044" ph=" }" />
+            <element signature="e#4366#4367#0" expanded="true" />
+            <element signature="e#4407#4408#0" expanded="true" />
+            <element signature="e#4442#4443#0" expanded="true" />
+            <element signature="e#4481#4482#0" expanded="true" />
+            <marker date="1506476862537" expanded="false" signature="12089:12100" ph=" { " />
+            <marker date="1506476862537" expanded="false" signature="12110:12116" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -554,10 +563,12 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4368#4369#0" expanded="true" />
-            <element signature="e#4409#4410#0" expanded="true" />
-            <marker date="1506468474927" expanded="false" signature="12017:12028" ph=" { " />
-            <marker date="1506468474927" expanded="false" signature="12038:12044" ph=" }" />
+            <element signature="e#4366#4367#0" expanded="true" />
+            <element signature="e#4407#4408#0" expanded="true" />
+            <element signature="e#4442#4443#0" expanded="true" />
+            <element signature="e#4481#4482#0" expanded="true" />
+            <marker date="1506476862537" expanded="false" signature="12089:12100" ph=" { " />
+            <marker date="1506476862537" expanded="false" signature="12110:12116" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -645,14 +656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS9.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS16.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -714,31 +717,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ejemplo yacc/ParserVal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-          <folding>
-            <element signature="e#1061#1062#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="11" lean-forward="false" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/archivo-prueba3.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/Lexer">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>Lexer</OriginalElement>
+          <nodes>
+            <node x="" y="">Lexer</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="37.5" y="14.5" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejemplo yacc/ParserVal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="934">
+          <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#1202#0" expanded="true" />
+            <element signature="e#964#965#0" expanded="true" />
+            <element signature="e#978#979#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -750,34 +763,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+        <state relative-caret-position="203">
+          <caret line="119" column="5" lean-forward="true" selection-start-line="119" selection-start-column="5" selection-end-line="119" selection-end-column="5" />
           <folding>
-            <marker date="1506474789093" expanded="true" signature="630:636" ph="{...}" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#4366#4367#0" expanded="true" />
+            <element signature="e#4407#4408#0" expanded="true" />
+            <element signature="e#4442#4443#0" expanded="true" />
+            <element signature="e#4481#4482#0" expanded="true" />
+            <marker date="1506476862537" expanded="false" signature="12089:12100" ph=" { " />
+            <marker date="1506476862537" expanded="false" signature="12110:12116" ph=" }" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Lexer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/TablaSimbolos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+        <state relative-caret-position="232">
+          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4368#4369#0" expanded="true" />
-            <element signature="e#4409#4410#0" expanded="true" />
-            <marker date="1506468474927" expanded="false" signature="12017:12028" ph=" { " />
-            <marker date="1506468474927" expanded="false" signature="12038:12044" ph=" }" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS9.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="37" lean-forward="false" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ejemplo yacc/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="601" column="50" lean-forward="false" selection-start-line="601" selection-start-column="50" selection-end-line="601" selection-end-column="50" />
+        <state relative-caret-position="194">
+          <caret line="602" column="64" lean-forward="false" selection-start-line="602" selection-start-column="64" selection-end-line="602" selection-end-column="64" />
           <folding>
             <element signature="e#2171#2172#0" expanded="true" />
             <element signature="e#2204#2205#0" expanded="true" />
@@ -787,13 +810,38 @@
             <element signature="e#2336#2337#0" expanded="true" />
             <element signature="e#14645#14646#0" expanded="true" />
             <element signature="e#14670#14671#0" expanded="true" />
-            <element signature="e#14796#14797#0" expanded="true" />
-            <element signature="e#14819#14820#0" expanded="true" />
-            <element signature="e#23349#23350#0" expanded="true" />
-            <element signature="e#23364#23365#0" expanded="true" />
-            <element signature="e#23758#23759#0" expanded="true" />
-            <element signature="e#23779#23780#0" expanded="true" />
+            <element signature="e#14833#14834#0" expanded="true" />
+            <element signature="e#14856#14857#0" expanded="true" />
+            <marker date="1506477866445" expanded="true" signature="21547:21625" ph="//..." />
+            <marker date="1506477866445" expanded="true" signature="23380:23514" ph="//..." />
+            <marker date="1506477866445" expanded="true" signature="23515:23698" ph="/**...*/" />
+            <marker date="1506477866445" expanded="true" signature="23716:23721" ph=" { " />
+            <marker date="1506477866445" expanded="true" signature="23731:23733" ph=" }" />
+            <marker date="1506477866445" expanded="true" signature="23734:23868" ph="//..." />
+            <marker date="1506477866445" expanded="true" signature="23869:23932" ph="/**...*/" />
+            <marker date="1506477866445" expanded="true" signature="23949:23970" ph="{}" />
+            <marker date="1506477866445" expanded="true" signature="23973:24094" ph="/**...*/" />
+            <marker date="1506477866445" expanded="true" signature="24125:24130" ph=" { " />
+            <marker date="1506477866445" expanded="true" signature="24146:24148" ph=" }" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="41" lean-forward="false" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+          <folding>
+            <marker date="1506477670723" expanded="true" signature="797:803" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archivo-prueba4.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="27" lean-forward="false" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
