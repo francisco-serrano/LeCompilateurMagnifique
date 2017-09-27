@@ -1,0 +1,20 @@
+BEGIN
+    var1, var2 : UINT.
+
+    var1 = 200 .
+
+    IF ( var1 <> 100 ) THEN
+        OUT ('tu vieja').
+    ELSE
+        BEGIN
+            var1 = 300.
+            var2 = 4 + var2 * 2 .
+        END
+    END_IF
+
+    WHILE (var1 > 2) DO
+        BEGIN
+            OUT('que onda bigote').
+            var1 = var2.
+        END
+END

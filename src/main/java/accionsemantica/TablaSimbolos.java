@@ -16,11 +16,10 @@ public class TablaSimbolos {
     private List<String> reservedWords = Arrays.asList(arr_reservedWords);
 
     public void add(String tipoToken, String lexema) {
-        if (tipoToken.equals("ID") || tipoToken.equals("CTE"))
+        if (tipoToken.equals("ID") || tipoToken.equals("CTE") || tipoToken.equals("CADENA"))
             multimap.put(tipoToken, lexema);
         else
-            throw new IllegalArgumentException("Los tipos de token disponibles son ID y CTE");
-
+            throw new IllegalArgumentException("Los tipos de token disponibles son ID, CTE y CADENA");
     }
 
     public boolean contains(String tipoToken, String lexema) {
