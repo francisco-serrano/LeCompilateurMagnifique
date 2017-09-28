@@ -7,9 +7,6 @@ public class AS16 extends AccionSemantica {
 
     @Override
     public String aplicarAccion(char a, int indice) {
-
-//        System.out.println(token.toString());
-
         this.indice = indice - 1;
 
         return "->" + token.toString();

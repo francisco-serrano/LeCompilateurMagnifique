@@ -7,8 +7,6 @@ import java.util.*;
 
 public class TablaSimbolos {
 
-    // La tabla de símbolos contiene información de tokens que representen MÁS de un lexema
-
     private static final String[] arr_reservedWords = {"IF", "THEN", "ELSE", "END_IF", "BEGIN", "END", "OUT",
             "WHILE", "DO", "FUNCTION", "RETURN", "MOVE", "UINT", "ULONG"};
 
@@ -50,14 +48,29 @@ public class TablaSimbolos {
         throw new RuntimeException("Token no disponible en la Tabla de Símbolos");
     }
 
-    public void defineVar (String lexema) {
+    public void defineVar (List<String> lexemas, String type) {
         for (Token token : multimap.get("ID")) {
-            if (token.getLexema().equals(lexema)) {
-                token.define();
-                return;
+            if (lexemas.contains(token.getLexema())) {
+                token.define(type);
             }
         }
+    }
 
-        throw new RuntimeException("Token no disponible en la Tabla de Símbolos");
+    public String getVarType (String lexema) {
+        for (Token token : multimap.get("ID")) {
+            if (token.getLexema().equals(lexema))
+                return token.getType();
+        }
+
+        return null;
+    }
+
+    public String getType(String cte) {
+        long auxCte = Long.parseLong(cte);
+
+        if (auxCte > 65536L)
+            return "ULONG";
+
+        return "UINT";
     }
 }

@@ -13,16 +13,16 @@ public class Main {
 
 //        int token;
 //        while ((token = lexer.yylex()) != 0)
-//            System.out.println("<" + token + ", " + lexer.getTipoToken(token) + ">");
+//            System.out.println("<" + token + ">");
 
         // PARSER: 0 -> ACEPTADA; 1 -> RECHAZADA
         Parser parser = new Parser();
         parser.setLexico(lexer);
         parser.setTablaSimbolos(tablaSimbolos);
-        System.out.println(parser.yyparse());
+        System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse() + "\n");
 
-//        for (String key : tablaSimbolos.keySet())
-//            System.out.println(key + " -> " + tablaSimbolos.getLexemas(key));
+        for (String key : tablaSimbolos.keySet())
+            System.out.println(key + " -> " + tablaSimbolos.getLexemas(key));
 
 
     }

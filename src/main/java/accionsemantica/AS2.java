@@ -1,6 +1,5 @@
 package accionsemantica;
 
-
 public class AS2 extends AccionSemantica {
 
     public AS2(TablaSimbolos t) {
