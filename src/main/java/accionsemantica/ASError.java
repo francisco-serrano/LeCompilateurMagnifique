@@ -10,7 +10,7 @@ public class ASError extends AccionSemantica {
     @Override
     public String aplicarAccion(char a, int indice) {
 
-        System.out.println("Linea " + this.linea + ": El siguiente caracter es invalido-> " + a );
+        System.err.println("Linea " + this.linea + ": El siguiente caracter es invalido-> " + a );
 
         this.indice = indice;
 

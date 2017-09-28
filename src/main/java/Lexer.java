@@ -28,7 +28,6 @@ public class Lexer {
     private int currentLine = 1;
     private String currentLexema;
 
-    private int cantidadLineas = 1;
     private int estadoActual = 0;
     private int idAccSemantica = 0;
     private int estadoAnterior = 0;
@@ -132,33 +131,6 @@ public class Lexer {
         return currentLexema;
     }
 
-    public void printMatrices() {
-        System.out.println("matriz de estados: ");
-        for (int i = 0; i < FILAS; i++) {
-            for (int j = 0; j < COLUMNAS; j++) {
-                System.out.print(" " + matrizEstados[i][j]);
-            }
-            System.out.println();
-        }
-
-        System.out.println("matriz de acciones semanticas");
-        for (int i = 0; i < FILAS; i++) {
-            for (int j = 0; j < COLUMNAS; j++) {
-                System.out.print(" " + matrizAccionesSemanticas[i][j]);
-            }
-            System.out.println();
-        }
-
-    }
-
-    public String getTipoToken(int id) {
-        for (String key : tiposToken.keySet())
-            if (tiposToken.get(key) == id)
-                return key;
-
-        return null;
-    }
-
     private void formatTokens(List<String> listaTokensAux) {
         List<String> listaTokensPosta = new ArrayList<>();
 
@@ -183,19 +155,6 @@ public class Lexer {
     }
 
     private void assignTokenIds() {
-        /*
-            Es una crotada, pero por ahora dejarlo así
-
-            La lógica para poner el número que mapea a cada tipo de token es que
-            el primer dígito de los dos identifique al grupo de tipos de token
-            ejemplo: 21 --> es el menos, el 2 indica que es un operador aritmético
-
-            Este mapa después lo usamos para que cuando obtengamos el token,
-            convirtamos el tipoToken, que es un String, a un Integer, para que
-            quede como en las filminas
-         */
-
-        // Para que coincida con yacc
         tiposToken.put("ID", 257);
         tiposToken.put("CTE", 258);
         tiposToken.put("=", 259);
@@ -231,66 +190,6 @@ public class Lexer {
         tiposToken.put("RETURN", 289);
         tiposToken.put("WHILE", 290);
         tiposToken.put("DO", 291);
-
-
-//        // Identificadores y constantes
-//        tiposToken.put("ID", 10);
-//        tiposToken.put("CTE", 11);
-//
-//        // Operadores aritméticos
-//        tiposToken.put("+", 20);
-//        tiposToken.put("-", 21);
-//        tiposToken.put("*", 22);
-//        tiposToken.put("/", 23);
-//
-//        // Operadores de asignación
-//        tiposToken.put("=", 30);
-//
-//        // Operadores de comparación
-//        tiposToken.put(">=", 40);
-//        tiposToken.put("<=", 41);
-//        tiposToken.put(">", 42);
-//        tiposToken.put("<", 43);
-//        tiposToken.put("==", 44);
-//        tiposToken.put("<>", 45);
-//
-//        // Otros
-//        tiposToken.put("(", 50);
-//        tiposToken.put(")", 51);
-//        tiposToken.put(",", 52);
-//        tiposToken.put(":", 53);
-//        tiposToken.put(".", 54);
-//        tiposToken.put("BL", 55);
-//        tiposToken.put("SL", 56);
-//        tiposToken.put("TAB", 57);
-//        tiposToken.put("{", 58);
-//        tiposToken.put("}", 59);
-//
-//        // Palabras reservadas
-//        tiposToken.put("IF", 60);
-//        tiposToken.put("THEN", 61);
-//        tiposToken.put("ELSE", 62);
-//        tiposToken.put("END_IF", 63);
-//        tiposToken.put("BEGIN", 64);
-//        tiposToken.put("END", 65);
-//        tiposToken.put("OUT", 66);
-//        tiposToken.put("CADENA", 67);
-//
-//        // Palabras reservadas (específicas del grupo)
-//        tiposToken.put("WHILE", 70);
-//        tiposToken.put("DO", 71);
-//        tiposToken.put("FUNCTION", 72);
-//        tiposToken.put("RETURN", 73);
-//        tiposToken.put("MOVE", 74);
-//        tiposToken.put("UINT", 75);
-//        tiposToken.put("ULONG", 76);
-//
-//        // Comentarios multilínea
-//        tiposToken.put("[", 80);
-//        tiposToken.put("]", 81);
-//
-//        // Cadenas monolínea
-//        tiposToken.put("'", 90);
     }
 
     private void readFile(String dir) {
@@ -304,8 +203,6 @@ public class Lexer {
         int aux;
         try {
             while ((aux = fr.read()) != -1) {
-                if (aux == 10)
-                    cantidadLineas++;
                 if (aux != 13) {
                     archivo.add(getId(aux));
                     noConvertida.add((char) aux);

@@ -10,12 +10,11 @@ public class AS6 extends AccionSemantica {
 
         String token_retornar = null;
 
-        //chequeo rango mayor (ulong)
+        // Chequeo rango mayor (ulong)
         if ((Double.parseDouble(token.toString()) >= 0) && (Double.parseDouble(token.toString()) <= (Math.pow(2, 32) - 1))) {
-            if (!tablita.contains("CTE", token.toString())) {
+            if (!tablita.contains("CTE", token.toString()))
                 tablita.add("CTE", token.toString());
-            }
-//            System.out.println("CTE:" + " " + token.toString());
+
             token_retornar = "CTE->" + token.toString();
         } else {
             System.out.println("Linea " + linea + ": Constante fuera de rango");
@@ -24,6 +23,5 @@ public class AS6 extends AccionSemantica {
         this.indice = indice - 1;
 
         return token_retornar;
-
     }
 }

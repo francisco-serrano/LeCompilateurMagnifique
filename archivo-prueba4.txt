@@ -1,21 +1,36 @@
-var1, var2: ULONG.
+var1, var2 : ULONG.
+var3 : UINT.
 
-UINT MOVE FUNCTION funcion {
-    OUT('tu vieja').
+ULONG FUNCTION funcion {
     RETURN (var1).
 }
 
-BEGIN
-    var1 = 500.
-    var2 = 300.
+var1 = 88800 + 2 * var1.
+var2 = 200 + 2 * funcion().
+var3 = 300.
 
-    IF (var1 > var2) THEN
-        BEGIN
-            OUT('es mayor').
-            var2 = 800.
-        END
-    END_IF
+var5, var6 : ULONG.
 
-    WHILE (var1 > 10) DO
-        OUT('tu vieja').
-END
+WHILE (var1 > 3000) DO
+    BEGIN
+        var1 : UINT.
+        OUT('que onda').
+        var1 = 400 + 200.
+    END
+
+IF (var1 == 2 + 2) THEN
+    BEGIN
+        var1 = 100.
+        var2 = 200.
+    END
+ELSE
+    BEGIN
+        var3 = 300.
+        var4 = 400.
+    END
+END_IF
+
+IF (var1 > 500) THEN
+    OUT('tu vieja').
+END_IF
+

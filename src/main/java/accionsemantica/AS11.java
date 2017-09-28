@@ -9,9 +9,6 @@ public class AS11 extends AccionSemantica {
     public String aplicarAccion(char a, int indice) {
         token.append(a);
 
-
-//        System.out.println(token.toString());
-
         this.indice = indice;
 
         return "->" + token.toString();
