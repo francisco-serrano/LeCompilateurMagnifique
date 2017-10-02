@@ -1,5 +1,5 @@
 %{
-	import accionsemantica.TablaSimbolos;
+	import lexer.TablaSimbolos;
 	import java.util.ArrayList;
     import java.util.List;
 %}
@@ -56,6 +56,10 @@ ejecutable : IF OPEN_PAR condicion CLOSE_PAR THEN bloque_control ELSE bloque_con
 		   | IF OPEN_PAR condicion CLOSE_PAR THEN bloque_control error { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta END_IF"); }
 		   | IF OPEN_PAR condicion THEN bloque_control END_IF { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta CLOSE_PAR"); }
 		   | IF condicion CLOSE_PAR THEN bloque_control END_IF { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta OPEN_PAR"); }
+
+		   | IF OPEN_PAR condicion CLOSE_PAR THEN bloque_control ELSE bloque_control error { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta END_IF"); }
+		   | IF OPEN_PAR condicion THEN bloque_control ELSE bloque_control END_IF { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta CLOSE_PAR"); }
+		   | IF condicion CLOSE_PAR THEN bloque_control ELSE bloque_control END_IF { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta OPEN_PAR"); }
 		   
 		   | OUT OPEN_PAR CADENA CLOSE_PAR DOT { System.out.println("Sentencia OUT. Línea " + $1.ival); }
 		   | OUT OPEN_PAR CADENA CLOSE_PAR { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta DOT"); }
@@ -74,13 +78,7 @@ condicion : expresion comparador expresion { System.out.println("Comparación. L
 
 expresion : expresion ADD termino { System.out.println("SUMA. Línea " + $2.ival); $$ = new ParserVal(Long.toString(Long.parseLong($1.sval) + Long.parseLong($3.sval))); } 
 		  | expresion SUB termino { System.out.println("RESTA. Línea " + $2.ival); $$ = new ParserVal(Long.toString(Long.parseLong($1.sval) - Long.parseLong($3.sval)));} 
-		  | termino { 
-		  			  /*if ($1.ival == -1) {
-		  			  	System.out.println("ENTRA AL IF");
-		  				 $1.ival = 0; 
-		  				 $1.sval = "0"; 
-		  			  }*/
-		  			}
+		  | termino
 ;
 
 termino : termino MULT factor { 
@@ -120,7 +118,6 @@ comparador : LEQ
 ;
 
 asignacion : ID ASIGN expresion DOT { System.out.println("Asignación. Línea " + $1.ival);
-									  System.out.println("ABURUBA ASIGNACION - EXPRESION ---> " + $3.sval + ", " + $3.ival);
 									  if (! tablaSimbolos.varDefined($1.sval))
 									  	yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA"); 
 
@@ -182,7 +179,7 @@ int yylex() {
 	return val;
 }
 
-public void setLexico(Lexer lexer) {
+public void setLexico(lexer.Lexer lexer) {
 	this.lexer = lexer;
 }
 
@@ -191,6 +188,6 @@ public void setTablaSimbolos(TablaSimbolos ts) {
 }
 
 
-Lexer lexer;
+lexer.Lexer lexer;
 TablaSimbolos tablaSimbolos;
 List<String> auxVariables = new ArrayList<>();

@@ -1,5 +1,7 @@
 package accionsemantica;
 
+import lexer.TablaSimbolos;
+
 public class AS6 extends AccionSemantica {
     public AS6(TablaSimbolos t) {
         super(t);

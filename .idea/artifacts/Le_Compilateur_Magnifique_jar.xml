@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="Le Compilateur Magnifique:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Le_Compilateur_Magnifique_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Le Compilateur Magnifique.jar">
+        <element id="module-output" name="Le Compilateur Magnifique" />
+      </element>
+      <element id="library" level="project" name="com.google.guava:guava:18.0" />
+    </root>
+  </artifact>
+</component>

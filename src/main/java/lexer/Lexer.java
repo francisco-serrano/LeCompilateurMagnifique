@@ -1,3 +1,5 @@
+package lexer;
+
 import accionsemantica.*;
 import com.google.common.base.Splitter;
 
@@ -7,6 +9,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Clase que representa al analizador léxico del compilador. Está compuesto básicamente por una matriz de estados, una
+ * matriz de acciones semánticas, y una tabla de símbolos.
+ *
+ * El analizador léxico (Lexer) se encarga de reconocer los tokens en un determinado archivo de texto. Dichos tokens
+ * son reconocidos y puestos a disposición de un analizador sintáctico (Parser) a medida que les son solicitados al
+ * Lexer a través del método yylex().
+ *
+ * El Lexer, a medida que va reconociendo tokens, va guardando información acerca de los mismos en la tabla de
+ * símbolos, que también es utilizada posteriormente por el Parser.
+ *
+ * @author Bianco Martín, Di Pietro Esteban, Francisco Serrano
+ */
 public class Lexer {
 
     // _	[	]	<	>	=	(	)	{	}	:	.	 '	,	+	-	*	/	BL SL TAB
@@ -35,7 +50,17 @@ public class Lexer {
 
     private List<Integer> listaTokens = new ArrayList<>();
 
-    public Lexer(String fileDir, String fileDir_matEstados, String fileDir_matSemantica, TablaSimbolos tablaSimbolos) {
+    /**
+     * Construye el analizador léxico a partir de tres directorios: uno del archivo a compilar, y los otros dos
+     * correspondientes al contenido de la matriz de estados y de la matriz de acciones semánticas. Adicionalmente se
+     * provee una tabla de símbolos en donde almacenar los tokens que se van leyendo
+     * @param fileDir Directorio del archivo a compilar
+     * @param fileDir_matEstados Directorio del archivo que representa a la matriz de estados
+     * @param fileDir_matSemantica Directorio del archivo que representa a la matriz de acciones semánticas
+     * @param tablaSimbolos Tabla de símbolos en donde guardar los tokens leídos
+     * @throws FileNotFoundException En caso de que no se encuentre/n alguno/s de los archivos de texto necesarios
+     */
+    public Lexer(String fileDir, String fileDir_matEstados, String fileDir_matSemantica, TablaSimbolos tablaSimbolos) throws FileNotFoundException {
         this.tablaSimbolos = tablaSimbolos;
 
         // Leo el archivo y genero la lista de chars
@@ -52,6 +77,9 @@ public class Lexer {
         assignTokenIds();
     }
 
+    /**
+     * TODO: completarlo
+     */
     private void readTokens() {
 
         List<String> listaTokensAux = new ArrayList<>();
@@ -103,6 +131,7 @@ public class Lexer {
                 }
 
             } else {
+
                 if (estadoActual == 6 || estadoActual == 5)
                     System.out.println("WARNING: fin de archivo con comentario/cadena abierto/a");
             }
@@ -113,24 +142,41 @@ public class Lexer {
     }
 
 
+    /**
+     * Consume un token de la lectura del archivo a compilar
+     * @return Número entero identificando al tipo de token que se leyó
+     */
     public int yylex() {
+
         readTokens();
 
         try {
             return listaTokens.remove(0);
         } catch (IndexOutOfBoundsException e) {
-            return 0; // Indico EOF
+            return 0; // Indica EOF
         }
     }
 
+    /**
+     * Obtiene la línea del archivo en la que se está parado
+     * @return Número indicando la línea del archivo
+     */
     public int getCurrentLine() {
         return this.currentLine;
     }
 
+    /**
+     * Obtiene el lexema actual, es decir el último que se leyó
+     * @return Texto identificando el lexema leído
+     */
     public String getCurrentLexema() {
         return currentLexema;
     }
 
+    /**
+     * TODO: completarlo
+     * @param listaTokensAux
+     */
     private void formatTokens(List<String> listaTokensAux) {
         List<String> listaTokensPosta = new ArrayList<>();
 
@@ -138,7 +184,6 @@ public class Lexer {
             List<String> aux = Splitter.on("->").splitToList(token);
 
             String izq = aux.get(0), der = aux.get(1);
-            //System.out.println(izq + " " + der);
 
             if (izq.equals("PALABRA RESERVADA"))
                 listaTokensPosta.add(der);
@@ -154,6 +199,9 @@ public class Lexer {
             listaTokens.add(tiposToken.get(tokenPosta));
     }
 
+    /**
+     * Mapea cada tipo de token con un número que sea compatible con el Parser
+     */
     private void assignTokenIds() {
         tiposToken.put("ID", 257);
         tiposToken.put("CTE", 258);
@@ -192,13 +240,13 @@ public class Lexer {
         tiposToken.put("DO", 291);
     }
 
-    private void readFile(String dir) {
-        FileReader fr = null;
-        try {
-            fr = new FileReader(dir);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    /**
+     * Lee el archivo que se quiere compilar para luego guardarlo en una lista de caracteres
+     * @param dir Directorio del archivo con el código a compilar
+     * @throws FileNotFoundException En caso de no encontrar el directorio especificado
+     */
+    private void readFile(String dir) throws FileNotFoundException {
+        FileReader fr = new FileReader(dir);
 
         int aux;
         try {
@@ -217,6 +265,11 @@ public class Lexer {
         }
     }
 
+    /**
+     * Genera las matrices de estados y de acciones semánticas a partir de archivos de texto
+     * @param matrixDir Archivo de texto representando la matriz que se quiere generar
+     * @param tipoMatriz Tipo de matriz que se quiere generar (estados/acciones semánticas)
+     */
     private void buildMatrix(String matrixDir, tipo_matriz tipoMatriz) {
         BufferedReader in = null;
         try {
@@ -228,6 +281,7 @@ public class Lexer {
         String line;
         StringBuilder aux = new StringBuilder();
         try {
+            assert in != null;
             while ((line = in.readLine()) != null)
                 aux.append(line);
         } catch (IOException e) {
@@ -247,6 +301,11 @@ public class Lexer {
 
     }
 
+    /**
+     * Obtiene el caracter asociado a un determinado número (tanto letras como dígitos son agrupados)
+     * @param valor Número entero que identifica a un determinado caracter
+     * @return Caracter asociado al entero pasado por parámetro
+     */
     private char getId(int valor) {
         // Reconoce letra
         if ((valor >= 65 && valor <= 90) || (valor >= 97 && valor <= 122))
@@ -256,11 +315,11 @@ public class Lexer {
         if (valor >= 48 && valor <= 57)
             return 'D';
 
+        // Reconoce enter
         if (valor == 10)
             return 'E';
 
-
-        // Reconoce los caracteres especificados en el excel
+        // Reconoce los caracteres especificados en el Excel
         if (CARACTERES_RECONOCIDOS.contains(valor))
             return (char) valor;
 
@@ -268,6 +327,11 @@ public class Lexer {
         return 'C';
     }
 
+    /**
+     * Retorna la acción semántica asociada a su respectivo id
+     * @param id Identificador de la acción semántica solicitada
+     * @return Acción semántica asociada
+     */
     private AccionSemantica getAccion(int id) {
         AccionSemantica AS1 = new AS1(tablaSimbolos);
         AccionSemantica AS2 = new AS2(tablaSimbolos);
@@ -316,6 +380,9 @@ public class Lexer {
     }
 
 
+    /**
+     * Construye el mapeo de cada tipo de caracter con su respectiva columna dentro de las matrices
+     */
     private void buildMapeoColumna() {
         mapeoColumna.put('L', 0);
         mapeoColumna.put('D', 1);
@@ -339,7 +406,7 @@ public class Lexer {
         mapeoColumna.put('/', 19);
         mapeoColumna.put(' ', 20);
         mapeoColumna.put('\t', 20);
-        mapeoColumna.put('E', 21); //enter
+        mapeoColumna.put('E', 21); // Enter
         mapeoColumna.put('C', 22);
     }
 }
