@@ -1,5 +1,5 @@
 %{
-	import lexer.TablaSimbolos;
+	import accionsemantica.TablaSimbolos;
 	import java.util.ArrayList;
     import java.util.List;
 %}
@@ -9,17 +9,33 @@
 
 %%
 
-programa : bloque
+programa : sentencias
 ;
 
-funcion : tipo FUNCTION ID cuerpo_funcion 
-		| FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
+declaracion : declaracion_funcion | declaracion_variables
+;
 
-		| tipo MOVE FUNCTION ID cuerpo_funcion
-		| MOVE FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
+declaracion_variables : lista_var COLON tipo DOT { 
+													System.out.println("Declaración de Variables. Línea " + $2.ival); 
+													tablaSimbolos.defineVar(auxVariables, $3.sval);
+													auxVariables.clear();
+												 }
+					  | lista_var COLON tipo { yyerror("\tLínea " + $2.ival + ". Declaración de variables incompleta. Falta DOT"); }
+					  | lista_var tipo DOT { yyerror("\tLínea " + $3.ival + ". Declaración de variables incompleta. Falta COLON"); }
+;
+
+lista_var : lista_var COMMA ID { /*tablaSimbolos.defineVar($3.sval); tablaSimbolos.defineVar($1.sval);*/ auxVariables.add($3.sval); }
+			| ID { auxVariables.add($1.sval); }
+			| lista_var ID { yyerror("\tLínea " + $2.ival + ". Declaración incompleta. Falta COMMA"); }
 ;
 
 tipo : UINT | ULONG
+;
+
+declaracion_funcion : tipo FUNCTION ID cuerpo_funcion 
+					| FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
+					| tipo MOVE FUNCTION ID cuerpo_funcion
+					| MOVE FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
 ;
 
 cuerpo_funcion : OPEN_BRACE bloque_funcion RETURN OPEN_PAR expresion CLOSE_PAR DOT CLOSE_BRACE 
@@ -27,53 +43,66 @@ cuerpo_funcion : OPEN_BRACE bloque_funcion RETURN OPEN_PAR expresion CLOSE_PAR D
 			   | OPEN_BRACE bloque_funcion CLOSE_BRACE { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta sentencia RETURN"); }
 ;
 
-invocacion_funcion : ID OPEN_PAR CLOSE_PAR { System.out.println("Invocación a función. Línea " + $1.ival); }
+sentencias : sentencias sentencia | sentencia
 ;
 
-declaracion : declaracion_variables 
-			| declaracion_funcion
+sentencia : asignacion | print | seleccion | iteracion | declaracion
 ;
 
-declaracion_variables : lista_variables COLON tipo DOT { 
-														 System.out.println("Declaración de Variables. Línea " + $2.ival); 
-														 tablaSimbolos.defineVar(auxVariables, $3.sval);
-														 auxVariables.clear();
-													   }
-					  | lista_variables COLON tipo { yyerror("\tLínea " + $2.ival + ". Declaración de variables incompleta. Falta DOT"); }
-					  | lista_variables tipo DOT { yyerror("\tLínea " + $3.ival + ". Declaración de variables incompleta. Falta COLON"); }
+print : OUT OPEN_PAR CADENA CLOSE_PAR DOT { System.out.println("Sentencia OUT. Línea " + $1.ival); }
+	  | OUT OPEN_PAR CADENA CLOSE_PAR { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta DOT"); }
+	  | OUT OPEN_PAR CADENA DOT { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta CLOSE_PAR"); }
+	  | OUT CADENA CLOSE_PAR DOT { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta OPEN_PAR"); }
+	  | OUT OPEN_PAR expresion CLOSE_PAR DOT { yyerror("\tLínea " + $1.ival + ". Estructura OUT incorrecta. Sólo se pueden imprimir cadenas"); }
 ;
 
-declaracion_funcion : funcion { System.out.println("Declaración de Función. Línea " + $1.ival); }
+asignacion : ID ASIGN expresion DOT { System.out.println("Asignación. Línea " + $1.ival);
+									  if (! tablaSimbolos.varDefined($1.sval))
+									  	yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA"); 
+
+									  if (tablaSimbolos.getType($3.sval).equals("ULONG") && tablaSimbolos.getVarType($1.sval).equals("UINT"))
+									  	yyerror("\tError en la línea " + $1.ival + ": Se quiere asignar valor ULONG a variable declarada como UINT");
+									  else
+									  	System.out.println("Valor de la expresión: " + $3.sval);
+									}
+		   | ID ASIGN expresion { yyerror("\tLínea " + $1.ival + ". Asignación incompleta. Falta DOT"); }
 ;
 
-lista_variables : ID COMMA lista_variables { /*tablaSimbolos.defineVar($1.sval); tablaSimbolos.defineVar($3.sval);*/ auxVariables.add($1.sval); }
-				| ID { auxVariables.add($1.sval); }
-				| ID lista_variables { yyerror("\tLínea " + $1.ival + ". Declaración incompleta. Falta COMMA"); }
+bloque_funcion : bloque_funcion bloque | bloque
 ;
 
-ejecutable : IF OPEN_PAR condicion CLOSE_PAR THEN bloque_control ELSE bloque_control END_IF { System.out.println("Línea " + $1.ival + ". Sentencia IF"); }
-		   | IF OPEN_PAR condicion CLOSE_PAR THEN bloque_control END_IF { System.out.println("Línea " + $1.ival + ". Sentencia IF"); }
-		   | IF OPEN_PAR condicion CLOSE_PAR THEN bloque_control error { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta END_IF"); }
-		   | IF OPEN_PAR condicion THEN bloque_control END_IF { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta CLOSE_PAR"); }
-		   | IF condicion CLOSE_PAR THEN bloque_control END_IF { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta OPEN_PAR"); }
-
-		   | IF OPEN_PAR condicion CLOSE_PAR THEN bloque_control ELSE bloque_control error { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta END_IF"); }
-		   | IF OPEN_PAR condicion THEN bloque_control ELSE bloque_control END_IF { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta CLOSE_PAR"); }
-		   | IF condicion CLOSE_PAR THEN bloque_control ELSE bloque_control END_IF { yyerror("\tLínea " + $1.ival + ". Estructura IF incompleta. Falta OPEN_PAR"); }
-		   
-		   | OUT OPEN_PAR CADENA CLOSE_PAR DOT { System.out.println("Sentencia OUT. Línea " + $1.ival); }
-		   | OUT OPEN_PAR CADENA CLOSE_PAR { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta DOT"); }
-		   | OUT OPEN_PAR CADENA DOT { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta CLOSE_PAR"); }
-		   | OUT CADENA CLOSE_PAR DOT { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta OPEN_PAR"); }
-		   | OUT OPEN_PAR expresion CLOSE_PAR DOT { yyerror("\tLínea " + $1.ival + ". Estructura OUT incorrecta. Sólo se pueden imprimir cadenas"); }
+bloque : declaracion_variables | asignacion | print | seleccion | iteracion
 ;
 
-control : WHILE OPEN_PAR condicion CLOSE_PAR DO bloque_control { System.out.println("Línea " + $1.ival + ". Estructura WHILE"); }
-		| WHILE condicion CLOSE_PAR DO bloque_control { yyerror("Línea " + $1.ival + ". Estructura WHILE incompleta. Falta OPEN_PAR"); }
-		| WHILE OPEN_PAR condicion DO bloque_control { yyerror("Línea " + $1.ival + ". Estructura WHILE incompleta. Falta CLOSE_PAR"); }
+seleccion : seleccion_simple ELSE bloque_sentencias END_IF { System.out.println("Línea " + $1.ival + ". Sentencia IF-ELSE"); }
+		  | seleccion_simple END_IF { System.out.println("Línea " + $1.ival + ". Sentencia IF"); }
 ;
 
-condicion : expresion comparador expresion { System.out.println("Comparación. Línea " + $2.ival); }
+seleccion_simple : IF condicion_if THEN bloque_sentencias
+;
+
+condicion_if : condicion
+;
+
+condicion : OPEN_PAR expresion comparador expresion CLOSE_PAR { System.out.println("Comparación. Línea " + $3.ival); }
+		  | expresion comparador expresion CLOSE_PAR { yyerror("Línea " + $2.ival + ". Condicion incompleta. Falta OPEN_PAR"); }
+		  | OPEN_PAR expresion comparador expresion { yyerror("Línea " + $3.ival + ". Condicion. Falta CLOSE_PAR"); }
+;
+
+bloque_sentencias : bloque_simple 
+				  | BEGIN bloque_compuesto END { System.out.println("Línea " + $1.ival + ". Bloque compuesto"); }
+;
+
+bloque_simple : asignacion | seleccion | iteracion | print
+;
+
+bloque_compuesto : bloque_compuesto bloque_simple | bloque_simple
+;
+
+iteracion : WHILE condicion_while DO bloque_sentencias { System.out.println("Línea " + $1.ival + ". Estructura WHILE"); }
+;
+
+condicion_while : condicion
 ;
 
 expresion : expresion ADD termino { System.out.println("SUMA. Línea " + $2.ival); $$ = new ParserVal(Long.toString(Long.parseLong($1.sval) + Long.parseLong($3.sval))); } 
@@ -117,50 +146,7 @@ comparador : LEQ
 		   | NEQ
 ;
 
-asignacion : ID ASIGN expresion DOT { System.out.println("Asignación. Línea " + $1.ival);
-									  if (! tablaSimbolos.varDefined($1.sval))
-									  	yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA"); 
-
-									  if (tablaSimbolos.getType($3.sval).equals("ULONG") && tablaSimbolos.getVarType($1.sval).equals("UINT"))
-									  	yyerror("\tError en la línea " + $1.ival + ": Se quiere asignar valor ULONG a variable declarada como UINT");
-									  else
-									  	System.out.println("Valor de la expresión: " + $3.sval);
-									}
-		   | ID ASIGN expresion { yyerror("\tLínea " + $1.ival + ". Asignación incompleta. Falta DOT"); }
-;
-
-bloque : sentencia_bloque bloque
-	   | sentencia_bloque
-;
-
-bloque_funcion : sentencias
-			   | declaracion_variables bloque_funcion
-;
-
-bloque_control : bloque_simple | bloque_compuesto
-;
-
-bloque_compuesto : BEGIN sentencias END { System.out.println("Línea " + $1.ival + ". Bloque compuesto"); }
-				 
-;
-
-bloque_simple : sentencia
-;
-
-sentencia_bloque : asignacion
-				 | ejecutable
-				 | control
-				 | declaracion
-;
-
-
-sentencias : sentencia sentencias 
-		   | sentencia
-;
-
-sentencia : asignacion 
-		  | ejecutable 
-		  | control
+invocacion_funcion : ID OPEN_PAR CLOSE_PAR { System.out.println("Invocación a función. Línea " + $1.ival); }
 ;
 
 %%
@@ -179,7 +165,7 @@ int yylex() {
 	return val;
 }
 
-public void setLexico(lexer.Lexer lexer) {
+public void setLexico(Lexer lexer) {
 	this.lexer = lexer;
 }
 
@@ -188,6 +174,6 @@ public void setTablaSimbolos(TablaSimbolos ts) {
 }
 
 
-lexer.Lexer lexer;
+Lexer lexer;
 TablaSimbolos tablaSimbolos;
 List<String> auxVariables = new ArrayList<>();

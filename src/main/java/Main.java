@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class Main {
 
     /*
+        TODO: Estandarizar la salida por consola
         TODO: JavaDoc -> Clase Lexer
         TODO: JavaDoc -> Acciones Semánticas
         TODO: JavaDoc -> Parser (Dejarlo para el final del trabajo)
