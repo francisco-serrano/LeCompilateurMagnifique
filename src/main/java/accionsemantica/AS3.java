@@ -1,5 +1,7 @@
 package accionsemantica;
 
+import lexer.TablaSimbolos;
+
 public class AS3 extends AccionSemantica {
     public AS3(TablaSimbolos t) {
         super(t);

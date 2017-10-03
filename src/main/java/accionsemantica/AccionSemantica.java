@@ -1,5 +1,7 @@
 package accionsemantica;
 
+import lexer.TablaSimbolos;
+
 public abstract class AccionSemantica {
 
     protected static StringBuilder token;
@@ -24,6 +26,5 @@ public abstract class AccionSemantica {
     public String getToken() {
         return token.toString();
     }
-
 }
     

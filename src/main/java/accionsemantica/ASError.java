@@ -1,6 +1,8 @@
 package accionsemantica;
 
 
+import lexer.TablaSimbolos;
+
 public class ASError extends AccionSemantica {
 
     public ASError(TablaSimbolos t) {
