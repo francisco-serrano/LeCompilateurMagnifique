@@ -35,6 +35,19 @@ public class TablaSimbolos {
             throw new IllegalArgumentException("Los tipos de token disponibles son ID, CTE y CADENA");
     }
 
+    public void addConstante(String tipoToken, String lexema, String tipo) {
+        if (multimap.get(tipoToken).contains(new Token(lexema)))
+            return; // Quiere decir que el token ya fue agregado
+
+        if (tipoToken.equals("CTE")) {
+            Token tok = new Token(lexema);
+            tok.declare(tipo);
+            multimap.put(tipoToken, tok);
+        }
+        else
+            throw new IllegalArgumentException("Los tipos de token disponibles son ID, CTE y CADENA");
+    }
+
     /**
      * Pregunta si un determinado lexema está presente en la tabla de símbolos
      * @param tipoToken Tipo de token asociado al lexema
@@ -69,8 +82,9 @@ public class TablaSimbolos {
      * @return Booleano indicando si la variable está declarada o no
      */
     public boolean varDefined (String lexema) {
+        String aux = lexema.toLowerCase();
         for (Token token : multimap.get("ID")) {
-            if (token.getLexema().equals(lexema))
+            if (token.getLexema().equals(aux))
                 return token.isDeclared();
         }
 
@@ -82,10 +96,12 @@ public class TablaSimbolos {
      * @param lexemas Lista de variables a declarar
      * @param type Tipo asociado a la lista de variables
      */
-    public void defineVar (List<String> lexemas, String type) {
+    public void defineVar (List<String> lexemas, String type, String uso) {
         for (Token token : multimap.get("ID")) {
-            if (lexemas.contains(token.getLexema()))
+            if (lexemas.contains(token.getLexema())) {
                 token.declare(type);
+                token.setUso(uso);
+            }
         }
     }
 

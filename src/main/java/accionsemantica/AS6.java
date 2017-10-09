@@ -14,10 +14,16 @@ public class AS6 extends AccionSemantica {
 
         // Chequeo rango mayor (ulong)
         if ((Double.parseDouble(token.toString()) >= 0) && (Double.parseDouble(token.toString()) <= (Math.pow(2, 32) - 1))) {
-            if (!tablita.contains("CTE", token.toString()))
-                tablita.add("CTE", token.toString());
-
-            token_retornar = "CTE->" + token.toString();
+            if (!tablita.contains("CTE", token.toString())){
+                if (Double.parseDouble(token.toString()) <= (Math.pow(2, 16) - 1)){
+                    //Es UINT
+                    tablita.addConstante("CTE",token.toString(),"UINT");
+                }else{
+                    //Es ULONG
+                    tablita.addConstante("CTE",token.toString(),"ULONG");
+                }
+                token_retornar = "CTE->" + token.toString();
+            }
         } else {
             System.out.println("Linea " + linea + ": Constante fuera de rango");
         }
