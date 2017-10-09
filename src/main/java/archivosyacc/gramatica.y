@@ -17,7 +17,8 @@ declaracion : declaracion_funcion | declaracion_variables
 
 declaracion_variables : lista_var COLON tipo DOT { 
 													System.out.println("Declaración de Variables. Línea " + $2.ival); 
-													tablaSimbolos.defineVar(auxVariables, $3.sval);
+													uso = "Variable";
+													tablaSimbolos.defineVar(auxVariables, $3.sval, uso);
 													auxVariables.clear();
 												 }
 					  | lista_var COLON tipo { yyerror("\tLínea " + $2.ival + ". Declaración de variables incompleta. Falta DOT"); }
@@ -32,9 +33,29 @@ lista_var : lista_var COMMA ID { /*tablaSimbolos.defineVar($3.sval); tablaSimbol
 tipo : UINT | ULONG
 ;
 
-declaracion_funcion : tipo FUNCTION ID cuerpo_funcion 
+declaracion_funcion : tipo FUNCTION ID cuerpo_funcion { 
+															if (!tablaSimbolos.varDefined($3.sval)){
+																System.out.println("Declaracion de funcion. Línea " + $2.ival);
+																auxVariables.clear();
+																auxVariables.add($3.sval);
+																uso = "Nombre_Funcion";
+																tablaSimbolos.defineVar(auxVariables, $1.sval, uso);
+															} else {
+																yyerror("\tLínea " + $2.ival + ". Redeclaracion de funcion.");
+															}
+													  }
 					| FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
-					| tipo MOVE FUNCTION ID cuerpo_funcion
+					| tipo MOVE FUNCTION ID cuerpo_funcion { 
+																if (!tablaSimbolos.varDefined($4.sval)){
+																	System.out.println("Declaracion de funcion. Línea " + $3.ival);
+																	auxVariables.clear();
+																	auxVariables.add($4.sval);
+																	uso = "Nombre_Funcion";
+																	tablaSimbolos.defineVar(auxVariables, $1.sval, uso);
+																} else {
+																	yyerror("\tLínea " + $3.ival + ". Redeclaracion de funcion.");
+																}
+														   }
 					| MOVE FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
 ;
 
@@ -146,7 +167,12 @@ comparador : LEQ
 		   | NEQ
 ;
 
-invocacion_funcion : ID OPEN_PAR CLOSE_PAR { System.out.println("Invocación a función. Línea " + $1.ival); }
+invocacion_funcion : ID OPEN_PAR CLOSE_PAR { 
+												if (! tablaSimbolos.varDefined($1.sval))
+													yyerror("\tError en la línea " + $1.ival + ": FUNCION NO DEFINIDA"); 
+												else
+													System.out.println("Invocación a función. Línea " + $1.ival); 
+											}
 ;
 
 %%
@@ -176,4 +202,5 @@ public void setTablaSimbolos(TablaSimbolos ts) {
 
 Lexer lexer;
 TablaSimbolos tablaSimbolos;
+String uso;
 List<String> auxVariables = new ArrayList<>();

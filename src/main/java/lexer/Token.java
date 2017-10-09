@@ -12,6 +12,7 @@ public class Token {
     private String lexema;
     private boolean declared;
     private String type;
+    private String uso;
 
     /**
      * Construye un token sin declarar y con tipo sin definir, con el lexema pasado por parámetero.
@@ -21,6 +22,7 @@ public class Token {
         this.lexema = lexema;
         this.declared = false;
         this.type = "undefined";
+        this.uso = "undefined";
     }
 
     /**
@@ -47,6 +49,8 @@ public class Token {
         return this.type;
     }
 
+    public String getUso() { return this.uso; }
+
     /**
      * Levanta el flag para indicar que la variable contenida en el token fue declarada.
      * @param type Texto indicando el tipo de variable.
@@ -54,6 +58,10 @@ public class Token {
     public void declare(String type) {
         this.declared = true;
         this.type = type;
+    }
+
+    public void setUso(String usillo) {
+        this.uso = usillo;
     }
 
     /**
@@ -66,6 +74,7 @@ public class Token {
                 "lexema='" + lexema + '\'' +
                 ", declared=" + declared +
                 ", type='" + type + '\'' +
+                ", uso='" + uso + '\'' +
                 '}';
     }
 
