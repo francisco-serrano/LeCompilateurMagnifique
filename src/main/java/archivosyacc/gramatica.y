@@ -4,8 +4,8 @@
 	import lexer.Terceto;
 	
 	import lexer.Item;
-	import lexer.itemString;
-	import lexer.itemTerceto;
+	import lexer.ItemString;
+	import lexer.ItemTerceto;
 	import lexer.Lexer;
 	import lexer.TablaSimbolos;
 	import java.util.Stack;

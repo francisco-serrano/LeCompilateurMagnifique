@@ -1,6 +1,6 @@
 package lexer;
 
-public class itemString implements Item{
+public class ItemString implements Item{
     private String arg;
     private TablaSimbolos tabla=null;
 
@@ -8,7 +8,7 @@ public class itemString implements Item{
         this.tabla=tabla;
     }
 
-    public itemString(String arg) {
+    public ItemString(String arg) {
         this.arg = arg;
     }
 
@@ -29,7 +29,7 @@ public class itemString implements Item{
         return arg.equals(obj);
     }
 
-    public itemString toItemString() {
+    public ItemString toItemString() {
         return this;
     }
 

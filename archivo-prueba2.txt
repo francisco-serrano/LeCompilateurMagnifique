@@ -1,4 +1,4 @@
-var1, var2, var3 : ULONG .
+var1, var2, var3 : ULONG.
 var4, var5 : UINT.
 var6 : ULONG.
 
@@ -19,8 +19,6 @@ ULONG FUNCTION funcion {
         WHILE (var10 < 123123) DO
             var3 = 3000.
 
-
-
         WHILE (var10 > 412) DO
             BEGIN
                 OUT('adsfasdf').
@@ -34,12 +32,12 @@ ULONG FUNCTION funcion {
     RETURN (var1) .
 }
 
+
 UINT MOVE FUNCTION tuVieja {
     RETURN (2+2+2+2+2+2+2+2+2+2+2+2*3).
 }
 
 UINT FUNCTION holiz {
-
     RETURN (var1).
 }
 
@@ -47,19 +45,20 @@ UINT FUNCTION caca {
     RETURN (2).
 }
 
-BEGIN
-    var1 = 100 + caca() / 50 .
 
-    IF (var2 <> 12312 * 8) THEN
-        BEGIN
-            OUT ('hola').
-            OUT ('chau').
-        END
-    ELSE
-        var2 = var3.
-    END_IF
 
-    WHILE (var5 == funcion()) DO
+var1 = 100 + caca() / 50.
+
+IF (var2 <> 12312 * 8) THEN
+    BEGIN
+        OUT ('hola').
+        OUT ('chau').
+    END
+ELSE
+    var2 = var3.
+END_IF
+
+WHILE (var5 == funcion()) DO
     BEGIN
         IF (var1 == 2) THEN
             OUT ('tu vieja').
@@ -75,5 +74,3 @@ BEGIN
         OUT ('wololooo').
         var1 = funcion().
     END
-
-END

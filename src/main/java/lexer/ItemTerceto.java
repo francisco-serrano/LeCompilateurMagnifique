@@ -1,10 +1,10 @@
 package lexer;
 
 
-public class itemTerceto implements Item{
+public class ItemTerceto implements Item{
     private Terceto arg;
 
-    public itemTerceto(Terceto arg) {
+    public ItemTerceto(Terceto arg) {
         this.arg = arg;
     }
 
@@ -26,8 +26,8 @@ public class itemTerceto implements Item{
         return false;
     }
 
-    public itemString toItemString() {
-        return new itemString("[T " + arg.getNumero() + "]");
+    public ItemString toItemString() {
+        return new ItemString("[T " + arg.getNumero() + "]");
     }
 
     public String getTipo (){

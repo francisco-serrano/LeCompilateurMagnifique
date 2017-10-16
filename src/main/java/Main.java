@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class Main {
 
     /*
+        TODO: Preguntar por el chequeo de tipos para ULONG = UINT
         TODO: Estandarizar la salida por consola
         TODO: JavaDoc -> Clase Lexer
         TODO: JavaDoc -> Acciones Semánticas
@@ -29,14 +30,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("Ingrese ruta del archivo (EXIT para salir): ");
-            String fileDir = scanner.nextLine();
+//            System.out.print("Ingrese ruta del archivo (EXIT para salir): ");
+//            String fileDir = scanner.nextLine();
+//
+//            if (fileDir.equalsIgnoreCase("EXIT"))
+//                break;
 
             // Dejarlo comentado para después ir probando con un archivo fijo
-//            String fileDir = "archivo-prueba4.txt";
-
-            if (fileDir.equalsIgnoreCase("EXIT"))
-                break;
+            String fileDir = "archivo-prueba2.txt";
 
             String dirMatrizEstados = "matriz-estados.txt";
             String dirMatrizSemantica = "matriz-acc-semanticas.txt";
@@ -63,6 +64,8 @@ public class Main {
             //System.out.println(tablaSimbolos);
 
             System.out.println("\n");
+
+            break;
         }
     }
 
