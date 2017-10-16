@@ -133,6 +133,22 @@ public class TablaSimbolos {
         return "UINT";
     }
 
+    public Token devolverToken(String lexema){
+        for (Token token : multimap.get("ID")) {
+            if (token.getLexema().equals(lexema))
+                return token;
+        }
+        for (Token token : multimap.get("CTE")) {
+            if (token.getLexema().equals(lexema))
+                return token;
+        }
+        for (Token token : multimap.get("CADENA")) {
+            if (token.getLexema().equals(lexema))
+                return token;
+        }
+        return null;
+    }
+
     /**
      * Imprime en contenido de la tabla de símbolos
      * @return String representando la tabla de símbolos
