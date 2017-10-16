@@ -3,31 +3,28 @@ var4, var5 : UINT.
 var6 : ULONG.
 
 ULONG FUNCTION funcion {
-    BEGIN
-        var7 : UINT.
+    var7 : UINT.
 
-        OUT ('hola').
-        OUT ('chat').
+    OUT ('hola').
+    OUT ('chat').
 
-        IF (var7 >= 8) THEN
-            BEGIN
-                var1 = var3 * 5.
-                OUT ('puto').
-            END
-        END_IF
+    IF (var7 >= 8) THEN
+        BEGIN
+            var1 = var3 * 5.
+            OUT ('puto').
+        END
+    END_IF
 
-        WHILE (var10 < 123123) DO
-            var3 = 3000.
+    WHILE (var10 < 123123) DO
+        var3 = 3000.
 
-        WHILE (var10 > 412) DO
-            BEGIN
-                OUT('adsfasdf').
-                OUT('asfdasdfas').
-            END
+    WHILE (var10 > 412) DO
+        BEGIN
+            OUT('adsfasdf').
+            OUT('asfdasdfas').
+        END
 
-        var5 = 12341234.
-
-    END
+    var5 = 12341234.
 
     RETURN (var1) .
 }

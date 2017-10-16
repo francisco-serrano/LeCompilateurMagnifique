@@ -7,17 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92c0ce96-084a-4565-b9c3-a93a6054e1bc" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/lexer/itemString.java" afterPath="$PROJECT_DIR$/src/main/java/lexer/ItemString.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/lexer/itemTerceto.java" afterPath="$PROJECT_DIR$/src/main/java/lexer/ItemTerceto.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/archivosyacc/gramatica.y" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/archivosyacc/yacc.exe" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/archivosyacc/Parser.java" afterPath="$PROJECT_DIR$/src/main/java/parser/Parser.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/archivosyacc/ParserVal.java" afterPath="$PROJECT_DIR$/src/main/java/parser/ParserVal.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Le_Compilateur_Magnifique_jar/Le Compilateur Magnifique.jar" afterPath="$PROJECT_DIR$/out/artifacts/Le_Compilateur_Magnifique_jar/Le Compilateur Magnifique.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/archivo-prueba.txt" afterPath="$PROJECT_DIR$/archivo-prueba.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/archivo-prueba2.txt" afterPath="$PROJECT_DIR$/archivo-prueba2.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/archivo-prueba3.txt" afterPath="$PROJECT_DIR$/archivo-prueba3.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/archivosyacc/Parser.java" afterPath="$PROJECT_DIR$/src/main/java/archivosyacc/Parser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/archivosyacc/gramatica.y" afterPath="$PROJECT_DIR$/src/main/java/archivosyacc/gramatica.y" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lexer/Item.java" afterPath="$PROJECT_DIR$/src/main/java/lexer/Item.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,14 +29,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TablaSimbolos.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lexer/TablaSimbolos.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="127">
+              <caret line="98" column="16" lean-forward="false" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="462">
+              <caret line="61" column="70" lean-forward="true" selection-start-line="61" selection-start-column="70" selection-end-line="61" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1508191676553" expanded="true" signature="2498:2504" ph="{...}" />
+                <marker date="1508192883754" expanded="true" signature="2492:2498" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -49,17 +56,27 @@
         <entry file="file://$PROJECT_DIR$/archivo-prueba.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="442">
-              <caret line="26" column="17" lean-forward="true" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+              <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="archivo-prueba2.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="archivo-prueba2.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/archivo-prueba2.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="549">
-              <caret line="75" column="7" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="75" selection-end-column="7" />
+            <state relative-caret-position="272">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="archivo-prueba3.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/archivo-prueba3.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="7" lean-forward="false" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -69,8 +86,58 @@
         <entry file="file://$PROJECT_DIR$/archivo-prueba4.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+              <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/parser/Parser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="558" column="7" lean-forward="false" selection-start-line="558" selection-start-column="7" selection-end-line="558" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#40612#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#2522#2523#0" expanded="true" />
+                <element signature="e#2555#2556#0" expanded="true" />
+                <element signature="e#2588#2589#0" expanded="true" />
+                <element signature="e#2610#2611#0" expanded="true" />
+                <element signature="e#2647#2648#0" expanded="true" />
+                <element signature="e#2687#2688#0" expanded="true" />
+                <element signature="e#20651#20652#0" expanded="true" />
+                <element signature="e#20681#20682#0" expanded="true" />
+                <element signature="e#20885#20886#0" expanded="true" />
+                <element signature="e#20908#20909#0" expanded="true" />
+                <element signature="e#20958#20959#0" expanded="true" />
+                <element signature="e#20986#20987#0" expanded="true" />
+                <element signature="e#21025#21026#0" expanded="true" />
+                <element signature="e#21050#21051#0" expanded="true" />
+                <marker date="1508194065853" expanded="false" signature="40042:40047" ph=" { " />
+                <marker date="1508194065853" expanded="false" signature="40057:40059" ph=" }" />
+                <marker date="1508194065853" expanded="false" signature="40451:40456" ph=" { " />
+                <marker date="1508194065853" expanded="false" signature="40472:40474" ph=" }" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParserVal.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/parser/ParserVal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+              <folding>
+                <marker date="1508194065838" expanded="false" signature="812:817" ph=" { " />
+                <marker date="1508194065838" expanded="false" signature="826:828" ph=" }" />
+                <marker date="1508194065838" expanded="false" signature="895:900" ph=" { " />
+                <marker date="1508194065838" expanded="false" signature="909:911" ph=" }" />
+                <marker date="1508194065838" expanded="false" signature="978:983" ph=" { " />
+                <marker date="1508194065838" expanded="false" signature="992:994" ph=" }" />
+                <marker date="1508194065838" expanded="false" signature="1062:1067" ph=" { " />
+                <marker date="1508194065838" expanded="false" signature="1075:1077" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -141,6 +208,9 @@
         <option value="$PROJECT_DIR$/archivo-prueba.txt" />
         <option value="$PROJECT_DIR$/archivo-prueba3.txt" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/archivosyacc/.gitignore" />
+        <option value="$PROJECT_DIR$/src/main/java/parser/ParserVal.java" />
+        <option value="$PROJECT_DIR$/src/main/java/parser/Parser.java" />
         <option value="$PROJECT_DIR$/archivo-prueba2.txt" />
       </list>
     </option>
@@ -215,7 +285,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="archivosyacc" type="462c0819:PsiDirectoryNode" />
+              <item name="lexer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LeCompilateurMagnifique" type="b2602c69:ProjectViewProjectNode" />
@@ -223,7 +293,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lexer" type="462c0819:PsiDirectoryNode" />
+              <item name="parser" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -247,7 +317,7 @@
     <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="add_unversioned_files" value="true&#10;C:/Users/Pancho/Documents/FACULTAD/4° Año 2° Cuatrimestre/Diseño de Compiladores/Le Compilateur Magnifique/.gitignore" />
+    <property name="add_unversioned_files" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
   </component>
   <component name="RecentsManager">
@@ -415,12 +485,12 @@
       <workItem from="1507765693063" duration="86000" />
       <workItem from="1507841054744" duration="421000" />
       <workItem from="1507876489894" duration="79000" />
-      <workItem from="1508187643108" duration="4804000" />
+      <workItem from="1508187643108" duration="6482000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144311000" />
+    <option name="totallyTimeSpent" value="145989000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -433,7 +503,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5045386" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45826513" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.50164473" sideWeight="0.4969743" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50164473" sideWeight="0.4969743" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.49546143" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19440243" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
@@ -501,7 +571,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_MENOR.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_CONST.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_IGUAL.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/accionsemantica/AS_CADENA.java" />
@@ -526,13 +595,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
           <caret line="599" column="6" lean-forward="false" selection-start-line="599" selection-start-column="6" selection-end-line="599" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/archivosyacc/gramatica.y">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -633,13 +695,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/archivosyacc/ParserVal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="21" lean-forward="false" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/.gitignore" />
     <entry file="file://$PROJECT_DIR$/out/.gitignore" />
     <entry file="file://$PROJECT_DIR$/target/.gitignore" />
@@ -683,16 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lexer/TablaSimbolos.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1598">
-          <caret line="103" column="13" lean-forward="false" selection-start-line="103" selection-start-column="13" selection-end-line="103" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lexer/Terceto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-392">
@@ -728,7 +773,31 @@
     <entry file="file://$PROJECT_DIR$/archivo-prueba.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
-          <caret line="26" column="17" lean-forward="true" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+          <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archivo-prueba4.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/archivosyacc/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/archivosyacc/gramatica.y">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -741,40 +810,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/archivosyacc/Parser.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lexer/TablaSimbolos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8637">
-          <caret line="545" column="10" lean-forward="false" selection-start-line="545" selection-start-column="10" selection-end-line="545" selection-end-column="10" />
+        <state relative-caret-position="127">
+          <caret line="98" column="16" lean-forward="false" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/parser/ParserVal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
           <folding>
-            <element signature="e#0#47839#0" expanded="true" />
+            <marker date="1508194065838" expanded="false" signature="812:817" ph=" { " />
+            <marker date="1508194065838" expanded="false" signature="826:828" ph=" }" />
+            <marker date="1508194065838" expanded="false" signature="895:900" ph=" { " />
+            <marker date="1508194065838" expanded="false" signature="909:911" ph=" }" />
+            <marker date="1508194065838" expanded="false" signature="978:983" ph=" { " />
+            <marker date="1508194065838" expanded="false" signature="992:994" ph=" }" />
+            <marker date="1508194065838" expanded="false" signature="1062:1067" ph=" { " />
+            <marker date="1508194065838" expanded="false" signature="1075:1077" ph=" }" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/archivo-prueba4.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/archivo-prueba2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="75" column="7" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="75" selection-end-column="7" />
-          <folding />
+        <state relative-caret-position="120">
+          <caret line="558" column="7" lean-forward="false" selection-start-line="558" selection-start-column="7" selection-end-line="558" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#40612#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2522#2523#0" expanded="true" />
+            <element signature="e#2555#2556#0" expanded="true" />
+            <element signature="e#2588#2589#0" expanded="true" />
+            <element signature="e#2610#2611#0" expanded="true" />
+            <element signature="e#2647#2648#0" expanded="true" />
+            <element signature="e#2687#2688#0" expanded="true" />
+            <element signature="e#20651#20652#0" expanded="true" />
+            <element signature="e#20681#20682#0" expanded="true" />
+            <element signature="e#20885#20886#0" expanded="true" />
+            <element signature="e#20908#20909#0" expanded="true" />
+            <element signature="e#20958#20959#0" expanded="true" />
+            <element signature="e#20986#20987#0" expanded="true" />
+            <element signature="e#21025#21026#0" expanded="true" />
+            <element signature="e#21050#21051#0" expanded="true" />
+            <marker date="1508194065853" expanded="false" signature="40042:40047" ph=" { " />
+            <marker date="1508194065853" expanded="false" signature="40057:40059" ph=" }" />
+            <marker date="1508194065853" expanded="false" signature="40451:40456" ph=" { " />
+            <marker date="1508194065853" expanded="false" signature="40472:40474" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        <state relative-caret-position="462">
+          <caret line="61" column="70" lean-forward="true" selection-start-line="61" selection-start-column="70" selection-end-line="61" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1508191676553" expanded="true" signature="2498:2504" ph="{...}" />
+            <marker date="1508192883754" expanded="true" signature="2492:2498" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/archivo-prueba2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

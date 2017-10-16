@@ -1,5 +1,5 @@
 import lexer.TablaSimbolos;
-import archivosyacc.Parser;
+import parser.Parser;
 import lexer.Lexer;
 
 import java.io.FileNotFoundException;

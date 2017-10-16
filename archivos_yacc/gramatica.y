@@ -1,13 +1,14 @@
 %{
-	package archivosyacc;
+	package parser;
+
 	import lexer.TablaSimbolos;
 	import lexer.Terceto;
-	
 	import lexer.Item;
 	import lexer.ItemString;
 	import lexer.ItemTerceto;
 	import lexer.Lexer;
 	import lexer.TablaSimbolos;
+	
 	import java.util.Stack;
     import java.util.Vector;
 	import java.util.ArrayList;
@@ -82,7 +83,7 @@ sentencia : asignacion | print | seleccion | iteracion | declaracion
 
 print : OUT OPEN_PAR CADENA CLOSE_PAR DOT { 
 											System.out.println("Sentencia OUT. Línea " + $1.ival); 
-											Terceto t = new Terceto("PRINT", new itemString($3.sval), new itemString("-"), null);
+											Terceto t = new Terceto("PRINT", new ItemString($3.sval), new ItemString("-"), null);
 											tercetos.add(t);
 										  }
 	  | OUT OPEN_PAR CADENA CLOSE_PAR { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta DOT"); }
@@ -103,9 +104,9 @@ asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " 
 											  yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la asignacion");
 									  }
 									  /*TERCETO*/
-									  t = new Terceto("=", new itemString((String)$1.sval), item2, null);
+									  t = new Terceto("=", new ItemString((String)$1.sval), item2, null);
 								      tercetos.add(t);
-									  $$.obj = new itemTerceto(t);
+									  $$.obj = new ItemTerceto(t);
 									  /*TERCETO*/
 									}
 		   | ID ASIGN expresion { yyerror("\tLínea " + $1.ival + ". Asignación incompleta. Falta DOT"); }
@@ -119,17 +120,17 @@ bloque : declaracion_variables | asignacion | print | seleccion | iteracion
 
 seleccion : seleccion_simple else bloque_sentencias END_IF { 
 																System.out.println("Línea " + $1.ival + ". Sentencia IF-ELSE"); 
-																((Terceto)tercetos.elementAt((pila.pop()).intValue()-1)).setArg1(new itemString("[" + (tercetos.size() + 1) + "]"));
+																((Terceto)tercetos.elementAt((pila.pop()).intValue()-1)).setArg1(new ItemString("[" + (tercetos.size() + 1) + "]"));
 															}
 		  | seleccion_simple END_IF { 
 										System.out.println("Línea " + $1.ival + ". Sentencia IF"); 
-										((Terceto)tercetos.elementAt((pila.pop()).intValue()-1)).setArg2(new itemString("[" + (tercetos.size() + 1) + "]"));
+										((Terceto)tercetos.elementAt((pila.pop()).intValue()-1)).setArg2(new ItemString("[" + (tercetos.size() + 1) + "]"));
 									}
 ;
 
 else: ELSE {
-				((Terceto)tercetos.elementAt((pila.pop()).intValue()-1)).setArg2(new itemString("[" + (tercetos.size()+2) + "]"));
-				Terceto t = new Terceto("BI", new itemString("_"), new itemString("_"), null);
+				((Terceto)tercetos.elementAt((pila.pop()).intValue()-1)).setArg2(new ItemString("[" + (tercetos.size()+2) + "]"));
+				Terceto t = new Terceto("BI", new ItemString("_"), new ItemString("_"), null);
 				tercetos.add(t);
 				pila.push(new Integer(t.getNumero()));
 		   }
@@ -139,7 +140,7 @@ seleccion_simple : IF condicion_if THEN bloque_sentencias
 ;
 
 condicion_if : condicion {
-							Terceto t = new Terceto("BF", new itemTerceto((Terceto)(this.tercetos.lastElement())), new itemString("_"), null);
+							Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(this.tercetos.lastElement())), new ItemString("_"), null);
 							tercetos.add(t);
 							pila.push(new Integer(t.getNumero()));	
 						 }	
@@ -155,7 +156,7 @@ condicion : OPEN_PAR expresion comparador expresion CLOSE_PAR {
 																
 																Terceto t = new Terceto($3.sval, item1, item2, null);
 																tercetos.add(t);												  
-																$$.obj = new itemTerceto(t);
+																$$.obj = new ItemTerceto(t);
 															  }
 		  | expresion comparador expresion CLOSE_PAR { yyerror("Línea " + $2.ival + ". Condicion incompleta. Falta OPEN_PAR"); }
 		  | OPEN_PAR expresion comparador expresion { yyerror("Línea " + $3.ival + ". Condicion. Falta CLOSE_PAR"); }
@@ -175,8 +176,8 @@ bloque_compuesto : bloque_compuesto bloque_simple | bloque_simple
 iteracion : while condicion_while DO bloque_sentencias { 
 															System.out.println("Línea " + $1.ival + ". Estructura WHILE"); 
 															System.out.println(" FINALIZA ITERACION PILA" + pila.toString());
-															((Terceto)tercetos.elementAt((pila.pop()).intValue()-1)).setArg2(new itemString("[" + (tercetos.size()+2) + "]"));
-															Terceto t = new Terceto("BI", new itemTerceto((Terceto)this.tercetos.elementAt((pila.pop()).intValue()-1)), new itemString("_"), null);
+															((Terceto)tercetos.elementAt((pila.pop()).intValue()-1)).setArg2(new ItemString("[" + (tercetos.size()+2) + "]"));
+															Terceto t = new Terceto("BI", new ItemTerceto((Terceto)this.tercetos.elementAt((pila.pop()).intValue()-1)), new ItemString("_"), null);
 															tercetos.add(t);
 													   }
 ;
@@ -189,7 +190,7 @@ while : WHILE{
 
 condicion_while : condicion {
 								System.out.println(" ARRANCA CONDICION_WHILE PILA"+pila.toString());
-								Terceto t = new Terceto("BF", new itemTerceto((Terceto)(this.tercetos.lastElement())), new itemString("_"), null);
+								Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(this.tercetos.lastElement())), new ItemString("_"), null);
 								t.setIsWhileFlag(true);
 								tercetos.add(t);
 								System.out.println("NUMERO! " + t.getNumero());
@@ -207,7 +208,7 @@ expresion : expresion ADD termino {
 										yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la suma");
 									Terceto t = new Terceto("+",item1,item2,tipo1);
 									tercetos.add(t);
-									$$.obj = new itemTerceto(t); 
+									$$.obj = new ItemTerceto(t); 
 								  } 
 		  | expresion SUB termino { 
 									System.out.println("RESTA. Línea " + $2.ival); 
@@ -219,7 +220,7 @@ expresion : expresion ADD termino {
 										yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la resta");
 									Terceto t = new Terceto("-",item1,item2,tipo1);
 									tercetos.add(t);
-									$$.obj = new itemTerceto(t);
+									$$.obj = new ItemTerceto(t);
 								  } 
 		  | termino { $$.obj = $1.obj; }
 ;
@@ -234,7 +235,7 @@ termino : termino MULT factor {
 									yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la multiplicacion");
 								Terceto t = new Terceto("*",item1,item2,tipo1);
 								tercetos.add(t);
-								$$.obj = new itemTerceto(t);
+								$$.obj = new ItemTerceto(t);
 							  } 
 		| termino DIV factor { 
 								System.out.println("DIVISION. Línea " + $2.ival); 
@@ -246,7 +247,7 @@ termino : termino MULT factor {
 									yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la division");
 								Terceto t = new Terceto("/",item1,item2,tipo1);
 								tercetos.add(t);
-								$$.obj = new itemTerceto(t);
+								$$.obj = new ItemTerceto(t);
 							 } 
 		| factor { $$.obj = $1.obj; }
 ;
@@ -255,12 +256,12 @@ factor : ID { System.out.println("Lectura de la variable " + $1.sval + ". Línea
 			  if (! tablaSimbolos.varDefined($1.sval))
 			  	yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA"); 
 			  String lex = $1.sval;
-			  itemString is = new itemString(lex);
+			  ItemString is = new ItemString(lex);
 			  is.setTabla(tablaSimbolos);
 			  $$.obj = is;
 			}
 	   | CTE { String lex = $1.sval;
-			   itemString is = new itemString(lex);
+			   ItemString is = new ItemString(lex);
 			   is.setTabla(tablaSimbolos);
 			   $$.obj = is;
 			 }
@@ -281,7 +282,7 @@ invocacion_funcion : ID OPEN_PAR CLOSE_PAR {
 												else {
 														System.out.println("Invocación a función. Línea " + $1.ival); 
 														String lex = $1.sval;
-														itemString is = new itemString(lex);
+														ItemString is = new ItemString(lex);
 														is.setTabla(tablaSimbolos);
 														$$.obj = is;
 													 }
