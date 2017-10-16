@@ -59,8 +59,8 @@ public class Main {
             parser.setLexico(lexer);
             parser.setTablaSimbolos(tablaSimbolos);
             System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse() + "\n");
-
-            System.out.println(tablaSimbolos);
+            System.out.println(parser.getTercetos());
+            //System.out.println(tablaSimbolos);
 
             System.out.println("\n");
         }
