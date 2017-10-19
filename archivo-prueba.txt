@@ -19,9 +19,9 @@ ELSE
 END_IF
 
 WHILE (var1 == 2) DO
-BEGIN
-	OUT 'tu vieja en tanga'.
-	var3 = 500.
-END
+    BEGIN
+        OUT 'tu vieja en tanga'.
+        var3 = 500.
+    END
 
 var1 = tuVieja().
