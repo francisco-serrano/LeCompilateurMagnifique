@@ -1,0 +1,27 @@
+UINT FUNCTION aa {
+	var3 : UINT.
+
+	var3 = 100.
+
+	RETURN (var3).
+}
+
+ULONG FUNCTION bb {
+	var4 : ULONG.
+
+	var4 = 10000000.
+
+	RETURN (var4 * 15).
+}
+
+UINT MOVE FUNCTION cc {
+	var3, var5 : UINT.
+
+	var5 = aa().
+
+	RETURN (var5).
+}
+
+var1, var2 : UINT.
+
+var1 = var2.

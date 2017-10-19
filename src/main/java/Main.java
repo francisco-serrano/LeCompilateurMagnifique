@@ -19,7 +19,10 @@ import java.util.Scanner;
 public class Main {
 
     /*
-        TODO: Preguntar por el chequeo de tipos para ULONG = UINT
+        // PREGUNTAR
+        TODO: Preguntar cuando se somete a un ULONG a una operación con un UINT (ejemplo línea 14).
+        TODO: Preguntar si los ámbitos se agrupan. Por ahí no son el mismo token.
+
         TODO: Estandarizar la salida por consola
         TODO: JavaDoc -> Clase Lexer
         TODO: JavaDoc -> Acciones Semánticas
@@ -29,7 +32,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+//        while (true) {
 //            System.out.print("Ingrese ruta del archivo (EXIT para salir): ");
 //            String fileDir = scanner.nextLine();
 //
@@ -37,19 +40,19 @@ public class Main {
 //                break;
 
             // Dejarlo comentado para después ir probando con un archivo fijo
-            String fileDir = "archivo-prueba2.txt";
+            String fileDir = "archivo-prueba5.txt";
 
             String dirMatrizEstados = "matriz-estados.txt";
             String dirMatrizSemantica = "matriz-acc-semanticas.txt";
 
             TablaSimbolos tablaSimbolos = new TablaSimbolos();
 
-            Lexer lexer;
+            Lexer lexer = null;
             try {
                 lexer = new Lexer(fileDir, dirMatrizEstados, dirMatrizSemantica, tablaSimbolos);
             } catch (FileNotFoundException e) {
                 System.err.println("\nArchivo no encontrado");
-                continue;
+//                continue;
             }
 
             // En caso de querer probar los tokens que se imprimen
@@ -60,13 +63,24 @@ public class Main {
             parser.setLexico(lexer);
             parser.setTablaSimbolos(tablaSimbolos);
             System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse() + "\n");
-            System.out.println(parser.getTercetos());
-            //System.out.println(tablaSimbolos);
+            //System.out.println(parser.getTercetos());
+            System.out.println(tablaSimbolos);
 
             System.out.println("\n");
+//        }
 
-            break;
-        }
+       /* String ambito = "@main";
+
+        ambito = ambito + "@funcion";
+
+        System.out.println(ambito);
+
+        String[] parts = ambito.split("@");
+        String part1 = parts[1]; // 004
+        String part2 = parts[2]; // 034556
+
+        System.out.println(part1 + " " + parts.length + " " + part2);
+        */
     }
 
     /**
@@ -79,4 +93,6 @@ public class Main {
         while ((token = lexer.yylex()) != 0)
             System.out.println("<" + token + ">");
     }
+
+
 }

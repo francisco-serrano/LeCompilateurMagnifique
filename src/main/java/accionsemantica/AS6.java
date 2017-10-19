@@ -17,10 +17,10 @@ public class AS6 extends AccionSemantica {
             if (!tablita.contains("CTE", token.toString())){
                 if (Double.parseDouble(token.toString()) <= (Math.pow(2, 16) - 1)){
                     //Es UINT
-                    tablita.addConstante("CTE",token.toString(),"UINT");
+                    tablita.addConstant("CTE",token.toString(),"UINT");
                 }else{
                     //Es ULONG
-                    tablita.addConstante("CTE",token.toString(),"ULONG");
+                    tablita.addConstant("CTE",token.toString(),"ULONG");
                 }
                 token_retornar = "CTE->" + token.toString();
             }

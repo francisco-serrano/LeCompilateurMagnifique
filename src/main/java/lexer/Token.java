@@ -1,5 +1,8 @@
 package lexer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Clase que representa al elemento que contiene los lexemas dentro de una tabla de símbolos. En caso de que el lexema
  * pertenezca a un token de tipo identificador, tendrán relevancia los campos "declared" y "type", para posteriormente
@@ -13,13 +16,14 @@ public class Token {
     private boolean declared;
     private String type;
     private String uso;
+    private List<String> ambito = new ArrayList<>();
 
     /**
      * Construye un token sin declarar y con tipo sin definir, con el lexema pasado por parámetero.
      * @param lexema Texto indicando el lexema a contener por el token.
      */
     public Token(String lexema) {
-        this.lexema = lexema;
+        this.lexema = lexema.toLowerCase();
         this.declared = false;
         this.type = "undefined";
         this.uso = "undefined";
@@ -46,7 +50,7 @@ public class Token {
      * @return Texto indicando el tipo de variable.
      */
     public String getType() {
-        return this.type;
+        return new String(type);
     }
 
     public String getUso() { return this.uso; }
@@ -64,6 +68,20 @@ public class Token {
         this.uso = usillo;
     }
 
+    public void setAmbito(String a) { ambito.add(a); }
+
+    public void borrarAmbito() { this.ambito.clear(); }
+
+    public List<String> getAmbito() { return this.ambito; }
+
+    public List<String> getAmbitoEspecial() {
+        List<String> aux = new ArrayList<>();
+        for (int i = 0; i < ambito.size(); i++) {
+            aux.add(ambito.get(i));
+        }
+        return aux;
+    }
+
     /**
      * Retorna una representación en forma de texto del token.
      * @return Texto representando el token.
@@ -72,9 +90,9 @@ public class Token {
     public String toString() {
         return "Token{" +
                 "lexema='" + lexema + '\'' +
-                ", declared=" + declared +
+                ", uso=" + uso +
                 ", type='" + type + '\'' +
-                ", uso='" + uso + '\'' +
+                ", ambito='" + ambito.toString() + '\'' +
                 '}';
     }
 

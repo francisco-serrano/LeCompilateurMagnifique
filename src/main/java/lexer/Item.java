@@ -1,12 +1,10 @@
 package lexer;
 
+
 public interface Item {
-    boolean equals(String s);
-
-    String toString();
-
-    ItemString toItemString();
-
-    String getTipo();
+    public boolean equals(String s);
+    public String toString();
+    public ItemString toItemString();
+    public String getTipo();
 
 }
