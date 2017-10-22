@@ -271,7 +271,7 @@ factor : ID {
 				if (tablaSimbolos.functionDefined($1.sval))
 					yyerror("Línea " + $1.ival + ": NOMBRE DE FUNCION COMO OPERANDO --> FALTAN LOS PARENTESIS");
 			    else if (!tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
-			  		yyerror("\tError en la línea " + $1.ival + ": VARIABLE -> " + $1.sval + "NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
+			  		yyerror("\tError en la línea " + $1.ival + ": VARIABLE -> " + $1.sval + " NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
 			  		
 			    String id = $1.sval.toLowerCase();
 			    ItemString itemString = new ItemString(id);

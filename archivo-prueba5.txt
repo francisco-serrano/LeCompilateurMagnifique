@@ -1,4 +1,4 @@
-var1, var2 : UINT.
+var1, var2, var5 : UINT.
 
 UINT FUNCTION aa {
 	var3 : UINT.

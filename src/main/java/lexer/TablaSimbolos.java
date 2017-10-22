@@ -136,9 +136,9 @@ public class TablaSimbolos {
      * @return Booleano indicando si la variable está definida en el ámbito local actual.
      */
     private boolean varDefinedLocalScope(String lexema, String ambito) {
-        Token token = getToken(lexema);
+        Token token = getToken(lexema, ambito);
 
-        return token != null && token.getAmbito().equalsIgnoreCase(ambito);
+        return token != null;
     }
 
     /**
