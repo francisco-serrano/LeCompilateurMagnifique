@@ -21,6 +21,8 @@ public class Main {
     /*
         // IDEAS
         TODO: Mandar todos los errores a un buffer, e imprimir todo junto al final
+        TODO: Definir si el método redefined y varDefined se pueden juntar
+        TODO: Acomodar los nombres de los métodos (poner todos en declarar en vez de definir)
 
         // CONSULTAS
         TODO: Preguntar si al final de todo se podrían eliminar las entradas de la TS que están al pedo

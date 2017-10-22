@@ -35,7 +35,7 @@ public class ItemString implements Item{
 
     public String getTipo(){
       //hay que acceder a la tabla de simbolos, ver si esta el arg (puede ser constante o variable) y despues sacarle el tipo del token
-        Token aux = tabla.devolverToken(this.arg);
+        Token aux = tabla.getToken(this.arg);
 
         return aux.getType();
     }

@@ -52,7 +52,7 @@ tipo : UINT | ULONG
 declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); } cuerpo_funcion { 
 																					uso = "nombre_funcion";
 
-																					if (!tablaSimbolos.functionDefined($3.sval, uso)){
+																					if (!tablaSimbolos.functionDefined($3.sval)){
 																						System.out.println("Declaracion de funcion. Línea " + $2.ival);
 																						auxVariables.clear();
 																						auxVariables.add($3.sval);
@@ -68,7 +68,7 @@ declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); } cuerpo_funcion
 					| tipo MOVE FUNCTION ID { ambitos.push($4.sval); isMoveFunction = true; } cuerpo_funcion { 	
 																												uso = "nombre_funcion";
 
-																												if (!tablaSimbolos.functionDefined($4.sval, uso)){
+																												if (!tablaSimbolos.functionDefined($4.sval)){
 																													System.out.println("Declaracion de funcion. Línea " + $3.ival);
 																													auxVariables.clear();
 																													auxVariables.add($4.sval);
@@ -112,7 +112,7 @@ asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " 
 									  if (! tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
 									  	yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
 									  else {
-										  String tipoAsignacion = tablaSimbolos.devolverToken($1.sval.toLowerCase()).getType();
+										  String tipoAsignacion = tablaSimbolos.getToken($1.sval.toLowerCase()).getType();
 										  String tipoExpresion = (String)(((Item)$3.obj).getTipo());
 										  if ((!tipoAsignacion.equals("ULONG")) && (tipoExpresion.equals("ULONG")))
 											  yyerror("Línea " + $2.ival + ". Tipos incompatibles en la asignación");
@@ -265,13 +265,18 @@ termino : termino MULT factor {
 		| factor { $$.obj = $1.obj; }
 ;
 
-factor : ID { System.out.println("Lectura de la variable " + $1.sval + ". Línea " + $1.ival); 
-			  if (! tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
-			  	yyerror("\tError en la línea " + $1.ival + ": VARIABLE -> " + $1.sval + "NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
-			  String id = $1.sval.toLowerCase();
-			  ItemString itemString = new ItemString(id);
-			  itemString.setTabla(tablaSimbolos);
-			  $$.obj = itemString;
+factor : ID { 
+				System.out.println("Lectura de la variable " + $1.sval + ". Línea " + $1.ival); 
+
+				if (tablaSimbolos.functionDefined($1.sval))
+					yyerror("Línea " + $1.ival + ": NOMBRE DE FUNCION COMO OPERANDO --> FALTAN LOS PARENTESIS");
+			    else if (!tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
+			  		yyerror("\tError en la línea " + $1.ival + ": VARIABLE -> " + $1.sval + "NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
+			  		
+			    String id = $1.sval.toLowerCase();
+			    ItemString itemString = new ItemString(id);
+			    itemString.setTabla(tablaSimbolos);
+			    $$.obj = itemString;
 			}
 	   | CTE { String cte = $1.sval;
 			   ItemString itemString = new ItemString(cte);
@@ -290,7 +295,7 @@ comparador : LEQ
 ;
 
 invocacion_funcion : ID OPEN_PAR CLOSE_PAR { 
-												if (! tablaSimbolos.functionDefined($1.sval, "nombre_funcion")) 
+												if (! tablaSimbolos.functionDefined($1.sval)) 
 													yyerror("\tError en la línea " + $1.ival + ": FUNCION NO DEFINIDA"); 
 											
 												System.out.println("Invocación a función. Línea " + $1.ival); 

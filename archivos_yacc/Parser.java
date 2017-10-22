@@ -494,7 +494,7 @@ final static String yyrule[] = {
 "invocacion_funcion : ID OPEN_PAR CLOSE_PAR",
 };
 
-//#line 306 "gramatica.y"
+//#line 311 "gramatica.y"
 
 void yyerror(String error) {
 	System.err.println(error);
@@ -732,7 +732,7 @@ case 13:
 { 
 																					uso = "nombre_funcion";
 
-																					if (!tablaSimbolos.functionDefined(val_peek(2).sval, uso)){
+																					if (!tablaSimbolos.functionDefined(val_peek(2).sval)){
 																						System.out.println("Declaracion de funcion. Línea " + val_peek(3).ival);
 																						auxVariables.clear();
 																						auxVariables.add(val_peek(2).sval);
@@ -758,7 +758,7 @@ case 16:
 { 	
 																												uso = "nombre_funcion";
 
-																												if (!tablaSimbolos.functionDefined(val_peek(2).sval, uso)){
+																												if (!tablaSimbolos.functionDefined(val_peek(2).sval)){
 																													System.out.println("Declaracion de funcion. Línea " + val_peek(3).ival);
 																													auxVariables.clear();
 																													auxVariables.add(val_peek(2).sval);
@@ -812,7 +812,7 @@ case 33:
 									  if (! tablaSimbolos.varDefined(val_peek(3).sval, ambitos.toString(), isMoveFunction))
 									  	yyerror("\tError en la línea " + val_peek(3).ival + ": VARIABLE NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
 									  else {
-										  String tipoAsignacion = tablaSimbolos.devolverToken(val_peek(3).sval.toLowerCase()).getType();
+										  String tipoAsignacion = tablaSimbolos.getToken(val_peek(3).sval.toLowerCase()).getType();
 										  String tipoExpresion = (String)(((Item)val_peek(1).obj).getTipo());
 										  if ((!tipoAsignacion.equals("ULONG")) && (tipoExpresion.equals("ULONG")))
 											  yyerror("Línea " + val_peek(2).ival + ". Tipos incompatibles en la asignación");
@@ -987,17 +987,22 @@ case 67:
 break;
 case 68:
 //#line 268 "gramatica.y"
-{ System.out.println("Lectura de la variable " + val_peek(0).sval + ". Línea " + val_peek(0).ival); 
-			  if (! tablaSimbolos.varDefined(val_peek(0).sval, ambitos.toString(), isMoveFunction))
-			  	yyerror("\tError en la línea " + val_peek(0).ival + ": VARIABLE -> " + val_peek(0).sval + "NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
-			  String id = val_peek(0).sval.toLowerCase();
-			  ItemString itemString = new ItemString(id);
-			  itemString.setTabla(tablaSimbolos);
-			  yyval.obj = itemString;
+{ 
+				System.out.println("Lectura de la variable " + val_peek(0).sval + ". Línea " + val_peek(0).ival); 
+
+				if (tablaSimbolos.functionDefined(val_peek(0).sval))
+					yyerror("Línea " + val_peek(0).ival + ": NOMBRE DE FUNCION COMO OPERANDO --> FALTAN LOS PARENTESIS");
+			    else if (!tablaSimbolos.varDefined(val_peek(0).sval, ambitos.toString(), isMoveFunction))
+			  		yyerror("\tError en la línea " + val_peek(0).ival + ": VARIABLE -> " + val_peek(0).sval + "NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
+			  		
+			    String id = val_peek(0).sval.toLowerCase();
+			    ItemString itemString = new ItemString(id);
+			    itemString.setTabla(tablaSimbolos);
+			    yyval.obj = itemString;
 			}
 break;
 case 69:
-//#line 276 "gramatica.y"
+//#line 281 "gramatica.y"
 { String cte = val_peek(0).sval;
 			   ItemString itemString = new ItemString(cte);
 			   itemString.setTabla(tablaSimbolos);
@@ -1005,13 +1010,13 @@ case 69:
 			 }
 break;
 case 70:
-//#line 281 "gramatica.y"
+//#line 286 "gramatica.y"
 { yyval.obj = val_peek(0).obj; }
 break;
 case 77:
-//#line 292 "gramatica.y"
+//#line 297 "gramatica.y"
 { 
-												if (! tablaSimbolos.functionDefined(val_peek(2).sval, "nombre_funcion")) 
+												if (! tablaSimbolos.functionDefined(val_peek(2).sval)) 
 													yyerror("\tError en la línea " + val_peek(2).ival + ": FUNCION NO DEFINIDA"); 
 											
 												System.out.println("Invocación a función. Línea " + val_peek(2).ival); 
@@ -1022,7 +1027,7 @@ case 77:
 													
 											}
 break;
-//#line 949 "Parser.java"
+//#line 954 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

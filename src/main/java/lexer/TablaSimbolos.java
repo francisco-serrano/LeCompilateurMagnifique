@@ -3,12 +3,14 @@ package lexer;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Clase que representa la tabla de símbolos del compilador. Está compuesta por una lista de palabras reservadas y por
- * un multimapa que mapea el tipo de token (String) a una colección de lexemas asociados. Cada lexema está representado
- * con la clase Token en la que, según el caso, se aprovecha total o parcialmente la funcionalidad de la misma.
+ * un multimapa que mapea el tipo de token (String) a una colección de lexemas asociados a dicho tipo. Cada lexema está
+ * representado con la clase Token en la que, según el caso, se aprovecha total o parcialmente la funcionalidad de
+ * la misma.
  *
  * @author Martín Bianco, Esteban Di Pietro, Francisco Serrano
  */
@@ -21,10 +23,10 @@ public class TablaSimbolos {
     private List<String> reservedWords = Arrays.asList(arr_reservedWords);
 
     /**
-     * Añade un lexema a la tabla de símbolos
+     * Añade un lexema a la tabla de símbolos.
      *
-     * @param tipoToken Tipo de token asociado al lexema que se quiere insertar
-     * @param lexema    Lexema propiamente dicho
+     * @param tipoToken Tipo de token asociado al lexema que se quiere insertar.
+     * @param lexema    Lexema propiamente dicho.
      */
     public void add(String tipoToken, String lexema) {
         if (multimap.get(tipoToken).contains(new Token(lexema)))
@@ -36,27 +38,32 @@ public class TablaSimbolos {
             throw new IllegalArgumentException("Los tipos de token disponibles son ID, CTE y CADENA");
     }
 
-    public void addConstant(String tipoToken, String lexema, String tipo) {
-        if (multimap.get(tipoToken).contains(new Token(lexema)))
+    /**
+     * Añade a la Tabla de Símbolos un token asociado a una constante.
+     *
+     * @param lexema Lexema que se quiere almacenar en el Token.
+     * @param tipo Tipo de dato de la constante a declarar en la TS.
+     */
+    public void addConstant(String lexema, String tipo) {
+        Token token = new Token(lexema);
+
+        if (multimap.get("CTE").contains(token))
             return; // Quiere decir que el token ya fue agregado
 
-        if (tipoToken.equals("CTE")) {
-            Token tok = new Token(lexema);
-            tok.declare(tipo);
-            multimap.put(tipoToken, tok);
-        } else
-            throw new IllegalArgumentException("Los tipos de token disponibles son ID, CTE y CADENA");
+        token.declare(tipo);
+
+        multimap.put("CTE", token);
     }
 
     /**
-     * Pregunta si un determinado lexema está presente en la tabla de símbolos
+     * Pregunta si un determinado lexema está presente en la tabla de símbolos.
      *
-     * @param tipoToken Tipo de token asociado al lexema
-     * @param lexema    Lexema propiamente dicho
-     * @return Booleano indicando si está presente o no
+     * @param tipoToken Tipo de token asociado al lexema.
+     * @param lexema    Lexema propiamente dicho.
+     * @return Booleano indicando si está presente o no.
      */
     public boolean contains(String tipoToken, String lexema) {
-        return multimap.get(tipoToken).contains(lexema);
+        return multimap.get(tipoToken).contains(new Token(lexema));
     }
 
     /**
@@ -70,34 +77,28 @@ public class TablaSimbolos {
     }
 
     /**
-     * Obtiene los lexemas asociados a un determinado tipo de token
+     * Pregunta si una función está efectivamente declarada en la Tabla de Símbolos.
      *
-     * @param tipoToken Texto indicando el tipo de token (ID/CTE/CADENA)
-     * @return Colección de lexemas asociado al tipo de token
+     * @param lexema Lexema que representa el nombre de la función por el cual se quiere preguntar.
+     * @return Booleano indicando si la función está declarada o no.
      */
-    public Collection<Token> getLexemas(String tipoToken) {
-        return multimap.get(tipoToken);
+    public boolean functionDefined(String lexema) {
+        lexema = lexema.toLowerCase();
+
+        for (Token token : multimap.get("ID")) {
+            if (token.getLexema().equals(lexema) && token.getUso().equals("nombre_funcion"))
+                return true;
+        }
+
+        return false;
     }
 
     /**
-     * Pregunta si una variable (lexema) está declarada (equivalente a estar presente en la TS)
-     *
-     * @param lexema Variable a consultar
-     * @return Booleano indicando si la variable está declarada o no
+     * Pregunta si en una declaración de variables, existe alguna que fue redefinida.
+     * @param lexemas Lista de variables sobre las que se quiere consultar.
+     * @param ambito Ambito en donde se dió la declaración.
+     * @return Booleano indicando si existe alguna variables redefinida entre las provistas.
      */
-    public boolean functionDefined(String lexema, String uso) {
-        boolean result = false;
-        String aux = lexema.toLowerCase();
-        for (Token token : multimap.get("ID")) {
-            if (token.getLexema().equals(aux)) {
-                if (token.getUso().equals(uso)) {
-                    result = true;
-                }
-            }
-        }
-        return result;
-    }
-
     public boolean redefined(List<String> lexemas, String ambito) {
         for (String lexema : lexemas)
             if (redefined(lexema, ambito))
@@ -106,6 +107,12 @@ public class TablaSimbolos {
         return false;
     }
 
+    /**
+     * Método privado auxiliar que pregunta si una variable en especial ya fue definida.
+     * @param lexema Variable sobre la que se quiere consultar.
+     * @param ambito Ambito en donde se dió la declaración.
+     * @return Booleano indicando si la variable sería redefinida en el ámbito provisto.
+     */
     private boolean redefined(String lexema, String ambito) {
         Token token = getToken(lexema, ambito);
 
@@ -122,13 +129,24 @@ public class TablaSimbolos {
         return varDefinedGlobalScope(lexema, ambito);
     }
 
+    /**
+     * Método privado auxiliar que determina si una variable está definida en el ámbito local actual.
+     * @param lexema Variable sobre la que se efectúa la consulta en la tabla.
+     * @param ambito Ambito local actual.
+     * @return Booleano indicando si la variable está definida en el ámbito local actual.
+     */
     private boolean varDefinedLocalScope(String lexema, String ambito) {
         Token token = getToken(lexema);
 
         return token != null && token.getAmbito().equalsIgnoreCase(ambito);
-
     }
 
+    /**
+     * Método privado auxiliar que determina si una variable está definida en el ámbito global al actual.
+     * @param lexema Variable sobre la que se efectúa la consulta en la tabla.
+     * @param ambito Ámbito global al actual.
+     * @return Booleano indicando si la variable está definida en el ámbito global al actual.
+     */
     private boolean varDefinedGlobalScope(String lexema, String ambito) {
         if (varDefinedLocalScope(lexema, ambito))
             return true;
@@ -136,72 +154,15 @@ public class TablaSimbolos {
         Token token = getToken(lexema);
 
         return token != null && ambito.contains(token.getAmbito());
-
     }
 
-    private Token getToken(String lexema) {
-        for (Token token : multimap.get("ID"))
-            if (token.getLexema().equals(lexema))
-                return token;
-
-        return null;
-    }
-
-    private Token getToken(String lexema, String ambito) {
-        for (Token token : multimap.get("ID"))
-            if (token.getLexema().equals(lexema) && token.getAmbito().equals(ambito))
-                return token;
-
-        return null;
-    }
-
-//    /**
-//     * Asigna un determinado tipo a un conjunto de variables (lexemas)
-//     *
-//     * @param lexemas Lista de variables a declarar
-//     * @param type    Tipo asociado a la lista de variables
-//     */
-//    public void defineVar(List<String> lexemas, String type, String uso, String ambito) {
-//        if (!uso.equals("nombre_funcion")) {
-//            for (Token token : multimap.get("ID")) {
-//
-//                if (lexemas.contains(token.getLexema())) {
-//                    String aux_tipo = token.getType();
-//                    List<String> aux_ambito = token.getAmbitoEspecial();
-//                    token.declare(type);
-//                    token.setUso(uso);
-//                    token.setAmbito(ambito);
-//
-//
-////                    if (token.getAmbito().size() > 1){
-////                        token.borrarAmbito();
-////
-////                        for (String anAux_ambito : aux_ambito)
-////                            token.setAmbito(anAux_ambito);
-////
-////                        token.declare(aux_tipo);
-////                        Token nuevoToken = new Token(token.getLexema());
-////                        multimap.put("ID", nuevoToken);
-////                        nuevoToken.setUso(uso);
-////                        nuevoToken.declare(type);
-////                        nuevoToken.setAmbito(ambito);
-////                    }
-//
-//                }
-//            }
-//        } else {
-//            List<Token> token = (List<Token>) multimap.get("ID");
-//            for (int i = 0; i < token.size(); i++) {
-//                if ((lexemas.contains(token.get(i).getLexema())) && (!token.get(i).getUso().equals("nombre_funcion"))) {
-//                    Token nuevoToken = new Token(token.get(i).getLexema());
-//                    nuevoToken.setUso(uso);
-//                    nuevoToken.declare(type);
-//                    multimap.put("ID", nuevoToken);
-//                }
-//            }
-//        }
-//    }
-
+    /**
+     * Define un conjunto de identificadores (variable/función) en la tabla de símbolos.
+     * @param lexemas Lista de identificadores a definir.
+     * @param type Tipo de dato asociado a los identificadores.
+     * @param uso Uso asociado a los identificadores(nombre_funcion/variable).
+     * @param ambito Ambito en donde se produce la declaración.
+     */
     public void defineVar(List<String> lexemas, String type, String uso, String ambito) {
         if (!uso.equals("nombre_funcion") && !uso.equals("variable"))
             throw new IllegalArgumentException("Los usos soportados son \'nombre_funcion\' y \'variable\'");
@@ -213,29 +174,45 @@ public class TablaSimbolos {
             defineVariables(lexemas, type, ambito);
     }
 
+    /**
+     * Método privado auxiliar que define una función en la tabla de símbolos.
+     * @param lexema Identificador de la función a definir.
+     * @param type Tipo de retorno de la función a definir.
+     * @param ambito Ambito en donde se da la declaración de la función.
+     */
     private void defineFunction(String lexema, String type, String ambito) {
         Token token = getToken(lexema);
 
-        // TODO: acomodar
         if (token == null)
-            throw new RuntimeException("QUINCE PESOS");
+            throw new RuntimeException("El token con los siguientes datos {" + lexema + ", " + type + ", " + ambito + "} no existe");
 
         token.declare(type);
         token.setUso("nombre_funcion");
         token.setAmbito(ambito);
     }
 
+    /**
+     * Método privado auxiliar que define un listado de variables.
+     * @param lexemas Lista de variables a definir.
+     * @param type Tipo de dato asociado a las variables a definir.
+     * @param ambito Ambito en donde se produce la definición de las variables.
+     */
     private void defineVariables(List<String> lexemas, String type, String ambito) {
         for (String lexema: lexemas)
             defineVar(lexema, type, ambito);
     }
 
+    /**
+     * Método privado auxiliar que define una variable en la TS.
+     * @param lexema Variable a definir.
+     * @param type Tipo de dato asociado a la variable a definir.
+     * @param ambito Ambito en donde se produce la definición de la variable.
+     */
     private void defineVar(String lexema, String type, String ambito) {
         Token token = getToken(lexema);
 
-        // TODO: temporal, acomodar el texto
         if (token == null)
-            throw new RuntimeException("QUINCE PESOS");
+            throw new RuntimeException("El token con los siguientes datos {" + lexema + ", " + type + ", " + ambito + "} no existe");
 
         if (!token.getAmbito().equals("undefined")) {
             token = new Token(lexema);
@@ -247,51 +224,41 @@ public class TablaSimbolos {
         token.setAmbito(ambito);
     }
 
-
-
     /**
-     * Devuelve el tipo asociado a la variable declarada
-     *
-     * @param lexema Variable de la que se quiere obtener el tipo
-     * @return Tipo de la variable pasada por parámetro (null si no está declarada)
+     * Obtiene un token de la Tabla de Símbolos mediante la especificación del lexema.
+     * @param lexema Lexema con el cual se identifica al token a retornar.
+     * @return Token solicitado.
      */
-    public String getVarType(String lexema) {
+    public Token getToken(String lexema) {
         for (Token token : multimap.get("ID")) {
             if (token.getLexema().equals(lexema))
-                return token.getType();
+                return token;
+        }
+
+        for (Token token : multimap.get("CTE")) {
+            if (token.getLexema().equals(lexema))
+                return token;
+        }
+
+        for (Token token : multimap.get("CADENA")) {
+            if (token.getLexema().equals(lexema))
+                return token;
         }
 
         return null;
     }
 
     /**
-     * Devuelve el tipo de valor (UINT/ULONG) de la constante
-     *
-     * @param cte Constante numérica representada en forma de texto
-     * @return Tipo de valor (UINT/ULONG)
+     * Método privado auxiliar que retorna un token de la TS con la restricción adicional del ámbito.
+     * @param lexema Lexema con el cual se identifica al token a retornar.
+     * @param ambito Ambito con el que se idenficia al token a retornar.
+     * @return Token solicitado.
      */
-    public String getType(String cte) {
-        long auxCte = Long.parseLong(cte);
-
-        if (auxCte > 65536L)
-            return "ULONG";
-
-        return "UINT";
-    }
-
-    public Token devolverToken(String lexema) {
-        for (Token token : multimap.get("ID")) {
-            if (token.getLexema().equals(lexema))
+    private Token getToken(String lexema, String ambito) {
+        for (Token token : multimap.get("ID"))
+            if (token.getLexema().equals(lexema) && token.getAmbito().equals(ambito))
                 return token;
-        }
-        for (Token token : multimap.get("CTE")) {
-            if (token.getLexema().equals(lexema))
-                return token;
-        }
-        for (Token token : multimap.get("CADENA")) {
-            if (token.getLexema().equals(lexema))
-                return token;
-        }
+
         return null;
     }
 
