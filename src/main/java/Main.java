@@ -19,9 +19,11 @@ import java.util.Scanner;
 public class Main {
 
     /*
-        // PREGUNTAR
-        TODO: Preguntar cuando se somete a un ULONG a una operación con un UINT (ejemplo línea 14).
-        TODO: Preguntar si los ámbitos se agrupan. Por ahí no son el mismo token.
+        // BUGS
+        TODO: Dar soporte a chequeo de redefinición de variables dentro de funciones
+
+        // CONSULTAS
+        TODO: Preguntar si al final de todo se podrían eliminar las entradas de la TS que están al pedo
 
         TODO: Estandarizar la salida por consola
         TODO: JavaDoc -> Clase Lexer
@@ -63,7 +65,7 @@ public class Main {
             parser.setLexico(lexer);
             parser.setTablaSimbolos(tablaSimbolos);
             System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse() + "\n");
-            //System.out.println(parser.getTercetos());
+//            System.out.println(parser.getTercetos());
             System.out.println(tablaSimbolos);
 
             System.out.println("\n");

@@ -99,97 +99,147 @@ public class TablaSimbolos {
     }
 
     public boolean redefined(List<String> lexemas, String ambito) {
-        String uso = "variable";
+        for (String lexema : lexemas)
+            if (redefined(lexema, ambito))
+                return true;
 
-        List<Token> tokens = (List<Token>) multimap.get("ID");
-        for (Token token : tokens) {
-            if (lexemas.contains(token.getLexema())) {
-                if (token.getUso().equals(uso)) {
-                    List<String> listaAmbitos = token.getAmbito();
-                    for (String elem : listaAmbitos) {
-                        if (elem.equals(ambito))
-                            return true;
-                    }
-                }
-            }
-        }
         return false;
     }
 
-    public boolean varDefined(String lexema, String ambito, boolean move) {
-        String aux_lexema = lexema.toLowerCase();
-        String aux_ambito = ambito.toLowerCase();
-        boolean resultado = false;
-        if (!move) {
-            String[] parts = aux_ambito.split("@");
-            String part1 = "";
-            if (parts.length == 3) {
-                part1 = "@" + parts[1];
-            }
-            for (Token token : multimap.get("ID")) {
-                if (token.getLexema().equals(aux_lexema)) {
-                    List<String> ambitos = token.getAmbito();
-                    for (int i = 0; i < ambitos.size(); i++) {
-                        if ((ambitos.get(i).equals(part1)) || (ambitos.get(i).equals(aux_ambito)))
-                            return true;
-                    }
-                }
-            }
-        } else {
-            for (Token token : multimap.get("ID")) {
-                if (token.getLexema().equals(aux_lexema)) {
-                    List<String> ambitos = token.getAmbito();
-                    for (int i = 0; i < ambitos.size(); i++) {
-                        if (ambitos.get(i).equals(aux_ambito))
-                            return true;
-                    }
-                }
-            }
-        }
-        return resultado;
+    private boolean redefined(String lexema, String ambito) {
+        Token token = getToken("ID", lexema);
+
+        return token != null && token.getUso().equals("variable") && token.getAmbito().equals(ambito);
     }
 
-    /**
-     * Asigna un determinado tipo a un conjunto de variables (lexemas)
-     *
-     * @param lexemas Lista de variables a declarar
-     * @param type    Tipo asociado a la lista de variables
-     */
-    public void defineVar(List<String> lexemas, String type, String uso, String ambito) {
-        if (!uso.equals("Nombre_Funcion")) {
-            for (Token token : multimap.get("ID")) {
-                if (lexemas.contains(token.getLexema())) {
-                    String aux_tipo = token.getType();
-                    List<String> aux_ambito = token.getAmbitoEspecial();
-                    token.declare(type);
-                    token.setUso(uso);
-                    token.setAmbito(ambito);
-                   /* if (token.getAmbito().size()>1){
-                        token.borrarAmbito();
-                        for (int j = 0; j < aux_ambito.size(); j++) {
-                            token.setAmbito(aux_ambito.get(j));
-                        }
-                        token.declare(aux_tipo);
-                        Token nuevoToken = new Token(token.getLexema());
-                        multimap.put("ID", nuevoToken);
-                        nuevoToken.setUso(uso);
-                        nuevoToken.declare(type);
-                        nuevoToken.setAmbito(ambito);
-                    }*/
-                }
-            }
-        } else {
-            List<Token> token = (List<Token>) multimap.get("ID");
-            for (int i = 0; i < token.size(); i++) {
-                if ((lexemas.contains(token.get(i).getLexema())) && (!token.get(i).getUso().equals("Nombre_Funcion"))) {
-                    Token nuevoToken = new Token(token.get(i).getLexema());
-                    nuevoToken.setUso(uso);
-                    nuevoToken.declare(type);
-                    multimap.put("ID", nuevoToken);
-                }
-            }
-        }
+    public boolean varDefined(String lexema, String ambito, boolean moveFunction) {
+        // TODO: por ahí llevar a lowercase es innecesario
+        lexema = lexema.toLowerCase();
+
+        if (moveFunction)
+            return varDefinedLocalScope(lexema, ambito);
+
+        return varDefinedGlobalScope(lexema, ambito);
     }
+
+    private boolean varDefinedLocalScope(String lexema, String ambito) {
+        Token token = getToken("ID", lexema);
+
+        return token != null && token.getAmbito().equalsIgnoreCase(ambito);
+
+    }
+
+    private boolean varDefinedGlobalScope(String lexema, String ambito) {
+        if (varDefinedLocalScope(lexema, ambito))
+            return true;
+
+        Token token = getToken("ID", lexema);
+
+        return token != null && ambito.contains(token.getAmbito());
+
+    }
+
+    private Token getToken(String tipoToken, String lexema) {
+        for (Token token : multimap.get(tipoToken))
+            if (token.getLexema().equals(lexema))
+                return token;
+
+        return null;
+    }
+
+//    /**
+//     * Asigna un determinado tipo a un conjunto de variables (lexemas)
+//     *
+//     * @param lexemas Lista de variables a declarar
+//     * @param type    Tipo asociado a la lista de variables
+//     */
+//    public void defineVar(List<String> lexemas, String type, String uso, String ambito) {
+//        if (!uso.equals("nombre_funcion")) {
+//            for (Token token : multimap.get("ID")) {
+//
+//                if (lexemas.contains(token.getLexema())) {
+//                    String aux_tipo = token.getType();
+//                    List<String> aux_ambito = token.getAmbitoEspecial();
+//                    token.declare(type);
+//                    token.setUso(uso);
+//                    token.setAmbito(ambito);
+//
+//
+////                    if (token.getAmbito().size() > 1){
+////                        token.borrarAmbito();
+////
+////                        for (String anAux_ambito : aux_ambito)
+////                            token.setAmbito(anAux_ambito);
+////
+////                        token.declare(aux_tipo);
+////                        Token nuevoToken = new Token(token.getLexema());
+////                        multimap.put("ID", nuevoToken);
+////                        nuevoToken.setUso(uso);
+////                        nuevoToken.declare(type);
+////                        nuevoToken.setAmbito(ambito);
+////                    }
+//
+//                }
+//            }
+//        } else {
+//            List<Token> token = (List<Token>) multimap.get("ID");
+//            for (int i = 0; i < token.size(); i++) {
+//                if ((lexemas.contains(token.get(i).getLexema())) && (!token.get(i).getUso().equals("nombre_funcion"))) {
+//                    Token nuevoToken = new Token(token.get(i).getLexema());
+//                    nuevoToken.setUso(uso);
+//                    nuevoToken.declare(type);
+//                    multimap.put("ID", nuevoToken);
+//                }
+//            }
+//        }
+//    }
+
+    public void defineVar(List<String> lexemas, String type, String uso, String ambito) {
+        if (!uso.equals("nombre_funcion") && !uso.equals("variable"))
+            throw new IllegalArgumentException("Los usos soportados son \'nombre_funcion\' y \'variable\'");
+
+        if (uso.equals("nombre_funcion"))
+            defineFunction(lexemas.get(0), type, ambito);
+
+        if (uso.equals("variable"))
+            defineVariables(lexemas, type, ambito);
+    }
+
+    private void defineFunction(String lexema, String type, String ambito) {
+        Token token = getToken("ID", lexema);
+
+        // TODO: acomodar
+        if (token == null)
+            throw new RuntimeException("QUINCE PESOS");
+
+        token.declare(type);
+        token.setUso("nombre_funcion");
+        token.setAmbito(ambito);
+    }
+
+    private void defineVariables(List<String> lexemas, String type, String ambito) {
+        for (String lexema: lexemas)
+            defineVar(lexema, type, ambito);
+    }
+
+    private void defineVar(String lexema, String type, String ambito) {
+        Token token = getToken("ID", lexema);
+
+        // TODO: temporal, acomodar el texto
+        if (token == null)
+            throw new RuntimeException("QUINCE PESOS");
+
+        if (!token.getAmbito().equals("undefined")) {
+            token = new Token(lexema);
+            multimap.put("ID", token);
+        }
+
+        token.declare(type);
+        token.setUso("variable");
+        token.setAmbito(ambito);
+    }
+
+
 
     /**
      * Devuelve el tipo asociado a la variable declarada
@@ -244,13 +294,6 @@ public class TablaSimbolos {
      */
     @Override
     public String toString() {
-//        StringBuilder aux = new StringBuilder();
-//
-//        for (String key : multimap.keySet())
-//            aux.append(key).append(" --> ").append(this.getLexemas(key)).append("\n");
-//
-//        return aux.toString();
-
         StringBuilder aux = new StringBuilder();
 
         for (String key : multimap.keySet()) {
