@@ -19,12 +19,13 @@ import java.util.Scanner;
 public class Main {
 
     /*
-        // BUGS
-        TODO: Dar soporte a chequeo de redefinición de variables dentro de funciones
+        // IDEAS
+        TODO: Mandar todos los errores a un buffer, e imprimir todo junto al final
 
         // CONSULTAS
         TODO: Preguntar si al final de todo se podrían eliminar las entradas de la TS que están al pedo
 
+        // ACOMODAR
         TODO: Estandarizar la salida por consola
         TODO: JavaDoc -> Clase Lexer
         TODO: JavaDoc -> Acciones Semánticas

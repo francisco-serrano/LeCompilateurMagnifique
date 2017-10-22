@@ -107,7 +107,7 @@ public class TablaSimbolos {
     }
 
     private boolean redefined(String lexema, String ambito) {
-        Token token = getToken("ID", lexema);
+        Token token = getToken(lexema, ambito);
 
         return token != null && token.getUso().equals("variable") && token.getAmbito().equals(ambito);
     }
@@ -123,7 +123,7 @@ public class TablaSimbolos {
     }
 
     private boolean varDefinedLocalScope(String lexema, String ambito) {
-        Token token = getToken("ID", lexema);
+        Token token = getToken(lexema);
 
         return token != null && token.getAmbito().equalsIgnoreCase(ambito);
 
@@ -133,15 +133,23 @@ public class TablaSimbolos {
         if (varDefinedLocalScope(lexema, ambito))
             return true;
 
-        Token token = getToken("ID", lexema);
+        Token token = getToken(lexema);
 
         return token != null && ambito.contains(token.getAmbito());
 
     }
 
-    private Token getToken(String tipoToken, String lexema) {
-        for (Token token : multimap.get(tipoToken))
+    private Token getToken(String lexema) {
+        for (Token token : multimap.get("ID"))
             if (token.getLexema().equals(lexema))
+                return token;
+
+        return null;
+    }
+
+    private Token getToken(String lexema, String ambito) {
+        for (Token token : multimap.get("ID"))
+            if (token.getLexema().equals(lexema) && token.getAmbito().equals(ambito))
                 return token;
 
         return null;
@@ -206,7 +214,7 @@ public class TablaSimbolos {
     }
 
     private void defineFunction(String lexema, String type, String ambito) {
-        Token token = getToken("ID", lexema);
+        Token token = getToken(lexema);
 
         // TODO: acomodar
         if (token == null)
@@ -223,7 +231,7 @@ public class TablaSimbolos {
     }
 
     private void defineVar(String lexema, String type, String ambito) {
-        Token token = getToken("ID", lexema);
+        Token token = getToken(lexema);
 
         // TODO: temporal, acomodar el texto
         if (token == null)
