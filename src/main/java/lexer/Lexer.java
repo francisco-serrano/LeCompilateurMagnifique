@@ -376,6 +376,7 @@ public class Lexer {
             default:
                 throw new IllegalArgumentException("ID INVALIDO");
         }
+
         return a;
     }
 

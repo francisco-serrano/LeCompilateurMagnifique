@@ -11,7 +11,7 @@ UINT FUNCTION aa {
 ULONG FUNCTION bb {
 	var4 : ULONG.
 
-	var4 = 10000000.
+	var4 = 1762371653.
 
 	RETURN (var4 * 15000000).
 }

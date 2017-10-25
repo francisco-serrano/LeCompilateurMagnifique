@@ -505,8 +505,7 @@ int yylex() {
 	yylval = new ParserVal();
 	yylval.ival = lexer.getCurrentLine();
 	yylval.sval = lexer.getCurrentLexema();
-
-	return val;
+    return val;
 }
 
 public void setLexico(Lexer lexer) {
