@@ -110,12 +110,17 @@ asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " 
 									  Item item2 = (Item)$3.obj;
 									  Terceto terceto = null;	
 									  if (! tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
-									  	yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
+									  	  yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA EN EL AMBITO -> " + ambitos.toString());
 									  else {
 										  String tipoAsignacion = tablaSimbolos.getToken($1.sval.toLowerCase()).getType();
 										  String tipoExpresion = (String)(((Item)$3.obj).getTipo());
+										  if (!tipoAsignacion.equals(tipoExpresion))
+                                              yyerror("Línea " + $2.ival + ". Tipos incompatibles en la asignación");
+
+										  /*
 										  if ((!tipoAsignacion.equals("ULONG")) && (tipoExpresion.equals("ULONG")))
 											  yyerror("Línea " + $2.ival + ". Tipos incompatibles en la asignación");
+										  */
 
 									  }
 
@@ -310,7 +315,7 @@ invocacion_funcion : ID OPEN_PAR CLOSE_PAR {
 %%
 
 void yyerror(String error) {
-	System.err.println(error);
+	bufferErrores.add(error);
 }
 
 int yylex() {
@@ -334,12 +339,18 @@ public List<Terceto> getTercetos(){
 	return tercetos;
 } 
 
+public List<String> getErrores() {
+	return bufferErrores;
+}
+
 Lexer lexer;
 
 TablaSimbolos tablaSimbolos;
 
 List<Terceto> tercetos = new ArrayList<>();
 Stack<Integer> pila = new Stack<>();
+
+List<String> bufferErrores = new ArrayList<>();
 
 String uso;
 boolean isMoveFunction = false;

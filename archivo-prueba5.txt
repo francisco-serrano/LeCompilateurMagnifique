@@ -19,10 +19,11 @@ ULONG FUNCTION bb {
 UINT MOVE FUNCTION cc {
 	var3, var5 : UINT.
 
-	var5 = aa().
+	var5 = bb().
 
 	RETURN (var5).
 }
 
 var1 = var2.
+OUT('tu vieja')
 OUT('holaholaaa').
