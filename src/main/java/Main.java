@@ -3,7 +3,6 @@ import parser.Parser;
 import lexer.Lexer;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -19,9 +18,11 @@ import java.util.Scanner;
  */
 public class Main {
 
+    private static final String DIR_MATRIZ_ESTADOS = "matriz-estados.txt";
+    private static final String DIR_MATRIZ_ACC_SEMANTICAS = "matriz-acc-semanticas.txt";
+
     /*
         // IDEAS
-        TODO: Mandar todos los errores a un buffer, e imprimir todo junto al final
         TODO: Definir si el método redefined y varDefined se pueden juntar
         TODO: Acomodar los nombres de los métodos (poner todos en declarar en vez de definir)
 
@@ -35,63 +36,62 @@ public class Main {
         TODO: JavaDoc -> Parser (Dejarlo para el final del trabajo)
      */
 
+    /**
+     * Inicio de la ejecución.
+     * @param args Argumentos de la aplicación enviados por la línea de comandos.
+     */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-//        while (true) {
-//            System.out.print("Ingrese ruta del archivo (EXIT para salir): ");
-//            String fileDir = scanner.nextLine();
-//
-//            if (fileDir.equalsIgnoreCase("EXIT"))
-//                break;
-
-        // Dejarlo comentado para después ir probando con un archivo fijo
-        String fileDir = "archivo-prueba5.txt";
-
-        String dirMatrizEstados = "matriz-estados.txt";
-        String dirMatrizSemantica = "matriz-acc-semanticas.txt";
-
-        TablaSimbolos tablaSimbolos = new TablaSimbolos();
-
-        Lexer lexer = null;
-        try {
-            lexer = new Lexer(fileDir, dirMatrizEstados, dirMatrizSemantica, tablaSimbolos);
-        } catch (FileNotFoundException e) {
-            System.err.println("\nArchivo no encontrado");
-//                continue;
-        }
-
-        // En caso de querer probar los tokens que se imprimen
-//            Main.consumeTokens(lexer);
-
-        // PARSER: 0 -> ACEPTADA; 1 -> RECHAZADA
-        Parser parser = new Parser();
-        parser.setLexico(lexer);
-        parser.setTablaSimbolos(tablaSimbolos);
-        System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse() + "\n");
-//            System.out.println(parser.getTercetos());
-        System.out.println(tablaSimbolos);
-
-        System.out.println("ERRORES");
-        for (String err : parser.getErrores())
-            System.err.println(err);
-
-        System.out.println("\n");
-//        }
-
+        runInDevelopmentMode("archivo-prueba5.txt");
     }
 
     /**
-     * Método auxiliar para controlar el funcionamiento del análisis léxico. Imprime los tokens
-     * reconocidos por salida estándar.
-     *
-     * @param lexer Analizador Léxico a controlar
+     * Método privado auxiliar para testear el compilador en desarrollo. Esto es efectuar la compilación para
+     * un archivo en particular, pasado por parámetro.
+     * @param fileDir Ruta del archivo a compilar.
      */
-    private static void consumeTokens(Lexer lexer) {
-        int token;
-        while ((token = lexer.yylex()) != 0)
-            System.out.println("<" + token + ">");
+    private static void runInDevelopmentMode(String fileDir) {
+        TablaSimbolos tablaSimbolos = new TablaSimbolos();
+
+        Lexer lexer;
+        try {
+            lexer = new Lexer(fileDir, DIR_MATRIZ_ESTADOS, DIR_MATRIZ_ACC_SEMANTICAS, tablaSimbolos);
+        } catch (FileNotFoundException e) {
+            System.err.println("\nArchivo no encontrado");
+            return;
+        }
+
+        Parser parser = new Parser();
+        parser.setLexico(lexer);
+        parser.setTablaSimbolos(tablaSimbolos);
     }
 
+    /**
+     * Método privado auxiliar para testear el compilador en producción. Esto es con un bucle, solicitando al
+     * usuario ingresar la ruta del archivo por línea de comandos.
+     */
+    private static void runInProductionMode() {
+        Scanner scanner = new Scanner(System.in);
 
+        while (true) {
+            System.out.print("Ingrese ruta del archivo (EXIT para salir): ");
+            String fileDir = scanner.nextLine();
+
+            if (fileDir.equalsIgnoreCase("EXIT"))
+                break;
+
+            TablaSimbolos tablaSimbolos = new TablaSimbolos();
+
+            Lexer lexer;
+            try {
+                lexer = new Lexer(fileDir, DIR_MATRIZ_ESTADOS, DIR_MATRIZ_ACC_SEMANTICAS, tablaSimbolos);
+            } catch (FileNotFoundException e) {
+                System.err.println("\nArchivo no encontrado");
+                continue;
+            }
+
+            Parser parser = new Parser();
+            parser.setLexico(lexer);
+            parser.setTablaSimbolos(tablaSimbolos);
+        }
+    }
 }
