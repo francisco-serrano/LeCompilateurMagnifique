@@ -75,7 +75,6 @@ public class Main {
 
         System.out.println("\nTERCETOS");
         for (Terceto terceto : parser.getTercetos())
-            System.out.println(terceto);
     }
 
     /**
