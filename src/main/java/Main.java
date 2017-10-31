@@ -106,7 +106,17 @@ public class Main {
             parser.setLexico(lexer);
             parser.setTablaSimbolos(tablaSimbolos);
 
-            // TODO: agregar para que se consuman los tokens, si no el compilador no hace nada
+            System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse());
+
+            System.out.println("\n" + tablaSimbolos);
+
+            System.out.println("\nERRORES");
+            for (String error : parser.getErrores())
+                System.out.println(error);
+
+            System.out.println("\nTERCETOS");
+            for (Terceto terceto : parser.getTercetos())
+                System.out.println(terceto);
         }
     }
 }
