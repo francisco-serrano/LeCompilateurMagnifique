@@ -27,7 +27,7 @@ public class ItemTerceto implements Item{
     }
 
     public ItemString toItemString() {
-        return new ItemString("[T " + arg.getNumero() + "]");
+        return new ItemString("[" + arg.getNumero() + "]");
     }
 
     public String getTipo (){

@@ -1,29 +1,4 @@
 var1, var2, var5 : UINT.
 
-UINT FUNCTION aa {
-	var3 : UINT.
-
-	var3 = 100.
-
-	RETURN (var3).
-}
-
-ULONG FUNCTION bb {
-	var4 : ULONG.
-
-	var4 = 1762371653.
-
-	RETURN (var4 * 15000000).
-}
-
-UINT MOVE FUNCTION cc {
-	var3, var5 : UINT.
-
-	var5 = bb().
-
-	RETURN (var5).
-}
-
-var1 = var2.
-OUT('tu vieja')
-OUT('holaholaaa').
+var2=var1 + 5 +2+ var2.
+var2=var5.

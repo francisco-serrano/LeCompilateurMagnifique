@@ -7,7 +7,8 @@ public class Terceto {
     private Item arg1, arg2;
     private int num; //numero del terceto en particular
     private String tipo;
-    private boolean isWhile=false;
+    private boolean isWhile = false;
+    private boolean isDireccionSalto = false;
 
 
     public Terceto(String operador, Item arg1, Item arg2, String tipo) {
@@ -51,9 +52,13 @@ public class Terceto {
         this.arg2 = arg2;
     }
 
+    public void setDireccionSalto() { this.isDireccionSalto = true; }
+
+    public boolean getDireccionSalto() { return isDireccionSalto; }
+
     @Override
     public String toString() {
-        return "Terceto numero " + this.getNumero() + ":  " + "( " + this.operador + " , " + this.arg1.toString() + " , " + this.arg2.toString() + " ) " + this.getTipo() + "\n";
+        return "Terceto numero " + this.getNumero() + ":  " + "( " + this.operador + " , " + this.arg1.toString() + " , " + this.arg2.toString() + " ) " + this.getDireccionSalto() + "\n";
     }
 
     public String getTipo(){

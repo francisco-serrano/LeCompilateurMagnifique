@@ -116,12 +116,6 @@ asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " 
 										  String tipoExpresion = (String)(((Item)$3.obj).getTipo());
 										  if (!tipoAsignacion.equals(tipoExpresion))
                                               yyerror("Línea " + $2.ival + ". Tipos incompatibles en la asignación");
-
-										  /*
-										  if ((!tipoAsignacion.equals("ULONG")) && (tipoExpresion.equals("ULONG")))
-											  yyerror("Línea " + $2.ival + ". Tipos incompatibles en la asignación");
-										  */
-
 									  }
 
 									  terceto = new Terceto("=", new ItemString((String)$1.sval), item2, null);
@@ -142,8 +136,11 @@ seleccion : seleccion_simple else bloque_sentencias END_IF {
 																((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg1(new ItemString("[" + (tercetos.size() + 1) + "]"));
 															}
 		  | seleccion_simple END_IF { 
-										System.out.println("Línea " + $1.ival + ". Sentencia IF"); 
+										System.out.println("Línea " + $2.ival + ". Sentencia IF");
 										((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 1) + "]"));
+										ItemString aux = new ItemString(("" + tercetos.size() + 1));
+										System.out.println("El terceto que estoy buscando es el " + aux.getArg() + " " + tercetos);
+										
 									}
 ;
 
@@ -193,8 +190,6 @@ bloque_compuesto : bloque_compuesto bloque_simple | bloque_simple
 ;
 
 iteracion : while condicion_while DO bloque_sentencias { 
-															System.out.println("Línea " + $1.ival + ". Estructura WHILE"); 
-															System.out.println(" FINALIZA ITERACION PILA" + pila.toString());
 															((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 2) + "]"));
 															Terceto t = new Terceto("BI", new ItemTerceto((Terceto)tercetos.get((pila.pop()).intValue() - 1)), new ItemString("_"), null);
 															tercetos.add(t);
@@ -202,16 +197,13 @@ iteracion : while condicion_while DO bloque_sentencias {
 ;
 
 while : WHILE{
-				System.out.println(" ARRANCA WHILE PILA" + pila.toString());
 				pila.push(new Integer(tercetos.size() + 1));
 			 }
 ;
 
 condicion_while : condicion {
-								System.out.println(" ARRANCA CONDICION_WHILE PILA" + pila.toString());
 								Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(tercetos.get(tercetos.size() - 1))), new ItemString("_"), null);
 								tercetos.add(t);
-								System.out.println("NUMERO! " + t.getNumero());
 								pila.push(new Integer(t.getNumero()));
                             }
 ;
@@ -336,8 +328,32 @@ public void setTablaSimbolos(TablaSimbolos ts) {
 }
 
 public List<Terceto> getTercetos(){
+    String posta = "";
+	for (int i = 0; i < tercetos.size(); i++) {
+        if (tercetos.get(i).getOperador() == "BF") {
+            posta = parsearString(tercetos.get(i).getArg2().toItemString());
+            if (tercetos.size() >= new Integer(posta).intValue()-1) {
+                tercetos.get(new Integer(posta).intValue()-1).setDireccionSalto();
+            }
+
+        }
+		if (tercetos.get(i).getOperador() == "BI") {
+            posta = parsearString(tercetos.get(i).getArg1().toItemString());
+            if (tercetos.size() >= new Integer(posta).intValue()-1) {
+                tercetos.get(new Integer(posta).intValue()-1).setDireccionSalto();
+            }
+        } 
+    }
 	return tercetos;
-} 
+}
+
+private String parsearString(ItemString aux){
+    String s = aux.getArg();
+    String[] parts = s.split("\\[");
+    String part2 = parts[1];
+    String[] partes2 = part2.split("\\]");
+    return partes2[0];
+}
 
 public List<String> getErrores() {
 	return bufferErrores;
