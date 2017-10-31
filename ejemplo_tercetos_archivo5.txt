@@ -1,7 +1,9 @@
-1.  ( = , var3 , 100 ) null
-2.  ( = , var4 , 1762371653 ) null
-3.  ( * , var4 , 15000000 ) null
-4.  ( = , var5 , bb ) null
-5.  ( = , var1 , var2 ) null
-6.  ( PRINT , 'que onda' , - ) null
-7.  ( PRINT , 'holaholaaa' , - ) null
+1.  ( * , 2 , 5 ) null
+2.  ( + , 100 , [1] ) null
+3.  ( = , var3 , [2] ) null
+4.  ( = , var4 , 1762371653 ) null
+5.  ( * , var4 , 15000000 ) null
+6.  ( = , var5 , aa ) null
+7.  ( = , var1 , var2 ) null
+8.  ( PRINT , 'que onda' , - ) null
+9.  ( PRINT , 'holaholaaa' , - ) null

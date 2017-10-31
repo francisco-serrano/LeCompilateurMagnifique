@@ -1,14 +1,30 @@
 package generadorcodigo;
 
+import lexer.Terceto;
+
+import java.util.List;
+
 public class Generador {
 
     private static final int CANTIDAD_REGISTROS = 4;
 
-    // Inicializo la tabla con todos en falso, o sea arrancan todos libres
-    private boolean[] registro_ocupado = new boolean[CANTIDAD_REGISTROS];
+    private List<Terceto> tercetos;
+    private TablaRegistros tablaRegistros = new TablaRegistros(CANTIDAD_REGISTROS);
+    private StringBuilder codigoAssembler = new StringBuilder();
 
-    public Generador() {
-        for (boolean reg : registro_ocupado)
-            System.out.print(reg + " ");
+    public Generador(List<Terceto> tercetos) {
+        this.tercetos = tercetos;
+    }
+
+    public void generateAssembler() {
+        for (Terceto terceto : tercetos)
+            generateAssembler(terceto);
+    }
+
+    private void generateAssembler(Terceto terceto) {
+        /*
+            Cada operación tiene un tipo de assembler asociado.
+            Hay que ir asignándole el registro asociado a cada terceto.
+         */
     }
 }

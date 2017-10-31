@@ -1,3 +1,4 @@
+import generadorcodigo.Generador;
 import lexer.*;
 import parser.Parser;
 
@@ -42,7 +43,7 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-        runInDevelopmentMode("archivo-prueba5.txt");
+        runInDevelopmentMode("archivo-prueba6.txt");
     }
 
     /**
@@ -67,14 +68,17 @@ public class Main {
 
         System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse());
 
-        System.out.println("\n" + tablaSimbolos);
+//        System.out.println("\n" + tablaSimbolos);
 
-        System.out.println("\nERRORES");
-        for (String error : parser.getErrores())
-            System.out.println(error);
+//        System.out.println("\nERRORES");
+//        for (String error : parser.getErrores())
+//            System.out.println(error);
 
-        System.out.println("\nTERCETOS");
-        for (Terceto terceto : parser.getTercetos())
+//        System.out.println("\nTERCETOS");
+//        for (Terceto terceto : parser.getTercetos())
+//            System.out.println(terceto);
+
+        new Generador(parser.getTercetos());
     }
 
     /**

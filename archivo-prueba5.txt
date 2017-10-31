@@ -3,7 +3,7 @@ var1, var2, var5 : UINT.
 UINT FUNCTION aa {
 	var3 : UINT.
 
-	var3 = 100.
+	var3 = 100 + 2 * 5.
 
 	RETURN (var3).
 }
