@@ -64,20 +64,17 @@ public class Main {
         Parser parser = new Parser();
         parser.setLexico(lexer);
         parser.setTablaSimbolos(tablaSimbolos);
-        System.out.println(parser.yyparse());
-        System.out.println("ERRORES");
-        System.out.println(parser.getErrores());
-        System.out.println("TERCETOS");
-        System.out.println(parser.getTercetos());
 
-        List<Terceto> t = parser.getTercetos();
-        for (int i = 0; i < t.size() ; i++) {
-            if (t.get(i).getOperador().equals("+")){
-                if (t.get(i).getArg1().toString().contains("["))
-                    System.out.println("es un item terceto");
-            }
-        }
+        System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse());
 
+        System.out.println("\n" + tablaSimbolos);
+
+        System.out.println("\nERRORES");
+        for (String error : parser.getErrores())
+            System.out.println(error);
+
+        System.out.println("\nTERCETOS");
+        for (Terceto terceto : parser.getTercetos())
     }
 
     /**
@@ -107,6 +104,8 @@ public class Main {
             Parser parser = new Parser();
             parser.setLexico(lexer);
             parser.setTablaSimbolos(tablaSimbolos);
+
+            // TODO: agregar para que se consuman los tokens, si no el compilador no hace nada
         }
     }
 }

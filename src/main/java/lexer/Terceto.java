@@ -10,6 +10,8 @@ public class Terceto {
     private boolean isWhile = false;
     private boolean isDireccionSalto = false;
 
+    private String associatedRegister;
+
 
     public Terceto(String operador, Item arg1, Item arg2, String tipo) {
         this.operador = operador;
@@ -58,7 +60,7 @@ public class Terceto {
 
     @Override
     public String toString() {
-        return "Terceto numero " + this.getNumero() + ":  " + "( " + this.operador + " , " + this.arg1.toString() + " , " + this.arg2.toString() + " ) " + this.getDireccionSalto() + "\n";
+        return this.getNumero() + ".  " + "( " + this.operador + " , " + this.arg1.toString() + " , " + this.arg2.toString() + " ) " + this.associatedRegister;
     }
 
     public String getTipo(){
@@ -75,6 +77,10 @@ public class Terceto {
 
     public boolean getIsWhileFlag(){
         return this.isWhile;
+    }
+
+    public void addRegister(String reg) {
+        this.associatedRegister = reg;
     }
 
 }
