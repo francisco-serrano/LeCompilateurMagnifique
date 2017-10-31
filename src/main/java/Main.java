@@ -1,8 +1,9 @@
-import lexer.TablaSimbolos;
+import lexer.*;
 import parser.Parser;
-import lexer.Lexer;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -63,6 +64,18 @@ public class Main {
         Parser parser = new Parser();
         parser.setLexico(lexer);
         parser.setTablaSimbolos(tablaSimbolos);
+
+        System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse());
+
+        System.out.println("\n" + tablaSimbolos);
+
+        System.out.println("\nERRORES");
+        for (String error : parser.getErrores())
+            System.out.println(error);
+
+        System.out.println("\nTERCETOS");
+        for (Terceto terceto : parser.getTercetos())
+            System.out.println(terceto);
     }
 
     /**
@@ -92,6 +105,8 @@ public class Main {
             Parser parser = new Parser();
             parser.setLexico(lexer);
             parser.setTablaSimbolos(tablaSimbolos);
+
+            // TODO: agregar para que se consuman los tokens, si no el compilador no hace nada
         }
     }
 }

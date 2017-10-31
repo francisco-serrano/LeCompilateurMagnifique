@@ -1,5 +1,5 @@
 var1, var2, var5 : UINT.
-
+  
 UINT FUNCTION aa {
 	var3 : UINT.
 
@@ -19,11 +19,11 @@ ULONG FUNCTION bb {
 UINT MOVE FUNCTION cc {
 	var3, var5 : UINT.
 
-	var5 = bb().
+	var5 = aa().
 
 	RETURN (var5).
 }
 
 var1 = var2.
-OUT('tu vieja')
+OUT('que onda').
 OUT('holaholaaa').
