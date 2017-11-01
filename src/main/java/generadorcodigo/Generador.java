@@ -26,5 +26,6 @@ public class Generador {
             Cada operación tiene un tipo de assembler asociado.
             Hay que ir asignándole el registro asociado a cada terceto.
          */
+        System.out.println("Generando assembler para el terceto " + terceto);
     }
 }

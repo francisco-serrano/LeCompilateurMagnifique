@@ -68,17 +68,19 @@ public class Main {
 
         System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse());
 
-//        System.out.println("\n" + tablaSimbolos);
+        System.out.println("\n" + tablaSimbolos);
 
-//        System.out.println("\nERRORES");
-//        for (String error : parser.getErrores())
-//            System.out.println(error);
+        System.out.println("\nERRORES");
+        for (String error : parser.getErrores())
+            System.out.println(error);
 
-//        System.out.println("\nTERCETOS");
-//        for (Terceto terceto : parser.getTercetos())
-//            System.out.println(terceto);
+        System.out.println("\nTERCETOS");
+        for (Terceto terceto : parser.getTercetos())
+            System.out.println(terceto);
 
-        new Generador(parser.getTercetos());
+        Generador generador = new Generador(parser.getTercetos());
+        generador.generateAssembler();
+
     }
 
     /**
