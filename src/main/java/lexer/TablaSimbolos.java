@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
 import java.util.List;
 
 /**

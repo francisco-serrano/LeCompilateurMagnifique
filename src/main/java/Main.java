@@ -24,6 +24,11 @@ public class Main {
     private static final String DIR_MATRIZ_ACC_SEMANTICAS = "matriz-acc-semanticas.txt";
 
     /*
+        // COSAS HACER!!!!
+        TODO: Priorizar las variables antes que las funciones, si no tirar error
+        TODO: Tercetos -> Agregar un terceto para el call y otro para el retorno
+        TODO: Que las variables en el terceto tengan la forma: var3@main@aa
+
         // IDEAS
         TODO: Definir si el método redefined y varDefined se pueden juntar
         TODO: Acomodar los nombres de los métodos (poner todos en declarar en vez de definir)
@@ -43,7 +48,7 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-        runInDevelopmentMode("archivo-prueba6.txt");
+        runInDevelopmentMode("archivo-prueba5.txt");
     }
 
     /**
@@ -79,6 +84,10 @@ public class Main {
         System.out.println("\nTERCETOS");
         for (Terceto terceto : parser.getTercetos())
             System.out.println(terceto);
+
+        System.out.println("\nHOLA QUE ONDA");
+        for (String key : parser.getMapeoFuncion().keySet())
+            System.out.println(key + " --> " + parser.getMapeoFuncion().get(key));
 
         //Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
         //generador.generateAssembler();

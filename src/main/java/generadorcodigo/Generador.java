@@ -47,7 +47,6 @@ public class Generador {
     }
 
     public void generateAssembler() {
-
         this.code.append(".386 \n");
         this.code.append(".model flat,stdcall                 ;Modelo de memoria 'pequeño' \n");
         this.code.append(".stack 200h                  ;Tamaño de la pila\n");

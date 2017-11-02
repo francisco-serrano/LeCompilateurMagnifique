@@ -12,6 +12,9 @@
     import java.util.Vector;
 	import java.util.ArrayList;
 	import java.util.List;
+
+	import com.google.common.collect.ArrayListMultimap;
+	import com.google.common.collect.Multimap;
 %}
 
 %token ID CTE ASIGN ADD SUB MULT DIV DOT BEGIN END COLON COMMA UINT ULONG IF OPEN_PAR CLOSE_PAR THEN ELSE END_IF LEQ GEQ LT GT EQ NEQ OUT CADENA FUNCTION MOVE OPEN_BRACE CLOSE_BRACE RETURN WHILE DO
@@ -49,7 +52,7 @@ lista_var : lista_var COMMA ID { auxVariables.add($3.sval.toLowerCase()); }
 tipo : UINT | ULONG
 ;
 
-declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); } cuerpo_funcion { 
+declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); isFunction = true; } cuerpo_funcion { 
 																					uso = "nombre_funcion";
 
 																					if (!tablaSimbolos.functionDefined($3.sval)){
@@ -62,10 +65,11 @@ declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); } cuerpo_funcion
 																					}
 
 																					ambitos.pop();
+																					isFunction = false;
 																					auxVariables.clear();
 																				 }
 					| FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
-					| tipo MOVE FUNCTION ID { ambitos.push($4.sval); isMoveFunction = true; } cuerpo_funcion { 	
+					| tipo MOVE FUNCTION ID { ambitos.push($4.sval); isMoveFunction = true; isFunction = true; } cuerpo_funcion { 	
 																												uso = "nombre_funcion";
 
 																												if (!tablaSimbolos.functionDefined($4.sval)){
@@ -79,6 +83,7 @@ declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); } cuerpo_funcion
 
 																												ambitos.pop();
 																												isMoveFunction = false;
+																												isFunction = false;
 																												auxVariables.clear();
 																											}
 					| MOVE FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
@@ -98,7 +103,12 @@ sentencia : asignacion | print | seleccion | iteracion | declaracion
 print : OUT OPEN_PAR CADENA CLOSE_PAR DOT { 
 											System.out.println("Sentencia OUT. Línea " + $1.ival); 
 											Terceto t = new Terceto("PRINT", new ItemString($3.sval), new ItemString("-"), null);
-											tercetos.add(t);
+											
+											if (isFunction)
+									  			mapeoFuncion.put(ambitos.peek(), t);
+									  		else
+									  			tercetos.add(t);
+
 										  }
 	  | OUT OPEN_PAR CADENA CLOSE_PAR { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta DOT"); }
 	  | OUT OPEN_PAR CADENA DOT { yyerror("\tLínea " + $1.ival + ". Estructura OUT incompleta. Falta CLOSE_PAR"); }
@@ -108,7 +118,7 @@ print : OUT OPEN_PAR CADENA CLOSE_PAR DOT {
 
 asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " + $1.ival);
 									  Item item2 = (Item)$3.obj;
-									  Terceto terceto = null;	
+									  Terceto t = null;	
 									  if (! tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
 									  	  yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA EN EL AMBITO -> " + ambitos.toString());
 									  else {
@@ -118,9 +128,14 @@ asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " 
                                               yyerror("Línea " + $2.ival + ". Tipos incompatibles en la asignación");
 									  }
 
-									  terceto = new Terceto("=", new ItemString((String)$1.sval), item2, null);
-								      tercetos.add(terceto);
-									  $$.obj = new ItemTerceto(terceto);
+									  t = new Terceto("=", new ItemString((String)$1.sval), item2, null);
+
+									  if (isFunction)
+									  	mapeoFuncion.put(ambitos.peek(), t);
+									  else
+									  	tercetos.add(t);
+
+									  $$.obj = new ItemTerceto(t);
 									}
 		   | ID ASIGN expresion { yyerror("\tLínea " + $1.ival + ". Asignación incompleta. Falta DOT"); }
 ;
@@ -147,7 +162,12 @@ seleccion : seleccion_simple else bloque_sentencias END_IF {
 else: ELSE {
 				((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 2) + "]"));
 				Terceto t = new Terceto("BI", new ItemString("_"), new ItemString("_"), null);
-				tercetos.add(t);
+				
+				if (isFunction)
+					mapeoFuncion.put(ambitos.peek(), t);
+				else
+					tercetos.add(t);
+
 				pila.push(new Integer(t.getNumero()));
 		   }
 ;
@@ -157,7 +177,12 @@ seleccion_simple : IF condicion_if THEN bloque_sentencias
 
 condicion_if : condicion {
 							Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(tercetos.get(tercetos.size() - 1))), new ItemString("_"), null);
-							tercetos.add(t);
+							
+							if (isFunction)
+								mapeoFuncion.put(ambitos.peek(), t);
+							else
+								tercetos.add(t);
+
 							pila.push(new Integer(t.getNumero()));	
 						 }	
 ;
@@ -171,7 +196,12 @@ condicion : OPEN_PAR expresion comparador expresion CLOSE_PAR {
 																Item item2 = (Item)$4.obj;
 																
 																Terceto t = new Terceto($3.sval, item1, item2, null);
-																tercetos.add(t);												  
+																
+																if (isFunction)
+									  								mapeoFuncion.put(ambitos.peek(), t);
+									  							else
+									  								tercetos.add(t);
+
 																$$.obj = new ItemTerceto(t);
 															  }
 		  | expresion comparador expresion CLOSE_PAR { yyerror("Línea " + $2.ival + ". Condicion incompleta. Falta OPEN_PAR"); }
@@ -192,7 +222,12 @@ bloque_compuesto : bloque_compuesto bloque_simple | bloque_simple
 iteracion : while condicion_while DO bloque_sentencias { 
 															((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 2) + "]"));
 															Terceto t = new Terceto("BI", new ItemTerceto((Terceto)tercetos.get((pila.pop()).intValue() - 1)), new ItemString("_"), null);
-															tercetos.add(t);
+															
+															if (isFunction)
+									  							mapeoFuncion.put(ambitos.peek(), t);
+									  						else
+									  							tercetos.add(t);
+
 													   }
 ;
 
@@ -203,7 +238,12 @@ while : WHILE{
 
 condicion_while : condicion {
 								Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(tercetos.get(tercetos.size() - 1))), new ItemString("_"), null);
-								tercetos.add(t);
+								
+								if (isFunction)
+									mapeoFuncion.put(ambitos.peek(), t);
+								else
+									tercetos.add(t);
+
 								pila.push(new Integer(t.getNumero()));
                             }
 ;
@@ -217,7 +257,12 @@ expresion : expresion ADD termino {
 									if (!tipo1.equals(tipo2))
 										yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la suma");
 									Terceto t = new Terceto("+", item1, item2, tipo1);
-									tercetos.add(t);
+									
+									if (isFunction)
+									  	mapeoFuncion.put(ambitos.peek(), t);
+									else
+									  	tercetos.add(t);
+
 									$$.obj = new ItemTerceto(t); 
 								  } 
 		  | expresion SUB termino { 
@@ -229,7 +274,12 @@ expresion : expresion ADD termino {
 									if (!tipo1.equals(tipo2))
 										yyerror("Línea " + $2.ival + ". Tipos incompatibles en la resta");
 									Terceto t = new Terceto("-", item1, item2, tipo1);
-									tercetos.add(t);
+									
+									if (isFunction)
+									  	mapeoFuncion.put(ambitos.peek(), t);
+									else
+									  	tercetos.add(t);
+
 									$$.obj = new ItemTerceto(t);
 								  } 
 		  | termino { $$.obj = $1.obj; }
@@ -244,7 +294,12 @@ termino : termino MULT factor {
 								if (!tipo1.equals(tipo2))
 									yyerror("Línea " + $2.ival + ". Tipos incompatibles en la multiplicación");
 								Terceto t = new Terceto("*", item1, item2, tipo1);
-								tercetos.add(t);
+								
+								if (isFunction)
+									mapeoFuncion.put(ambitos.peek(), t);
+								else
+									tercetos.add(t);
+
 								$$.obj = new ItemTerceto(t);
 							  } 
 		| termino DIV factor { 
@@ -256,7 +311,12 @@ termino : termino MULT factor {
 								if (!tipo1.equals(tipo2))
 									yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la division");
 								Terceto t = new Terceto("/", item1, item2, tipo1);
-								tercetos.add(t);
+								
+								if (isFunction)
+									mapeoFuncion.put(ambitos.peek(), t);
+								else
+									tercetos.add(t);
+
 								$$.obj = new ItemTerceto(t);
 							 } 
 		| factor { $$.obj = $1.obj; }
@@ -359,6 +419,10 @@ public List<String> getErrores() {
 	return bufferErrores;
 }
 
+public Multimap<String, Terceto> getMapeoFuncion() {
+	return mapeoFuncion;
+}
+
 Lexer lexer;
 
 TablaSimbolos tablaSimbolos;
@@ -374,3 +438,7 @@ boolean isMoveFunction = false;
 List<String> auxVariables = new ArrayList<>();
 
 CustomStack<String> ambitos = new CustomStack<>("main");
+
+Multimap<String, Terceto> mapeoFuncion = ArrayListMultimap.create();
+
+boolean isFunction = false;

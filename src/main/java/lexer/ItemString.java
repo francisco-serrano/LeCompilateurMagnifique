@@ -1,11 +1,11 @@
 package lexer;
 
-public class ItemString implements Item{
+public class ItemString implements Item {
     private String arg;
-    private TablaSimbolos tabla=null;
+    private TablaSimbolos tabla = null;
 
-    public void setTabla(TablaSimbolos tabla){
-        this.tabla=tabla;
+    public void setTabla(TablaSimbolos tabla) {
+        this.tabla = tabla;
     }
 
     public ItemString(String arg) {
@@ -33,8 +33,8 @@ public class ItemString implements Item{
         return this;
     }
 
-    public String getTipo(){
-      //hay que acceder a la tabla de simbolos, ver si esta el arg (puede ser constante o variable o funcion) y despues sacarle el tipo del token
+    public String getTipo() {
+        //hay que acceder a la tabla de simbolos, ver si esta el arg (puede ser constante o variable o funcion) y despues sacarle el tipo del token
         Token aux = tabla.getToken(this.arg);
 
         return aux.getType();

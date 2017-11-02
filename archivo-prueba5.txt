@@ -1,4 +1,4 @@
-var1, var2, var5 : UINT.
+var1, var2, var5, aa : UINT.
   
 UINT FUNCTION aa {
 	var3 : UINT.
@@ -25,5 +25,7 @@ UINT MOVE FUNCTION cc {
 }
 
 var1 = var2.
+var2 = aa().
+var5 = aa.
 OUT('que onda').
 OUT('holaholaaa').
