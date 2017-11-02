@@ -133,7 +133,7 @@ public class Lexer {
             } else {
 
                 if (estadoActual == 6 || estadoActual == 5)
-                    System.out.println("WARNING: fin de archivo con comentario/cadena abierto/a");
+                    tablaSimbolos.setErroresLexicos("WARNING: fin de archivo con comentario/cadena abierto/a");
             }
             indice++;
         }
@@ -410,4 +410,6 @@ public class Lexer {
         mapeoColumna.put('E', 21); // Enter
         mapeoColumna.put('C', 22);
     }
+
+
 }

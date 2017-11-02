@@ -1,3 +1,5 @@
 var1 : UINT.
 
-var1 = 100 + 2 * 3.
+var1 = 100 + 2.
+
+OUT('la concha de tu mother fucker').

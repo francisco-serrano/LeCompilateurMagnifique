@@ -71,6 +71,8 @@ public class Main {
         System.out.println("\n" + tablaSimbolos);
 
         System.out.println("\nERRORES");
+        for (String errorlexico : tablaSimbolos.getErroreLexicos())
+            System.out.println(errorlexico);
         for (String error : parser.getErrores())
             System.out.println(error);
 
@@ -78,8 +80,8 @@ public class Main {
         for (Terceto terceto : parser.getTercetos())
             System.out.println(terceto);
 
-        Generador generador = new Generador(parser.getTercetos());
-        generador.generateAssembler();
+        //Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
+        //generador.generateAssembler();
 
     }
 

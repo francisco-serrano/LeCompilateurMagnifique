@@ -13,7 +13,7 @@ public class AS3 extends AccionSemantica {
         String token_retornar;
 
         if (token.length() > 15) {
-            System.out.println("Warning linea " + linea + ": Identificador con longitud mayor a 15 fue truncado");
+            tablita.setErroresLexicos("Warning linea " + linea + ": Identificador con longitud mayor a 15 fue truncado");
             token.delete(15, token.length());
         }
 

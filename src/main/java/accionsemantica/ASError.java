@@ -5,6 +5,7 @@ import lexer.TablaSimbolos;
 
 public class ASError extends AccionSemantica {
 
+
     public ASError(TablaSimbolos t) {
         super(t);
     }
@@ -12,7 +13,8 @@ public class ASError extends AccionSemantica {
     @Override
     public String aplicarAccion(char a, int indice) {
 
-        System.err.println("Linea " + this.linea + ": El siguiente caracter es invalido-> " + a );
+        tablita.setErroresLexicos("Linea " + this.linea + ": El siguiente caracter es invalido-> " + a);
+        //System.err.println(s);
 
         this.indice = indice;
 

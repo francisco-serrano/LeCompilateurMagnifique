@@ -3,7 +3,9 @@ package lexer;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ public class TablaSimbolos {
 
     private Multimap<String, Token> multimap = ArrayListMultimap.create();
     private List<String> reservedWords = Arrays.asList(arr_reservedWords);
+    private List<String> erroreLexicos = new ArrayList<>();
 
     /**
      * Añade un lexema a la tabla de símbolos.
@@ -32,8 +35,15 @@ public class TablaSimbolos {
         if (multimap.get(tipoToken).contains(new Token(lexema)))
             return; // Quiere decir que el token ya fue agregado
 
-        if (tipoToken.equals("ID") || tipoToken.equals("CTE") || tipoToken.equals("CADENA"))
-            multimap.put(tipoToken, new Token(lexema));
+        if (tipoToken.equals("ID") || tipoToken.equals("CTE") || tipoToken.equals("CADENA")) {
+           Token t = new Token(lexema);
+
+            if (tipoToken.equals("CADENA")){
+               t.setUso("cadena");
+           }
+
+            multimap.put(tipoToken, t);
+        }
         else
             throw new IllegalArgumentException("Los tipos de token disponibles son ID, CTE y CADENA");
     }
@@ -51,6 +61,7 @@ public class TablaSimbolos {
             return; // Quiere decir que el token ya fue agregado
 
         token.declare(tipo);
+        token.setUso("constante");
 
         multimap.put("CTE", token);
     }
@@ -281,4 +292,12 @@ public class TablaSimbolos {
 
         return aux.toString();
     }
+
+    public Multimap<String,Token> getTabla(){ return this.multimap; }
+
+    public void setErroresLexicos(String aux){
+        this.erroreLexicos.add(aux);
+    }
+
+    public List<String> getErroreLexicos(){ return this.erroreLexicos; }
 }

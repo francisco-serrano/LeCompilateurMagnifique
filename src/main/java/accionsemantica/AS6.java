@@ -14,7 +14,7 @@ public class AS6 extends AccionSemantica {
 
         // Chequeo rango menor (ulong)
         if (Double.parseDouble(token.toString()) < 0) {
-            System.out.println("Linea " + linea + ": Constante fuera de rango");
+            tablita.setErroresLexicos("Linea " + linea + ": Constante fuera de rango");
         }
         // Si esta dentro del rango
         if (Double.parseDouble(token.toString()) <= (Math.pow(2, 32) - 1)) {
@@ -29,6 +29,7 @@ public class AS6 extends AccionSemantica {
                 token_retornar = "CTE->" + token.toString();
             }
         } else {  //en caso de q sea mayor al rango, calculo el overflow
+            tablita.setErroresLexicos("Linea " + linea + ": Constante fuera de rango");
             long aux = (long) (Double.parseDouble(token.toString())); //long para q no quede con coma
             while (aux > (Math.pow(2, 32) - 1))
                 aux = aux - (long) (Math.pow(2, 32) - 1);
