@@ -25,9 +25,11 @@ public class Main {
 
     /*
         // COSAS HACER!!!!
-        TODO: Priorizar las variables antes que las funciones, si no tirar error
+        TODO: Priorizar las variables antes que las funciones, si no tirar error--> EL PROBLEMA ESTA EN ITEMSTRING GETTIPO QUE A SU VEZ TIENE PROBLEMAS EL GETTOKEN DE TABLASIMBOLO
+        UPDATE: CREO QUE ESTA RESUELTO!!!
         TODO: Tercetos -> Agregar un terceto para el call y otro para el retorno
         TODO: Que las variables en el terceto tengan la forma: var3@main@aa
+        UPDATE: SOLUCIONADO!!!
 
         // IDEAS
         TODO: Definir si el método redefined y varDefined se pueden juntar

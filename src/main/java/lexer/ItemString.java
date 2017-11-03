@@ -1,5 +1,8 @@
 package lexer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemString implements Item {
     private String arg;
     private TablaSimbolos tabla = null;
@@ -35,8 +38,17 @@ public class ItemString implements Item {
 
     public String getTipo() {
         //hay que acceder a la tabla de simbolos, ver si esta el arg (puede ser constante o variable o funcion) y despues sacarle el tipo del token
-        Token aux = tabla.getToken(this.arg);
+        String s = this.arg;
+        String[] parts = s.split("@");
+        String part1 = parts[0];
 
-        return aux.getType();
+        List<Token> aux = new ArrayList<>();
+        aux = tabla.getTokenList(part1);
+        for (int i = 0; i < aux.size(); i++) {
+            if (aux.get(i).isDeclared())
+                return aux.get(i).getType();
+        }
+
+        return "undefined";
     }
 }

@@ -497,7 +497,7 @@ final static String yyrule[] = {
 "invocacion_funcion : ID OPEN_PAR CLOSE_PAR",
 };
 
-//#line 368 "gramatica.y"
+//#line 380 "gramatica.y"
 
 void yyerror(String error) {
 	bufferErrores.add(error);
@@ -735,6 +735,7 @@ case 4:
 													System.out.println("Declaración de Variables. Línea " + val_peek(2).ival); 
 													uso = "variable";
 													
+													
 													if (!tablaSimbolos.redefined(auxVariables, ambitos.toString()))
 														tablaSimbolos.defineVar(auxVariables, val_peek(1).sval, uso, ambitos.toString());
 													else 
@@ -745,31 +746,31 @@ case 4:
 												 }
 break;
 case 5:
-//#line 43 "gramatica.y"
+//#line 44 "gramatica.y"
 { yyerror("\tLínea " + val_peek(1).ival + ". Declaración de variables incompleta. Falta DOT"); }
 break;
 case 6:
-//#line 44 "gramatica.y"
+//#line 45 "gramatica.y"
 { yyerror("\tLínea " + val_peek(0).ival + ". Declaración de variables incompleta. Falta COLON"); }
 break;
 case 7:
-//#line 47 "gramatica.y"
-{ auxVariables.add(val_peek(0).sval.toLowerCase()); }
-break;
-case 8:
 //#line 48 "gramatica.y"
 { auxVariables.add(val_peek(0).sval.toLowerCase()); }
 break;
-case 9:
+case 8:
 //#line 49 "gramatica.y"
+{ auxVariables.add(val_peek(0).sval.toLowerCase()); }
+break;
+case 9:
+//#line 50 "gramatica.y"
 { yyerror("\tLínea " + val_peek(0).ival + ". Declaración incompleta. Falta COMMA"); }
 break;
 case 12:
-//#line 55 "gramatica.y"
+//#line 56 "gramatica.y"
 { ambitos.push(val_peek(0).sval); isFunction = true; }
 break;
 case 13:
-//#line 55 "gramatica.y"
+//#line 56 "gramatica.y"
 { 
 																					uso = "nombre_funcion";
 
@@ -788,15 +789,15 @@ case 13:
 																				 }
 break;
 case 14:
-//#line 71 "gramatica.y"
+//#line 72 "gramatica.y"
 { yyerror("\tLínea " + val_peek(2).ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
 break;
 case 15:
-//#line 72 "gramatica.y"
+//#line 73 "gramatica.y"
 { ambitos.push(val_peek(0).sval); isMoveFunction = true; isFunction = true; }
 break;
 case 16:
-//#line 72 "gramatica.y"
+//#line 73 "gramatica.y"
 { 	
 																												uso = "nombre_funcion";
 
@@ -816,15 +817,15 @@ case 16:
 																											}
 break;
 case 17:
-//#line 89 "gramatica.y"
+//#line 90 "gramatica.y"
 { yyerror("\tLínea " + val_peek(3).ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
 break;
 case 20:
-//#line 94 "gramatica.y"
+//#line 95 "gramatica.y"
 { yyerror("\tLínea " + val_peek(2).ival + ". Declaración de función incompleta. Falta sentencia RETURN"); }
 break;
 case 28:
-//#line 103 "gramatica.y"
+//#line 104 "gramatica.y"
 { 
 											System.out.println("Sentencia OUT. Línea " + val_peek(4).ival); 
 											Terceto t = new Terceto("PRINT", new ItemString(val_peek(2).sval), new ItemString("-"), null);
@@ -837,23 +838,23 @@ case 28:
 										  }
 break;
 case 29:
-//#line 113 "gramatica.y"
+//#line 114 "gramatica.y"
 { yyerror("\tLínea " + val_peek(3).ival + ". Estructura OUT incompleta. Falta DOT"); }
 break;
 case 30:
-//#line 114 "gramatica.y"
+//#line 115 "gramatica.y"
 { yyerror("\tLínea " + val_peek(3).ival + ". Estructura OUT incompleta. Falta CLOSE_PAR"); }
 break;
 case 31:
-//#line 115 "gramatica.y"
+//#line 116 "gramatica.y"
 { yyerror("\tLínea " + val_peek(3).ival + ". Estructura OUT incompleta. Falta OPEN_PAR"); }
 break;
 case 32:
-//#line 116 "gramatica.y"
+//#line 117 "gramatica.y"
 { yyerror("\tLínea " + val_peek(4).ival + ". Estructura OUT incorrecta. Sólo se pueden imprimir cadenas"); }
 break;
 case 33:
-//#line 119 "gramatica.y"
+//#line 120 "gramatica.y"
 { System.out.println("ASIGNACIÓN. Línea " + val_peek(3).ival);
 									  Item item2 = (Item)val_peek(1).obj;
 									  Terceto t = null;	
@@ -865,8 +866,11 @@ case 33:
 										  if (!tipoAsignacion.equals(tipoExpresion))
                                               yyerror("Línea " + val_peek(2).ival + ". Tipos incompatibles en la asignación");
 									  }
-
-									  t = new Terceto("=", new ItemString((String)val_peek(3).sval), item2, null);
+									  if (ambitos.size()>=2){
+											t = new Terceto("=", new ItemString((String)val_peek(3).sval + "@" + ambitos.elementAt(0) + "@" + ambitos.peek()), item2, null);
+									  }else{
+											t = new Terceto("=", new ItemString((String)val_peek(3).sval + "@" + ambitos.peek()), item2, null);
+									  }
 
 									  if (isFunction)
 									  	mapeoFuncion.put(ambitos.peek(), t);
@@ -877,18 +881,18 @@ case 33:
 									}
 break;
 case 34:
-//#line 140 "gramatica.y"
+//#line 144 "gramatica.y"
 { yyerror("\tLínea " + val_peek(2).ival + ". Asignación incompleta. Falta DOT"); }
 break;
 case 42:
-//#line 149 "gramatica.y"
+//#line 153 "gramatica.y"
 { 
 																System.out.println("Línea " + val_peek(3).ival + ". Sentencia IF-ELSE"); 
 																((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg1(new ItemString("[" + (tercetos.size() + 1) + "]"));
 															}
 break;
 case 43:
-//#line 153 "gramatica.y"
+//#line 157 "gramatica.y"
 { 
 										System.out.println("Línea " + val_peek(0).ival + ". Sentencia IF");
 										((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 1) + "]"));
@@ -898,7 +902,7 @@ case 43:
 									}
 break;
 case 44:
-//#line 162 "gramatica.y"
+//#line 166 "gramatica.y"
 {
 				((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 2) + "]"));
 				Terceto t = new Terceto("BI", new ItemString("_"), new ItemString("_"), null);
@@ -912,7 +916,7 @@ case 44:
 		   }
 break;
 case 46:
-//#line 178 "gramatica.y"
+//#line 182 "gramatica.y"
 {
 							Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(tercetos.get(tercetos.size() - 1))), new ItemString("_"), null);
 							
@@ -925,7 +929,7 @@ case 46:
 						 }
 break;
 case 47:
-//#line 190 "gramatica.y"
+//#line 194 "gramatica.y"
 { 
 																System.out.println("Comparación. Línea " + val_peek(2).ival); 
 																String tipo1=(String)(((Item)val_peek(3).obj).getTipo());
@@ -945,23 +949,23 @@ case 47:
 															  }
 break;
 case 48:
-//#line 207 "gramatica.y"
+//#line 211 "gramatica.y"
 { yyerror("Línea " + val_peek(2).ival + ". Condicion incompleta. Falta OPEN_PAR"); }
 break;
 case 49:
-//#line 208 "gramatica.y"
+//#line 212 "gramatica.y"
 { yyerror("Línea " + val_peek(1).ival + ". Condicion. Falta CLOSE_PAR"); }
 break;
 case 51:
-//#line 212 "gramatica.y"
+//#line 216 "gramatica.y"
 { System.out.println("Línea " + val_peek(2).ival + ". Bloque compuesto"); }
 break;
 case 52:
-//#line 213 "gramatica.y"
+//#line 217 "gramatica.y"
 { yyerror("Línea " + val_peek(2).ival + ". Bloque compuesto. Falta END"); }
 break;
 case 59:
-//#line 222 "gramatica.y"
+//#line 226 "gramatica.y"
 { 
 															((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 2) + "]"));
 															Terceto t = new Terceto("BI", new ItemTerceto((Terceto)tercetos.get((pila.pop()).intValue() - 1)), new ItemString("_"), null);
@@ -974,13 +978,13 @@ case 59:
 													   }
 break;
 case 60:
-//#line 234 "gramatica.y"
+//#line 238 "gramatica.y"
 {
 				pila.push(new Integer(tercetos.size() + 1));
 			 }
 break;
 case 61:
-//#line 239 "gramatica.y"
+//#line 243 "gramatica.y"
 {
 								Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(tercetos.get(tercetos.size() - 1))), new ItemString("_"), null);
 								
@@ -993,7 +997,7 @@ case 61:
                             }
 break;
 case 62:
-//#line 251 "gramatica.y"
+//#line 255 "gramatica.y"
 { 
 									System.out.println("SUMA. Línea " + val_peek(1).ival); 
 									String tipo1 = (String)(((Item)val_peek(2).obj).getTipo());
@@ -1013,7 +1017,7 @@ case 62:
 								  }
 break;
 case 63:
-//#line 268 "gramatica.y"
+//#line 272 "gramatica.y"
 { 
 									System.out.println("RESTA. Línea " + val_peek(1).ival); 
 									String tipo1 = (String)(((Item)val_peek(2).obj).getTipo());
@@ -1033,11 +1037,11 @@ case 63:
 								  }
 break;
 case 64:
-//#line 285 "gramatica.y"
+//#line 289 "gramatica.y"
 { yyval.obj = val_peek(0).obj; }
 break;
 case 65:
-//#line 288 "gramatica.y"
+//#line 292 "gramatica.y"
 { 
 								System.out.println("MULTIPLICACION. Línea " + val_peek(1).ival); 
 								String tipo1 = (String)(((Item)val_peek(2).obj).getTipo());
@@ -1057,7 +1061,7 @@ case 65:
 							  }
 break;
 case 66:
-//#line 305 "gramatica.y"
+//#line 309 "gramatica.y"
 { 
 								System.out.println("DIVISION. Línea " + val_peek(1).ival); 
 								String tipo1 = (String)(((Item)val_peek(2).obj).getTipo());
@@ -1077,27 +1081,35 @@ case 66:
 							 }
 break;
 case 67:
-//#line 322 "gramatica.y"
+//#line 326 "gramatica.y"
 { yyval.obj = val_peek(0).obj; }
 break;
 case 68:
-//#line 325 "gramatica.y"
+//#line 329 "gramatica.y"
 { 
 				System.out.println("Lectura de la variable " + val_peek(0).sval + ". Línea " + val_peek(0).ival); 
 
-				if (tablaSimbolos.functionDefined(val_peek(0).sval))
-					yyerror("Línea " + val_peek(0).ival + ": NOMBRE DE FUNCION COMO OPERANDO --> FALTAN LOS PARENTESIS");
-			    else if (!tablaSimbolos.varDefined(val_peek(0).sval, ambitos.toString(), isMoveFunction))
-			  		yyerror("\tError en la línea " + val_peek(0).ival + ": VARIABLE -> " + val_peek(0).sval + " NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
+				if (!tablaSimbolos.varDefined(val_peek(0).sval, ambitos.toString(), isMoveFunction)){
+					if (tablaSimbolos.functionDefined(val_peek(0).sval))
+						yyerror("Línea " + val_peek(0).ival + ": NOMBRE DE FUNCION COMO OPERANDO --> FALTAN LOS PARENTESIS");
+					else
+						yyerror("\tError en la línea " + val_peek(0).ival + ": VARIABLE -> " + val_peek(0).sval + " NO DEFINIDA EN EL AMBITO -> " + ambitos.toString());
+				}
 			  		
 			    String id = val_peek(0).sval.toLowerCase();
-			    ItemString itemString = new ItemString(id);
+				ItemString itemString;
+				if (ambitos.size()>=2){
+					itemString = new ItemString(id + "@" + ambitos.elementAt(0) + "@" + ambitos.peek());
+				}else{
+					itemString = new ItemString(id + "@" + ambitos.peek());
+				}
+				
 			    itemString.setTabla(tablaSimbolos);
 			    yyval.obj = itemString;
 			}
 break;
 case 69:
-//#line 338 "gramatica.y"
+//#line 350 "gramatica.y"
 { String cte = val_peek(0).sval;
 			   ItemString itemString = new ItemString(cte);
 			   itemString.setTabla(tablaSimbolos);
@@ -1105,24 +1117,24 @@ case 69:
 			 }
 break;
 case 70:
-//#line 343 "gramatica.y"
+//#line 355 "gramatica.y"
 { yyval.obj = val_peek(0).obj; }
 break;
 case 77:
-//#line 354 "gramatica.y"
+//#line 366 "gramatica.y"
 { 
 												if (! tablaSimbolos.functionDefined(val_peek(2).sval)) 
 													yyerror("\tError en la línea " + val_peek(2).ival + ": FUNCION NO DEFINIDA"); 
 											
 												System.out.println("Invocación a función. Línea " + val_peek(2).ival); 
 												String id = val_peek(2).sval;
-												ItemString itemString = new ItemString(id);
+												ItemString itemString = new ItemString(id + "@" + ambitos.peek());
 												itemString.setTabla(tablaSimbolos);
 												yyval.obj = itemString;
 													
 											}
 break;
-//#line 1049 "Parser.java"
+//#line 1061 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

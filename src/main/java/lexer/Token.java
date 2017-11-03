@@ -31,6 +31,10 @@ public class Token {
         this.type = type;
     }
 
+    public boolean isDeclared(){
+        return declared;
+    }
+
     public String getLexema() {
         return lexema;
     }

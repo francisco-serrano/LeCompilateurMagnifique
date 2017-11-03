@@ -195,6 +195,12 @@ public class TablaSimbolos {
 
         if (token == null)
             throw new RuntimeException("El token con los siguientes datos {" + lexema + ", " + type + ", " + ambito + "} no existe");
+        else {
+            if (!token.getUso().equals("nombre_funcion")){
+                token = new Token(lexema);
+                multimap.put("ID", token);
+            }
+        }
 
         token.declare(type);
         token.setUso("nombre_funcion");
@@ -258,6 +264,23 @@ public class TablaSimbolos {
         return null;
     }
 
+    public List<Token> getTokenList(String lexema){
+        List<Token> lista = new ArrayList<>();
+        for (Token token : multimap.get("ID")) {
+            if (token.getLexema().equals(lexema))
+                lista.add(token);
+        }
+        for (Token token : multimap.get("CADENA")) {
+            if (token.getLexema().equals(lexema))
+                lista.add(token);
+        }
+        for (Token token : multimap.get("CTE")) {
+            if (token.getLexema().equals(lexema))
+                lista.add(token);
+        }
+        return lista;
+    }
+
     /**
      * Método privado auxiliar que retorna un token de la TS con la restricción adicional del ámbito.
      * @param lexema Lexema con el cual se identifica al token a retornar.
@@ -291,6 +314,9 @@ public class TablaSimbolos {
 
         return aux.toString();
     }
+
+
+
 
     public Multimap<String,Token> getTabla(){ return this.multimap; }
 

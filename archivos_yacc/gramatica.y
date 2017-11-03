@@ -32,6 +32,7 @@ declaracion_variables : lista_var COLON tipo DOT {
 													System.out.println("Declaración de Variables. Línea " + $2.ival); 
 													uso = "variable";
 													
+													
 													if (!tablaSimbolos.redefined(auxVariables, ambitos.toString()))
 														tablaSimbolos.defineVar(auxVariables, $3.sval, uso, ambitos.toString());
 													else 
@@ -127,8 +128,11 @@ asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " 
 										  if (!tipoAsignacion.equals(tipoExpresion))
                                               yyerror("Línea " + $2.ival + ". Tipos incompatibles en la asignación");
 									  }
-
-									  t = new Terceto("=", new ItemString((String)$1.sval), item2, null);
+									  if (ambitos.size()>=2){
+											t = new Terceto("=", new ItemString((String)$1.sval + "@" + ambitos.elementAt(0) + "@" + ambitos.peek()), item2, null);
+									  }else{
+											t = new Terceto("=", new ItemString((String)$1.sval + "@" + ambitos.peek()), item2, null);
+									  }
 
 									  if (isFunction)
 									  	mapeoFuncion.put(ambitos.peek(), t);
@@ -325,13 +329,21 @@ termino : termino MULT factor {
 factor : ID { 
 				System.out.println("Lectura de la variable " + $1.sval + ". Línea " + $1.ival); 
 
-				if (tablaSimbolos.functionDefined($1.sval))
-					yyerror("Línea " + $1.ival + ": NOMBRE DE FUNCION COMO OPERANDO --> FALTAN LOS PARENTESIS");
-			    else if (!tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
-			  		yyerror("\tError en la línea " + $1.ival + ": VARIABLE -> " + $1.sval + " NO DEFINIDA EN EL AMBITO -> " + ambitos.toString()); 
+				if (!tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction)){
+					if (tablaSimbolos.functionDefined($1.sval))
+						yyerror("Línea " + $1.ival + ": NOMBRE DE FUNCION COMO OPERANDO --> FALTAN LOS PARENTESIS");
+					else
+						yyerror("\tError en la línea " + $1.ival + ": VARIABLE -> " + $1.sval + " NO DEFINIDA EN EL AMBITO -> " + ambitos.toString());
+				}
 			  		
 			    String id = $1.sval.toLowerCase();
-			    ItemString itemString = new ItemString(id);
+				ItemString itemString;
+				if (ambitos.size()>=2){
+					itemString = new ItemString(id + "@" + ambitos.elementAt(0) + "@" + ambitos.peek());
+				}else{
+					itemString = new ItemString(id + "@" + ambitos.peek());
+				}
+				
 			    itemString.setTabla(tablaSimbolos);
 			    $$.obj = itemString;
 			}
@@ -357,7 +369,7 @@ invocacion_funcion : ID OPEN_PAR CLOSE_PAR {
 											
 												System.out.println("Invocación a función. Línea " + $1.ival); 
 												String id = $1.sval;
-												ItemString itemString = new ItemString(id);
+												ItemString itemString = new ItemString(id + "@" + ambitos.peek());
 												itemString.setTabla(tablaSimbolos);
 												$$.obj = itemString;
 													
