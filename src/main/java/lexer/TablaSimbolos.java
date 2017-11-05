@@ -316,6 +316,16 @@ public class TablaSimbolos {
     }
 
 
+    public String getTypeFuncion(String lexema){
+        String tip="";
+        for (Token token : multimap.get("ID")) {
+            if (token.getLexema().equals(lexema) && token.getUso().equals("nombre_funcion")) {
+                tip = token.getType();
+            }
+        }
+        return tip;
+    }
+
 
 
     public Multimap<String,Token> getTabla(){ return this.multimap; }

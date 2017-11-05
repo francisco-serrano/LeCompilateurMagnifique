@@ -24,12 +24,11 @@ public class Main {
     private static final String DIR_MATRIZ_ACC_SEMANTICAS = "matriz-acc-semanticas.txt";
 
     /*
-        // COSAS HACER!!!!
-        TODO: Priorizar las variables antes que las funciones, si no tirar error--> EL PROBLEMA ESTA EN ITEMSTRING GETTIPO QUE A SU VEZ TIENE PROBLEMAS EL GETTOKEN DE TABLASIMBOLO
-        UPDATE: CREO QUE ESTA RESUELTO!!!
-        TODO: Tercetos -> Agregar un terceto para el call y otro para el retorno
-        TODO: Que las variables en el terceto tengan la forma: var3@main@aa
-        UPDATE: SOLUCIONADO!!!
+
+        // PREGUNTAS
+        TODO: Primera pregunta: Para el fin de los tercetos, hacemos un terceto que sea (END, null, null)? porque puede que haya un salto BI que quiera saltar a un terceto que no existe...
+        TODO: los calls quedaron de esta manera -> terceto 5: (CALL, funcion, null), terceto 6: (=, variable, [5]), esta bien?
+        TODO: Como expresar las funciones en la lista de tercetos? tenemos dos opciones: una poner variables a los tercetos que indiquen el ambito en el que fueron declarados. Segunda es crear un terceto nuevo que sea algo asi como (FUNCION, nombre_funcion, null) al inicio y saber que el ultimo terceto de una funcion es siemrpe (RETURN, algo, null)
 
         // IDEAS
         TODO: Definir si el método redefined y varDefined se pueden juntar
@@ -50,7 +49,7 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-        runInDevelopmentMode("archivo-prueba5.txt");
+        runInDevelopmentMode("archivo-prueba4.txt");
     }
 
     /**

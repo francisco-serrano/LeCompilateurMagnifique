@@ -9,8 +9,18 @@ UINT FUNCTION aa {
 	RETURN (var3).
 }
 
+IF (var1 > 2) THEN
+    BEGIN
+        var1 = 25.
+    END
+ELSE
+    BEGIN
+        var1 = 100.
+    END
+END_IF
+
 var1= var1 + 5 * 9.
-var2 = aa().
+var2 =  8.
 
 
 

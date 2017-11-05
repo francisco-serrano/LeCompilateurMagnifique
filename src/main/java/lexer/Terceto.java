@@ -60,7 +60,7 @@ public class Terceto {
 
     @Override
     public String toString() {
-        return this.getNumero() + ".  " + "( " + this.operador + " , " + this.arg1.toString() + " , " + this.arg2.toString() + " ) ";
+        return this.getNumero() + ".  " + "( " + this.operador + " , " + this.arg1.toString() + " , " + this.arg2.toString() + " ) " + this.getDireccionSalto();
     }
 
     public String getTipo(){
