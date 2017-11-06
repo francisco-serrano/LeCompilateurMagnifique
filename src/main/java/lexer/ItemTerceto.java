@@ -1,7 +1,7 @@
 package lexer;
 
 
-public class ItemTerceto implements Item{
+public class ItemTerceto implements Item {
     private Terceto arg;
 
     public ItemTerceto(Terceto arg) {
@@ -19,7 +19,7 @@ public class ItemTerceto implements Item{
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "["+String.valueOf(this.arg.getNumero())+"]";
+        return "[" + String.valueOf(this.arg.getNumero()) + "]";
     }
 
     public boolean equals(String s) {
@@ -30,10 +30,7 @@ public class ItemTerceto implements Item{
         return new ItemString("[" + arg.getNumero() + "]");
     }
 
-    public String getTipo (){
+    public String getTipo() {
         return this.getArg().getTipo();
     }
-
-
-
 }

@@ -1,7 +1,32 @@
-1.  ( + , 100 , 2 ) false
-2.  ( = , var1@main , [1] ) false
-3.  ( * , 200 , 5 ) false
-4.  ( = , var2@main , [3] ) false
-5.  ( + , var1@main , var2@main ) false
-6.  ( = , var3@main , [5] ) false
-7.  ( END , - , - ) false
+1.  ( * , 100 , 1 ) false
+2.  ( * , 2 , 2 ) false
+3.  ( + , [1] , [2] ) false
+4.  ( = , var1@main , [3] ) false
+5.  ( / , 5 , 1 ) false
+6.  ( + , 200 , [5] ) false
+7.  ( = , var2@main , [6] ) false
+8.  ( = , var3@main , var1@main ) false
+9.  ( > , var1@main , 555 ) false
+10.  ( BF , [9] , [13] ) false
+11.  ( = , var2@main , 333 ) false
+12.  ( BI , [14] , _ ) false
+13.  ( = , var2@main , 555 ) true
+14.  ( END , - , - ) true
+
+lista = [13, 14]
+
+// CON LOS TERCETOS LABEL
+1.  ( * , 100 , 1 ) false   -> indice: 0
+2.  ( * , 2 , 2 ) false
+3.  ( + , [1] , [2] ) false
+4.  ( = , var1@main , [3] ) false
+5.  ( / , 5 , 1 ) false
+6.  ( + , 200 , [5] ) false
+7.  ( = , var2@main , [6] ) false
+8.  ( = , var3@main , var1@main ) false
+9.  ( > , var1@main , 555 ) false
+10.  ( BF , [9] , [13] ) false
+11.  ( = , var2@main , 333 ) false
+12.  ( BI , [14] , _ ) false
+13.  ( = , var2@main , 555 ) true
+14.  ( END , - , - ) true

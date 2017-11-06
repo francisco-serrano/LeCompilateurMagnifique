@@ -1,3 +1,4 @@
+import com.google.common.base.Splitter;
 import generadorcodigo.Generador;
 import lexer.*;
 import parser.Parser;
@@ -28,11 +29,12 @@ public class Main {
         // PREGUNTAS
         TODO: Lo que definimos en el .data tiene que ser igual a como generamos el assembler? es decir, el nombre de las definiciones es el mismo nombre que usamos despues?
         TODO: Como definir en el .data las funciones?
+
         // COSAS RESTANTES
         TODO: falta chequear que haya que usar variables cuando no hay más registros
-        TODO: SENTENCIA IF/WHILE: faltan hacer las pasadas
         TODO: enganchar con las funciones más adelante
-        TODO: falta lo de definir las variables
+        TODO: arreglar el problema del casting
+        TODO: agregar los chequeos en tiempo de ejecucion
 
         // IDEAS
         TODO: Definir si el método redefined y varDefined se pueden juntar
@@ -99,7 +101,13 @@ public class Main {
         generador.generateAssembler();
 
         System.out.println("\nCODIGO");
-        System.out.println(generador.getCode());
+        List<String> listaLineas = Splitter.on("\n").splitToList(generador.getCode());
+        for (String linea : listaLineas)
+            System.out.println(linea);
+
+        System.out.println("\nCODIGO CON LABELS");
+        for (String inst : generador.getListaInstrucciones())
+            System.out.println(inst);
     }
 
     /**
