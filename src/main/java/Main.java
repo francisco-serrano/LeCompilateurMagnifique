@@ -90,10 +90,6 @@ public class Main {
         for (Terceto terceto : parser.getTercetos())
             System.out.println(terceto);
 
-//        System.out.println("\nMAPEO FUNCIONES");
-//        for (String key : parser.getMapeoFuncion().keySet())
-//            System.out.println(key + " --> " + parser.getMapeoFuncion().get(key));
-//
         System.out.println("\nASSEMBLER");
         Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
         generador.generateAssembler();
