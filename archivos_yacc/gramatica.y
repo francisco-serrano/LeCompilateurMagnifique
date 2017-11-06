@@ -53,7 +53,11 @@ lista_var : lista_var COMMA ID { auxVariables.add($3.sval.toLowerCase()); }
 tipo : UINT | ULONG
 ;
 
-declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); isFunction = true; } cuerpo_funcion { 
+declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); 
+										 ItemString item1 = new ItemString($3.sval);
+										 Terceto t = new Terceto("FUNCTION", item1, new ItemString("-"), null);
+										 tercetos.add(t); 
+										} cuerpo_funcion { 
 																					uso = "nombre_funcion";
 
 																					if (!tablaSimbolos.functionDefined($3.sval)){
@@ -66,11 +70,15 @@ declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); isFunction = tru
 																					}
 
 																					ambitos.pop();
-																					isFunction = false;
 																					auxVariables.clear();
 																				 }
 					| FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
-					| tipo MOVE FUNCTION ID { ambitos.push($4.sval); isMoveFunction = true; isFunction = true; } cuerpo_funcion { 	
+					| tipo MOVE FUNCTION ID { ambitos.push($4.sval); 
+											  isMoveFunction = true; 
+											  ItemString item1 = new ItemString($4.sval);
+											  Terceto t = new Terceto("FUNCTION", item1, new ItemString("-"), null);
+											  tercetos.add(t); 
+											} cuerpo_funcion { 	
 																												uso = "nombre_funcion";
 
 																												if (!tablaSimbolos.functionDefined($4.sval)){
@@ -84,7 +92,6 @@ declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval); isFunction = tru
 
 																												ambitos.pop();
 																												isMoveFunction = false;
-																												isFunction = false;
 																												auxVariables.clear();
 																											}
 					| MOVE FUNCTION ID cuerpo_funcion { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta tipo de retorno"); }
@@ -94,18 +101,12 @@ cuerpo_funcion : OPEN_BRACE bloque_funcion RETURN OPEN_PAR expresion CLOSE_PAR D
 																									Item item1 = (Item)$5.obj;
 																									Terceto t = new Terceto("RETURN", item1, new ItemString("-"), null);
 											
-																									if (isFunction){
-																										mapeoFuncion.put(ambitos.peek(), t);
-																									}	
 																									tercetos.add(t); 
 																								} 
 			   | OPEN_BRACE RETURN OPEN_PAR expresion CLOSE_PAR DOT CLOSE_BRACE {	
 																					Item item1 = (Item)$4.obj;
 																					Terceto t = new Terceto("RETURN", item1, new ItemString("-"), null);
 											
-																					if (isFunction){
-																						mapeoFuncion.put(ambitos.peek(), t);
-																					}	
 																					tercetos.add(t); 
 																				} 
 			   | OPEN_BRACE bloque_funcion CLOSE_BRACE { yyerror("\tLínea " + $1.ival + ". Declaración de función incompleta. Falta sentencia RETURN"); }
@@ -121,9 +122,7 @@ print : OUT OPEN_PAR CADENA CLOSE_PAR DOT {
 											System.out.println("Sentencia OUT. Línea " + $1.ival); 
 											Terceto t = new Terceto("PRINT", new ItemString($3.sval), new ItemString("-"), null);
 											
-											if (isFunction){
-									  			mapeoFuncion.put(ambitos.peek(), t);
-											}
+											
 									  		tercetos.add(t);
 
 										  }
@@ -150,9 +149,7 @@ asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " 
 											t = new Terceto("=", new ItemString((String)$1.sval + "@" + ambitos.peek()), item2, null);
 									  }
 
-									  if (isFunction){
-									  	mapeoFuncion.put(ambitos.peek(), t);
-									 }
+									 
 									  tercetos.add(t);
 
 									  $$.obj = new ItemTerceto(t);
@@ -181,9 +178,7 @@ else: ELSE {
 				((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 2) + "]"));
 				Terceto t = new Terceto("BI", new ItemString("_"), new ItemString("_"), null);
 				
-				if (isFunction){
-					mapeoFuncion.put(ambitos.peek(), t);
-				}
+				
 				tercetos.add(t);
 
 				pila.push(new Integer(t.getNumero()));
@@ -196,9 +191,7 @@ seleccion_simple : IF condicion_if THEN bloque_sentencias
 condicion_if : condicion {
 							Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(tercetos.get(tercetos.size() - 1))), new ItemString("_"), null);
 							
-							if (isFunction){
-								mapeoFuncion.put(ambitos.peek(), t);
-							}
+							
 							tercetos.add(t);
 
 							pila.push(new Integer(t.getNumero()));	
@@ -215,9 +208,7 @@ condicion : OPEN_PAR expresion comparador expresion CLOSE_PAR {
 																
 																Terceto t = new Terceto($3.sval, item1, item2, null);
 																
-																if (isFunction){
-									  								mapeoFuncion.put(ambitos.peek(), t);
-																}
+																
 									  							tercetos.add(t);
 
 																$$.obj = new ItemTerceto(t);
@@ -241,9 +232,7 @@ iteracion : while condicion_while DO bloque_sentencias {
 															((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 2) + "]"));
 															Terceto t = new Terceto("BI", new ItemTerceto((Terceto)tercetos.get((pila.pop()).intValue() - 1)), new ItemString("_"), null);
 															
-															if (isFunction){
-									  							mapeoFuncion.put(ambitos.peek(), t);
-															}
+															
 														
 									  						tercetos.add(t);
 
@@ -258,9 +247,7 @@ while : WHILE{
 condicion_while : condicion {
 								Terceto t = new Terceto("BF", new ItemTerceto((Terceto)(tercetos.get(tercetos.size() - 1))), new ItemString("_"), null);
 								
-								if (isFunction){
-									mapeoFuncion.put(ambitos.peek(), t);
-								}
+								
 									tercetos.add(t);
 
 								pila.push(new Integer(t.getNumero()));
@@ -277,9 +264,6 @@ expresion : expresion ADD termino {
 										yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la suma");
 									Terceto t = new Terceto("+", item1, item2, tipo1);
 									
-									if (isFunction){
-									  	mapeoFuncion.put(ambitos.peek(), t);
-									}
 									tercetos.add(t);
 
 									$$.obj = new ItemTerceto(t); 
@@ -294,9 +278,6 @@ expresion : expresion ADD termino {
 										yyerror("Línea " + $2.ival + ". Tipos incompatibles en la resta");
 									Terceto t = new Terceto("-", item1, item2, tipo1);
 									
-									if (isFunction){
-									  	mapeoFuncion.put(ambitos.peek(), t);
-									}
 									tercetos.add(t);
 
 									$$.obj = new ItemTerceto(t);
@@ -314,9 +295,6 @@ termino : termino MULT factor {
 									yyerror("Línea " + $2.ival + ". Tipos incompatibles en la multiplicación");
 								Terceto t = new Terceto("*", item1, item2, tipo1);
 								
-								if (isFunction){
-									mapeoFuncion.put(ambitos.peek(), t);
-								}
 								tercetos.add(t);
 
 								$$.obj = new ItemTerceto(t);
@@ -331,9 +309,6 @@ termino : termino MULT factor {
 									yyerror ("Línea " + $2.ival + ". Tipos incompatibles en la division");
 								Terceto t = new Terceto("/", item1, item2, tipo1);
 								
-								if (isFunction){
-									mapeoFuncion.put(ambitos.peek(), t);
-								}
 								tercetos.add(t);
 
 								$$.obj = new ItemTerceto(t);
@@ -450,9 +425,6 @@ public List<String> getErrores() {
 	return bufferErrores;
 }
 
-public Multimap<String, Terceto> getMapeoFuncion() {
-	return mapeoFuncion;
-}
 
 Lexer lexer;
 
@@ -469,7 +441,3 @@ boolean isMoveFunction = false;
 List<String> auxVariables = new ArrayList<>();
 
 CustomStack<String> ambitos = new CustomStack<>("main");
-
-Multimap<String, Terceto> mapeoFuncion = ArrayListMultimap.create();
-
-boolean isFunction = false;

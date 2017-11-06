@@ -57,7 +57,7 @@ public class Generador {
                         if (t.getType().equals("ULONG"))
                             this.code.append(t.getLexema().toString()+ prefijo + " DD"+ " ?\n");
                         break;
-                    case "nombre funcion":
+                    case "nombre_funcion":
                         if (t.getType().equals("UINT")){
                             this.code.append(t.getLexema().toString() + " DW" + " ?\n");
                         }
