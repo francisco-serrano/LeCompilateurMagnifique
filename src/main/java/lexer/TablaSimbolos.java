@@ -39,6 +39,7 @@ public class TablaSimbolos {
 
             if (tipoToken.equals("CADENA")){
                t.setUso("cadena");
+               t.setDeclared();
            }
 
             multimap.put(tipoToken, t);
@@ -55,14 +56,11 @@ public class TablaSimbolos {
      */
     public void addConstant(String lexema, String tipo) {
         Token token = new Token(lexema);
-
-        if (multimap.get("CTE").contains(token))
-            return; // Quiere decir que el token ya fue agregado
-
         token.declare(tipo);
         token.setUso("constante");
 
-        multimap.put("CTE", token);
+        if (!multimap.get("CTE").contains(token))
+             multimap.put("CTE", token);
     }
 
     /**

@@ -39,12 +39,31 @@ public class Generador {
             if (!t.getUso().equals("undefined")) {
                 switch (t.getUso()) {
                     case "cadena":
+                        String p = t.getLexema().toString();
+                        this.code.append("msg_" + p.replace(" ", "_").replace(",", "_").replace(".","_") + " db '" + p + "',0 \n");
                         break;
                     case "variable":
+                        String prefijo="@" + t.getAmbito();
+                        if (t.getType().equals("UINT"))
+                            this.code.append(t.getLexema().toString() + prefijo + " DW" + " ?\n");
+                        if (t.getType().equals("ULONG"))
+                            this.code.append(t.getLexema().toString()+ prefijo + " DD"+ " ?\n");
                         break;
                     case "nombre funcion":
+                        if (t.getType().equals("UINT")){
+                            this.code.append(t.getLexema().toString() + " DW" + " ?\n");
+                        }
+                        if (t.getType().equals("ULONG")){
+                            this.code.append(t.getLexema().toString() + " DD" + " ?\n");
+                        }
                         break;
                     case "constante":
+                        if (t.getType().equals("UINT")) {
+                            this.code.append(t.getLexema() + " DW " + t.getLexema().toString() + "\n");
+                        }
+                       if (t.getType().equals("ULONG")){
+                           this.code.append(t.getLexema() + " DD " + t.getLexema().toString() + "\n");
+                       }
                         break;
 
                 }
@@ -54,8 +73,6 @@ public class Generador {
 
     public void generateAssembler() {
         printHeader();
-
-        //this.declararMacro();
 
         declararVariables();
 
@@ -71,11 +88,13 @@ public class Generador {
         this.code.append(".386 \n");
         this.code.append(".model flat, stdcall         ;Modelo de memoria 'pequeño' \n");
         this.code.append(".stack 200h                  ;Tamaño de la pila\n");
-        this.code.append("include \\masm32\\include\\windows.inc\n");
-        this.code.append("include \\masm32\\include\\kernel32.inc\n");
-        this.code.append("include \\masm32\\include\\user32.inc\n");
-        this.code.append("includelib \\masm32\\lib\\kernel32.lib\n");
-        this.code.append("includelib \\masm32\\lib\\user32.lib\n");
+        this.code.append("include C:\\masm32\\include\\windows.inc \n");
+        this.code.append("include C:\\masm32\\include\\kernel32.inc \n");
+        this.code.append("include C:\\masm32\\include\\user32.inc \n");
+        this.code.append("include C:\\masm32\\include\\masm32.inc \n");
+        this.code.append("includelib C:\\masm32\\lib\\kernel32.lib \n");
+        this.code.append("includelib C:\\masm32\\lib\\user32.lib \n");
+        this.code.append("includelib C:\\masm32\\lib\\masm32.lib \n");
     }
 
     private void assembleTerceto(Terceto terceto) {

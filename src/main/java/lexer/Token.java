@@ -31,6 +31,8 @@ public class Token {
         this.type = type;
     }
 
+    public void setDeclared(){ this.declared = true; }
+
     public boolean isDeclared(){
         return declared;
     }

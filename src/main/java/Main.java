@@ -26,10 +26,8 @@ public class Main {
     /*
 
         // PREGUNTAS
-        TODO: Primera pregunta: Para el fin de los tercetos, hacemos un terceto que sea (END, null, null)? porque puede que haya un salto BI que quiera saltar a un terceto que no existe...
-        TODO: los calls quedaron de esta manera -> terceto 5: (CALL, funcion, null), terceto 6: (=, variable, [5]), esta bien?
-        TODO: Como expresar las funciones en la lista de tercetos? tenemos dos opciones: una poner variables a los tercetos que indiquen el ambito en el que fueron declarados. Segunda es crear un terceto nuevo que sea algo asi como (FUNCION, nombre_funcion, null) al inicio y saber que el ultimo terceto de una funcion es siemrpe (RETURN, algo, null)
-
+        TODO: Lo que definimos en el .data tiene que ser igual a como generamos el assembler? es decir, el nombre de las definiciones es el mismo nombre que usamos despues?
+        TODO: Como definir en el .data las funciones?
         // COSAS RESTANTES
         TODO: falta chequear que haya que usar variables cuando no hay más registros
         TODO: SENTENCIA IF/WHILE: faltan hacer las pasadas

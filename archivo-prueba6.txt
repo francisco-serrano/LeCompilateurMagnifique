@@ -1,13 +1,6 @@
 var1, var2, var3 : UINT.
-
+var4 : ULONG.
 var1 = 100 * 1 + 2 * 2.
 var2 = 200 + 5 / 1.
 var3 = var1.
-
-[
-IF (var1 > 10 * 1) THEN
-	var3 = 555.
-ELSE
-	var3 = 888.
-END_IF
-]
+OUT ('ola k ase').
