@@ -1,3 +1,7 @@
-1.  ( * , 2 , 3 ) null
-2.  ( + , 100 , [1] ) null
-3.  ( = , var1 , [2] ) null
+1.  ( + , 100 , 2 ) false
+2.  ( = , var1@main , [1] ) false
+3.  ( * , 200 , 5 ) false
+4.  ( = , var2@main , [3] ) false
+5.  ( + , var1@main , var2@main ) false
+6.  ( = , var3@main , [5] ) false
+7.  ( END , - , - ) false

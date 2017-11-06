@@ -30,6 +30,12 @@ public class Main {
         TODO: los calls quedaron de esta manera -> terceto 5: (CALL, funcion, null), terceto 6: (=, variable, [5]), esta bien?
         TODO: Como expresar las funciones en la lista de tercetos? tenemos dos opciones: una poner variables a los tercetos que indiquen el ambito en el que fueron declarados. Segunda es crear un terceto nuevo que sea algo asi como (FUNCION, nombre_funcion, null) al inicio y saber que el ultimo terceto de una funcion es siemrpe (RETURN, algo, null)
 
+        // COSAS RESTANTES
+        TODO: falta chequear que haya que usar variables cuando no hay más registros
+        TODO: SENTENCIA IF/WHILE: faltan hacer las pasadas
+        TODO: enganchar con las funciones más adelante
+        TODO: falta lo de definir las variables
+
         // IDEAS
         TODO: Definir si el método redefined y varDefined se pueden juntar
         TODO: Acomodar los nombres de los métodos (poner todos en declarar en vez de definir)
@@ -86,12 +92,16 @@ public class Main {
         for (Terceto terceto : parser.getTercetos())
             System.out.println(terceto);
 
-        System.out.println("\nMAPEO FUNCIONES");
-        for (String key : parser.getMapeoFuncion().keySet())
-            System.out.println(key + " --> " + parser.getMapeoFuncion().get(key));
+//        System.out.println("\nMAPEO FUNCIONES");
+//        for (String key : parser.getMapeoFuncion().keySet())
+//            System.out.println(key + " --> " + parser.getMapeoFuncion().get(key));
+//
+        System.out.println("\nASSEMBLER");
+        Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
+        generador.generateAssembler();
 
-        //Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
-        //generador.generateAssembler();
+        System.out.println("\nCODIGO");
+        System.out.println(generador.getCode());
     }
 
     /**
