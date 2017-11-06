@@ -49,7 +49,7 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-        runInDevelopmentMode("archivo-prueba4.txt");
+        runInDevelopmentMode("archivo-prueba6.txt");
     }
 
     /**
@@ -86,13 +86,12 @@ public class Main {
         for (Terceto terceto : parser.getTercetos())
             System.out.println(terceto);
 
-        System.out.println("\nHOLA QUE ONDA");
+        System.out.println("\nMAPEO FUNCIONES");
         for (String key : parser.getMapeoFuncion().keySet())
             System.out.println(key + " --> " + parser.getMapeoFuncion().get(key));
 
         //Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
         //generador.generateAssembler();
-
     }
 
     /**
