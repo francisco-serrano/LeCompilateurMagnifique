@@ -87,5 +87,6 @@ public class Terceto {
         return this.isWhile;
     }
 
+
 }
 
