@@ -47,19 +47,28 @@ public class Generador {
     }
 
     public void generateAssembler() {
-        this.code.append(".386 \n");
-        this.code.append(".model flat, stdcall         ;Modelo de memoria 'pequeño' \n");
-        this.code.append(".stack 200h                  ;Tamaño de la pila\n");
+        printHeader();
 
         //this.declararMacro();
 
         this.declararVariables();
 
         for (Terceto terceto : tercetos)
-            assemblerTerceto(terceto);
+            assembleTerceto(terceto);
     }
 
-    private void assemblerTerceto(Terceto terceto) {
+    private void printHeader() {
+        this.code.append(".386 \n");
+        this.code.append(".model flat, stdcall         ;Modelo de memoria 'pequeño' \n");
+        this.code.append(".stack 200h                  ;Tamaño de la pila\n");
+        this.code.append("include \\masm32\\include\\windows.inc\n");
+        this.code.append("include \\masm32\\include\\kernel32.inc\n");
+        this.code.append("include \\masm32\\include\\user32.inc\n");
+        this.code.append("includelib \\masm32\\lib\\kernel32.libn");
+        this.code.append("includelib \\masm32\\lib\\user32.lib\n");
+    }
+
+    private void assembleTerceto(Terceto terceto) {
         /*
             Cada operación tiene un tipo de assembler asociado.
             Hay que ir asignándole el registro asociado a cada terceto.
