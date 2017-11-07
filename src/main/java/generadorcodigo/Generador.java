@@ -93,9 +93,9 @@ public class Generador {
 
         listaInstrucciones = Splitter.on("\n").splitToList(code.toString());
 
-        intercalarLabels();
+        listaInstrucciones = intercalarLabels(listaInstrucciones);
 
-        eliminarNumeros();
+        listaInstrucciones = eliminarNumeros(listaInstrucciones);
     }
 
     private void printHeader() {
@@ -316,11 +316,7 @@ public class Generador {
     }
 
     private void applySituacionBI(Terceto terceto) {
-        String tercetoSaltar;
-        if (terceto.getArg1().getClass() == ItemString.class)
-            tercetoSaltar = ((ItemString) terceto.getArg1()).getArg();
-        else
-            tercetoSaltar = Integer.toString(((ItemTerceto) terceto.getArg1()).getArg().getNumero());
+        String tercetoSaltar = terceto.getArg1().toItemString().getArg();
 
         tercetoSaltar = tercetoSaltar.replace("[", "");
         tercetoSaltar = tercetoSaltar.replace("]", "");
@@ -354,11 +350,11 @@ public class Generador {
         mapaSaltos.put(">=", "JNL");
     }
 
-    private void intercalarLabels() {
+    private List<String> intercalarLabels(List<String> listita) {
         listaDireccionesSalto = listaDireccionesSalto.stream().sorted().collect(Collectors.toList());
 
         List<String> auxLista = new ArrayList<>();
-        auxLista.addAll(listaInstrucciones);
+        auxLista.addAll(listita);
 
         for (int i = 0; i < auxLista.size(); i++) {
             String instruccion = auxLista.get(i);
@@ -376,11 +372,11 @@ public class Generador {
             }
         }
 
-        listaInstrucciones = auxLista;
+        return auxLista;
     }
 
-    private void eliminarNumeros() {
-        listaInstrucciones = listaInstrucciones.stream().map((instruccion) -> {
+    private List<String> eliminarNumeros(List<String> listita) {
+        listita = listita.stream().map((instruccion) -> {
             List<String> aux = Splitter.on("}").splitToList(instruccion);
 
             if (aux.size() == 2)
@@ -388,5 +384,7 @@ public class Generador {
 
             return instruccion;
         }).collect(Collectors.toList());
+
+        return listita;
     }
 }
