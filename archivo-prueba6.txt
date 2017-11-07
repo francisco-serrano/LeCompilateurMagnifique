@@ -4,6 +4,14 @@ var1 = 100 * 1 + 2 * 2.
 var2 = 200 + 5 / 1.
 var3 = var1.
 
+UINT FUNCTION aa {
+	var3 : UINT.
+
+	var3 = 100 + var2.
+
+	RETURN (var3).
+}
+
 IF (var1 <> 555) THEN
 	var2 = 333.
 ELSE
