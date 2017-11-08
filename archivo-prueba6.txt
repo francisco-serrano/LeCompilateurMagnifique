@@ -1,15 +1,19 @@
 var1, var2, var3 : UINT.
-
+var4 : ULONG.
 var1 = 100 * 1 + 2 * 2 + 5 * 5 - 6 * 8.
 var2 = 200 + 5 / 1.
 var3 = var1.
 
 UINT FUNCTION aa {
-	var3 : UINT.
+ 	var3, var4 : UINT.
 
-	var3 = 345 + var2.
+ 	RETURN (var3).
+}
 
-	RETURN (var3).
+UINT FUNCTION bb {
+	var8 : UINT.
+    var8 = 2.
+	RETURN (var8).
 }
 
 IF (var1 <> 555) THEN

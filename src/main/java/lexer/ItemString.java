@@ -41,11 +41,19 @@ public class ItemString implements Item {
         String s = this.arg;
         String[] parts = s.split("@");
         String part1 = parts[0];
+        String amb = "";
+
+        if (parts.length == 3){
+            amb = "main@" + parts[2];
+        }else{
+            amb = "main";
+        }
+
 
         List<Token> aux = new ArrayList<>();
         aux = tabla.getTokenList(part1);
         for (int i = 0; i < aux.size(); i++) {
-            if (aux.get(i).isDeclared())
+            if (aux.get(i).isDeclared() && (aux.get(i).getAmbito().equals(amb) || aux.get(i).getAmbito().equals("undefined")))
                 return aux.get(i).getType();
         }
 
