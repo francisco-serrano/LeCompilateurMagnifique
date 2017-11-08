@@ -143,7 +143,7 @@ public class TablaSimbolos {
      * @param ambito Ambito local actual.
      * @return Booleano indicando si la variable está definida en el ámbito local actual.
      */
-    private boolean varDefinedLocalScope(String lexema, String ambito) {
+    public boolean varDefinedLocalScope(String lexema, String ambito) {
         Token token = getToken(lexema, ambito);
 
         return token != null;
@@ -323,7 +323,6 @@ public class TablaSimbolos {
         }
         return tip;
     }
-
 
 
     public Multimap<String,Token> getTabla(){ return this.multimap; }

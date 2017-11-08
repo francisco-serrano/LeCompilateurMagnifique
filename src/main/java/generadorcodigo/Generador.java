@@ -63,14 +63,14 @@ public class Generador {
                         if (t.getType().equals("ULONG"))
                             this.code.append(t.getLexema().toString() + prefijo + " DD" + " ?\n");
                         break;
-                    case "nombre_funcion":
+                  /*  case "nombre_funcion":
                         if (t.getType().equals("UINT")) {
                             this.code.append(t.getLexema().toString() + " DW" + " ?\n");
                         }
                         if (t.getType().equals("ULONG")) {
                             this.code.append(t.getLexema().toString() + " DD" + " ?\n");
                         }
-                        break;
+                        break;*/
                     case "constante":
                         if (t.getType().equals("UINT")) {
                             this.code.append(t.getLexema() + " DW " + t.getLexema().toString() + "\n");

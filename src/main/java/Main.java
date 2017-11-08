@@ -26,15 +26,12 @@ public class Main {
 
     /*
 
-        // PREGUNTAS
-        TODO: Lo que definimos en el .data tiene que ser igual a como generamos el assembler? es decir, el nombre de las definiciones es el mismo nombre que usamos despues?
-        TODO: Como definir en el .data las funciones?
-
         // COSAS RESTANTES
         TODO: falta chequear que haya que usar variables cuando no hay más registros
         TODO: enganchar con las funciones más adelante
         TODO: arreglar el problema del casting
         TODO: agregar los chequeos en tiempo de ejecucion
+        TODO: faltan las sentencias out!
 
         // IDEAS
         TODO: Definir si el método redefined y varDefined se pueden juntar
