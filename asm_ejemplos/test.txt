@@ -1,0 +1,11 @@
+ulongint i;
+ulongint m;
+
+double a;
+
+m := 5ul;
+i := m + 3ul;
+a := 3.4;
+
+
+print("lalala");
