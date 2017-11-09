@@ -173,6 +173,12 @@ public class Generador {
             }
         }
 
+        //Para ver los OUT
+        if (terceto.getOperador().equals("PRINT")){
+            String auxiliar = terceto.getArg1().toString().replace("'","");
+            code.append("invoke MessageBox, NULL, addr " + auxiliar+", addr "+ auxiliar+", MB_OK\n");
+        }
+
         // COMPARACION
         if (listaComparadores.contains(terceto.getOperador())) {
             System.out.println(terceto + " --> COMPARADOR");
