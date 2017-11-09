@@ -1,0 +1,19 @@
+var1, var3 : UINT.
+
+UINT FUNCTION aa {
+	var2 : UINT.
+
+	var2 = 200.
+
+	RETURN(var2).
+}
+
+UINT FUNCTION bb {
+	var3 : UINT.
+
+	var3 = 555 + 100.
+
+	RETURN(var3).
+}
+
+var1 = aa() + 200.

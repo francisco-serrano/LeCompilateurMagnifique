@@ -1,11 +1,9 @@
-import com.google.common.base.Splitter;
+import com.google.common.base.Joiner;
 import generadorcodigo.Generador;
 import lexer.*;
 import parser.Parser;
 
-import javax.xml.bind.SchemaOutputResolver;
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -27,18 +25,19 @@ public class Main {
     /*
 
         // COSAS RESTANTES
-        TODO: falta chequear que haya que usar variables cuando no hay más registros
-        TODO: enganchar con las funciones más adelante
         TODO: arreglar el problema del casting
-        TODO: agregar los chequeos en tiempo de ejecucion
-        TODO: faltan las sentencias out!
+        TODO: IMPORTANTE!!! Agregar los chequeos en tiempo de ejecucion
+        TODO: IMPORTANTE!!! Arreglar lo de la sentencia out
+        TODO: preguntar si las constantes hay que definirlas en la tabla de símbolos
+        TODO: IMPORTANTE!!! Acomodar los de los registros, porque para R0, no especificamos si es AX o EAX
+        TODO: IMPORTANTE!!! Ver la sintaxis de la multiplicación -> ES MUY BARDERA (VER ejemplo2.asm)
+        TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
+        TODO: IMPORTANTE!!! Revisar situación 4b, creo que está mal
+        TODO: IMPORTANTE!!! Agregar soporte para DOS llamadas a función en la misma sentencia.
 
         // IDEAS
         TODO: Definir si el método redefined y varDefined se pueden juntar
         TODO: Acomodar los nombres de los métodos (poner todos en declarar en vez de definir)
-
-        // CONSULTAS
-        TODO: Preguntar si al final de todo se podrían eliminar las entradas de la TS que están al pedo
 
         // ACOMODAR
         TODO: Estandarizar la salida por consola
@@ -52,7 +51,7 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-        runInDevelopmentMode("archivo-prueba6.txt");
+        runInDevelopmentMode("archivo-prueba7.txt");
     }
 
     /**
@@ -75,7 +74,12 @@ public class Main {
         parser.setLexico(lexer);
         parser.setTablaSimbolos(tablaSimbolos);
 
-        System.out.println("\nRESULTADO DEL PARSING: " + parser.yyparse());
+        int resultadoParsing = parser.yyparse();
+
+        System.out.println("\nRESULTADO DEL PARSING: " + resultadoParsing);
+
+        if (resultadoParsing == 1)
+            return;
 
         System.out.println("\n" + tablaSimbolos);
 
@@ -92,13 +96,6 @@ public class Main {
         System.out.println("\nASSEMBLER");
         Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
         generador.generateAssembler();
-
-        System.out.println("\nCODIGO");
-        List<String> listaLineas = Splitter.on("\n").splitToList(generador.getCode());
-        for (String linea : listaLineas)
-            System.out.println(linea);
-
-        System.out.println("\nCODIGO CON LABELS");
         for (String inst : generador.getListaInstrucciones())
             System.out.println(inst);
     }
