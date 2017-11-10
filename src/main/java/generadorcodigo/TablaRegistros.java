@@ -33,4 +33,8 @@ public class TablaRegistros {
     public void freeRegister(int reg) {
         registroOcupado[reg] = false;
     }
+
+    public boolean isOccupied(int reg) {
+        return registroOcupado[reg];
+    }
 }

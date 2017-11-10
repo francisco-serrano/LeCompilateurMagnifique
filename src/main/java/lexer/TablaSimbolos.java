@@ -324,6 +324,25 @@ public class TablaSimbolos {
         return tip;
     }
 
+    public String getVarType(String lexema) {
+
+
+        for (Token token : multimap.get("ID")) {
+            if (token.getLexema().equals(lexema) && token.getUso().equals("variable"))
+                return token.getType();
+        }
+
+        return null;
+    }
+
+    public String getConstantType(String lexema) {
+        for (Token token : multimap.get("CTE")) {
+            if (token.getLexema().equals(lexema))
+                return token.getType();
+        }
+
+        return null;
+    }
 
     public Multimap<String,Token> getTabla(){ return this.multimap; }
 

@@ -24,18 +24,18 @@ public class Main {
 
     /*
 
-        // COSAS RESTANTES
-        TODO: arreglar el problema del casting
-        TODO: IMPORTANTE!!! Agregar los chequeos en tiempo de ejecucion
-        TODO: IMPORTANTE!!! Arreglar lo de la sentencia out
-        TODO: preguntar si las constantes hay que definirlas en la tabla de símbolos
-        TODO: IMPORTANTE!!! Acomodar los de los registros, porque para R0, no especificamos si es AX o EAX
-        TODO: IMPORTANTE!!! Ver la sintaxis de la multiplicación -> ES MUY BARDERA (VER ejemplo2.asm)
-        TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
-        TODO: IMPORTANTE!!! Revisar situación 4b, creo que está mal
-        TODO: IMPORTANTE!!! Agregar soporte para DOS llamadas a función en la misma sentencia.
+        // COSAS IMPORTANTES
+        TODO: Agregar los chequeos en tiempo de ejecucion
+        TODO: Ver la sintaxis de la multiplicación -> ES MUY BARDERA (VER ejemplo2.asm)
+        TODO: Agregar soporte para llamadas a función.
 
-        // IDEAS
+        TODO: Chequear que la instrucción MOV no puede usarse para mover variables
+        TODO: NO USAR JAVA 8
+
+        // COSAS MENORES
+        TODO: Preguntar si las constantes hay que definirlas en la tabla de símbolos
+        TODO: Chequear lo del LABEL_END que aparece dos veces
+        TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
         TODO: Definir si el método redefined y varDefined se pueden juntar
         TODO: Acomodar los nombres de los métodos (poner todos en declarar en vez de definir)
 
@@ -78,16 +78,16 @@ public class Main {
 
         System.out.println("\nRESULTADO DEL PARSING: " + resultadoParsing);
 
-        if (resultadoParsing == 1)
-            return;
-
-        System.out.println("\n" + tablaSimbolos);
-
         System.out.println("\nERRORES");
         for (String errorlexico : tablaSimbolos.getErroreLexicos())
             System.out.println(errorlexico);
         for (String error : parser.getErrores())
             System.out.println(error);
+
+        if (resultadoParsing == 1 || parser.getErrores().size() != 0)
+            return;
+
+        System.out.println("\n" + tablaSimbolos);
 
         System.out.println("\nTERCETOS");
         for (Terceto terceto : parser.getTercetos())

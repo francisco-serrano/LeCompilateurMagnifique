@@ -10,7 +10,7 @@ public class Terceto {
     private boolean isWhile = false;
     private boolean isDireccionSalto = false;
 
-    private int associatedRegister;
+    private String associatedRegister;
 
 
     public Terceto(String operador, Item arg1, Item arg2, String tipo) {
@@ -22,11 +22,11 @@ public class Terceto {
         this.tipo = tipo;
     }
 
-    public int getAssociatedRegister() {
+    public String getAssociatedRegister() {
         return associatedRegister;
     }
 
-    public void setAssociatedRegister(int associatedRegister) {
+    public void setAssociatedRegister(String associatedRegister) {
         this.associatedRegister = associatedRegister;
     }
 
