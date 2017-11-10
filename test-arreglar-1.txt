@@ -1,6 +1,8 @@
 [Sentencia IF con bloque ELSE con emisión de mensaje en ambos bloques]
-var1: UINT.
-var1 = 1.
+var1 : UINT.
+
+[
+var1 = 0.
 IF (var1 > 2) THEN
     BEGIN
         var1 = 25.
@@ -12,7 +14,16 @@ ELSE
         OUT('Rama else').
     END
 END_IF
+]
 
-IF (var1+var1-var1 == 100*1/2+100-50+50) THEN
-        OUT('vavava').
+[
+IF (var1 + var1 - var1 == 100 * 1 / 2 + 100 - 50 - 100) THEN
+	OUT('vavava').
+END_IF
+]
+
+var1 = 50.
+
+IF (var1 == 100 / 2) THEN
+	OUT('vavava').
 END_IF

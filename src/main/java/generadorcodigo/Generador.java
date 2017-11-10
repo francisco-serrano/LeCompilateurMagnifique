@@ -390,11 +390,39 @@ public class Generador {
             tablaUtilizar.occupyRegister(segundoReg);
             String segundoRegistro = getRegistro_x86(constantType, segundoReg);
 
-            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
-            codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
+//            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
+
+            // INICIO CODIGO AUXILIAR PARA QUE NO SE PISE LO QUE HAY EN AX/EAX
+            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
+                codigo.append(terceto.getNumero() + "}MOV tempAX, AX\n");
+            }
+
+            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
+                codigo.append(terceto.getNumero() + "}MOV tempEAX, EAX\n");
+            }
+            // ---------------------------------------------------------------
+
+            codigo.append(terceto.getNumero() + "}MOV AX, " + segundoElemento + "\n");
+            codigo.append(terceto.getNumero() + "}" + aux + " " + registroUtilizar + "\n");
+
+
+            // Inicio código auxiliar para recuperar lo que había en AX/EAX
+            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
+                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", AX\n");
+                codigo.append(terceto.getNumero() + "}MOV AX, tempAX\n");
+            }
+
+            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
+                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", EAX\n");
+                codigo.append(terceto.getNumero() + "}MOV EAX, tempEAX\n");
+            }
+
+            terceto.setAssociatedRegister(segundoRegistro);
+            // ------------------------------------------------------------
+
             codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
 
-            tablaUtilizar.freeRegister(segundoReg);
+//            tablaUtilizar.freeRegister(segundoReg);
 
             return;
         }
@@ -465,9 +493,34 @@ public class Generador {
             tablaUtilizar.occupyRegister(segundoReg);
             String segundoRegistro = getRegistro_x86(terceto1.getTipo(), segundoReg);
 
+            // INICIO CODIGO AUXILIAR PARA QUE NO SE PISE LO QUE HAY EN AX/EAX
+            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
+                codigo.append(terceto.getNumero() + "}MOV tempAX, AX\n");
+                codigo.append(terceto.getNumero() + "}MOV AX, " + terceto1.getAssociatedRegister() + "\n");
+            }
+
+            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
+                codigo.append(terceto.getNumero() + "}MOV tempEAX, EAX\n");
+            }
+            // ---------------------------------------------------------------
+
             codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
             codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
             codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+
+            // Inicio código auxiliar para recuperar lo que había en AX/EAX
+            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
+                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", AX\n");
+                codigo.append(terceto.getNumero() + "}MOV AX, tempAX\n");
+            }
+
+            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
+                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", EAX\n");
+                codigo.append(terceto.getNumero() + "}MOV EAX, tempEAX\n");
+            }
+
+            terceto.setAssociatedRegister(segundoRegistro);
+            // ------------------------------------------------------------
 
             tablaUtilizar.freeRegister(segundoReg);
 
@@ -731,7 +784,7 @@ public class Generador {
             String type = terceto1.getTipo();
             TablaRegistros tablaUtilizar = getTablaRegistros(type);
 
-            codigo.append(terceto.getNumero()).append("} CMP ").append(terceto1.getAssociatedRegister()).append(", ").append(terceto2.getAssociatedRegister()).append("\n");
+            codigo.append(terceto.getNumero()).append("}CMP ").append(terceto1.getAssociatedRegister()).append(", ").append(terceto2.getAssociatedRegister()).append("\n");
 
             tablaUtilizar.freeRegister(getRegistro(terceto1.getAssociatedRegister()));
             tablaUtilizar.freeRegister(getRegistro(terceto2.getAssociatedRegister()));

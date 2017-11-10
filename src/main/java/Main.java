@@ -42,8 +42,9 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-        runInDevelopmentMode("archivo-prueba7.txt");
+//        runInDevelopmentMode("archivo-prueba7.txt");
 //        runInDevelopmentMode("./casos-prueba/Generacion_codigo9.txt");
+        runInDevelopmentMode("test-arreglar-1.txt");
     }
 
     /**

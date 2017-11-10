@@ -11,11 +11,11 @@ includelib C:\masm32\lib\user32.lib
 includelib C:\masm32\lib\masm32.lib 
 
 .data 
+@50 DW 50
 @100 DW 100
-@1 DW 1
-@0 DW 0
+@2 DW 2
+vavava db "vavava", 0 
 var1@main DW ?
-retUINT_aa DW ?
 tempAX DW ?
 tempBX DW ?
 tempCX DW ?
@@ -29,26 +29,20 @@ mensaje_overflow_producto db "HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> OVERFL
 
 .code
 start:
-MOV AX, 100
-MOV BX, 0
-MUL BX
-JO @LABEL_OVF_PRODUCTO
-MOV tempAX, AX
-CALL @FUNCTION_aa
-MOV AX, tempAX
-MOV BX, retUINT_aa
-MUL BX
-JO @LABEL_OVF_PRODUCTO
-ADD AX, 1
+MOV AX, 50
 MOV var1@main, AX
-JMP @LABEL_END
-JMP @LABEL_END
-
-
-@FUNCTION_aa:
 MOV AX, 100
-MOV retUINT_aa, AX
-RET
+MOV AX, BX
+DIV AX
+JO @LABEL_OVF_PRODUCTO
+MOV CX, var1@main
+CMP CX, BX
+JNE Label6
+invoke MessageBox, NULL, addr vavava, addr vavava, MB_OK
+Label6:
+JMP @LABEL_END
+JMP @LABEL_END
+
 
 @LABEL_OVF_PRODUCTO:
 invoke MessageBox, NULL, addr mensaje_overflow_producto, addr mensaje_overflow_producto, MB_OK
@@ -58,11 +52,6 @@ invoke MessageBox, NULL, addr mensaje_division_cero, addr mensaje_division_cero,
 @LABEL_END:
 invoke ExitProcess, 0
 end start
-
-@FUNCTION_aa:
-MOV AX, 100
-MOV retUINT_aa, AX
-RET
 
 @LABEL_OVF_PRODUCTO:
 invoke MessageBox, NULL, addr mensaje_overflow_producto, addr mensaje_overflow_producto, MB_OK
