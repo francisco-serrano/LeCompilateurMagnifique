@@ -1,0 +1,10 @@
+[Invocación de FUNCTION]
+
+var1, var2: UINT.
+
+UINT FUNCTION aa {
+	RETURN (100).
+}
+
+var1 = 100.
+var2 = var1 + aa().

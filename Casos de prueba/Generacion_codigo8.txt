@@ -1,0 +1,21 @@
+[Sentencia de control asignada como tema particular anidados en los bloques de una sentencia IF ELSE. Una sentencia de control en cada bloque.]
+
+var1 : UINT
+var1 = 3.
+IF (var1 > 2) THEN
+    BEGIN
+        WHILE (var1 > 30) DO
+    		BEGIN
+        		OUT('Rama if').
+        		var1 = 40.
+    		END
+    END
+ELSE
+    BEGIN
+		WHILE (var1 < 30) DO
+    		BEGIN
+        		OUT('Rama else').
+        		var1 = 25.
+    		END
+    END
+END_IF

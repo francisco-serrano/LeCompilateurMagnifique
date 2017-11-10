@@ -1,0 +1,16 @@
+[Nombres de función redeclarados]
+var1 : ULONG.
+var2 : UINT.
+
+ULONG FUNCTION funcion {
+	var1 = 111100.
+	RETURN (var1).
+}
+
+UINT FUNCTION funcion {
+	var2 = 200.
+	RETURN (var2).
+}
+
+var : UINT.
+var = 2.

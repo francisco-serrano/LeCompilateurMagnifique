@@ -1,0 +1,9 @@
+[Sentencia IF sin bloque ELSE con un bloque de sentencias que contengan al menos una sentencia de emisión de mensaje]
+var1: UINT.
+var1 = 10.
+IF (var1 > 2) THEN
+	BEGIN
+		OUT('Dentro del if'). 
+		var1 = 2.
+	END
+END_IF
