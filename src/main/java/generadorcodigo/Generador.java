@@ -1,9 +1,13 @@
 package generadorcodigo;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Multimap;
 import lexer.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -70,6 +74,21 @@ public class Generador {
         listaInstFunc.add("@LABEL_END:");
         listaInstFunc.add("invoke ExitProcess, 0");
         listaInstFunc.add("end start");
+    }
+
+    public void buildFile(String nombreArchivo) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new File(nombreArchivo));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assert writer != null;
+
+        writer.println(Joiner.on("\n").join(getListaInstrucciones()));
+
+        writer.close();
     }
 
     private void printHeader() {

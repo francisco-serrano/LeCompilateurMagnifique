@@ -33,11 +33,9 @@ public class Main {
         TODO: Pasar código a JAVA 7
 
         // DUDAS
-        TODO: Chequear si están bien los jump
         TODO: Se podían hacer llamadas a función en una comparación??? (En lo posible hacernos los boludos...)
 
         // COSAS MENORES
-        TODO: Preguntar si las constantes hay que definirlas en la tabla de símbolos
         TODO: Chequear lo del LABEL_END que aparece dos veces
         TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
         TODO: Generar JavaDoc
@@ -96,6 +94,8 @@ public class Main {
         generador.generateAssembler();
         for (String inst : generador.getListaInstrucciones())
             System.out.println(inst);
+
+        generador.buildFile("salida.asm");
     }
 
     /**
