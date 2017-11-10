@@ -893,12 +893,12 @@ public class Generador {
     }
 
     private void buildMap() {
-        mapaSaltos.put("<", "JNGE");
-        mapaSaltos.put("<=", "JNG");
+        mapaSaltos.put("<", "JGE");
+        mapaSaltos.put("<=", "JG");
         mapaSaltos.put("==", "JNE");
         mapaSaltos.put("<>", "JE");
-        mapaSaltos.put(">", "JNLE");
-        mapaSaltos.put(">=", "JNL");
+        mapaSaltos.put(">", "JLE");
+        mapaSaltos.put(">=", "JL");
     }
 
     private List<String> intercalarLabels(List<String> listita) {
