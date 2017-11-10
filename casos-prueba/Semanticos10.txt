@@ -1,0 +1,4 @@
+[Función no declarada, cuando se invoque a una función no declarada previamente]
+
+var1 : ULONG.
+var =  funcion() / 10.

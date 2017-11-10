@@ -1,4 +1,0 @@
-[Funciones no declaradas]
-
-var2 : ULONG.
-var2 = funcion().

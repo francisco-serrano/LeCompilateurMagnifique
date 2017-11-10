@@ -1,0 +1,11 @@
+[Intento de uso de variables globales en una función MOVE]
+var1 : UINT.
+var2 : ULONG.
+
+ULONG MOVE FUNCTION funcion {
+	var1 = 100.
+	RETURN (var1).
+}
+
+var1 = 25.
+var2 = 18 + funcion().

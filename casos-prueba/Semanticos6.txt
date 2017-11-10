@@ -1,0 +1,12 @@
+[FUNCTION y variable con el mismo nombre]
+var1: UINT.
+
+UINT FUNCTION aa {
+	var : UINT.
+	var = 100.
+	RETURN (var).
+}
+
+var1 = 50.
+aa : UINT.
+aa = var1.

@@ -2,39 +2,36 @@
 .model flat, stdcall         ;Modelo de memoria 'pequeño' 
 .stack 200h                  ;Tamaño de la pila
 option casemap :none
-include \masm32\include\windows.inc 
-include \masm32\include\kernel32.inc 
-include \masm32\include\user32.inc 
-includelib \masm32\lib\kernel32.lib 
-includelib \masm32\lib\user32.lib 
+include C:\masm32\include\windows.inc 
+include C:\masm32\include\kernel32.inc 
+include C:\masm32\include\user32.inc 
+include C:\masm32\include\masm32.inc 
+includelib C:\masm32\lib\kernel32.lib 
+includelib C:\masm32\lib\user32.lib 
+includelib C:\masm32\lib\masm32.lib 
 
 .data 
-@555 DW 555
-@99999999 DD 99999999
 @100 DW 100
+@5 DW 5
 var1@main DW ?
-var2@main@aa DW ?
-retUINT_aa DW ?
-retULONG_bb DD ?
+tempAX DW ?
+tempBX DW ?
+tempCX DW ?
+tempDX DW ?
+tempEAX DD ?
+tempEBX DD ?
+tempECX DD ?
+tempEDX DD ?
 
 .code
 start:
-CALL @FUNCTION_aa
 MOV AX, 100
-SUB AX, retUINT_aa
+MOV BX, 5
+MUL BX
 MOV var1@main, AX
 JMP @LABEL_END
+JMP @LABEL_END
 
-
-@FUNCTION_aa:
-MOV AX, 555
-MOV var2@main@aa, AX
-MOV retUINT_aa, var2@main@aa
-RET
-
-@FUNCTION_bb:
-MOV retULONG_bb, 99999999
-RET
 
 @LABEL_END:
 invoke ExitProcess, 0

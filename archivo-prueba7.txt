@@ -8,8 +8,10 @@ UINT FUNCTION aa {
 	RETURN(var2).
 }
 
+[
 UINT FUNCTION bb {
 	RETURN(100).
 }
+]
 
-var1 = 100 * 1 + aa().
+var1 = aa() / 10 / 5 * 6.

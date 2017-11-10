@@ -76,6 +76,7 @@ public class Generador {
         this.code.append(".386 \n");
         this.code.append(".model flat, stdcall         ;Modelo de memoria 'pequeño' \n");
         this.code.append(".stack 200h                  ;Tamaño de la pila\n");
+        this.code.append("option casemap :none\n");
         this.code.append("include C:\\masm32\\include\\windows.inc \n");
         this.code.append("include C:\\masm32\\include\\kernel32.inc \n");
         this.code.append("include C:\\masm32\\include\\user32.inc \n");
@@ -115,10 +116,10 @@ public class Generador {
                         break;
                     case "constante":
                         if (t.getType().equals("UINT")) {
-                            this.code.append(t.getLexema() + " DW " + t.getLexema().toString() + "\n");
+                            this.code.append("@" + t.getLexema() + " DW " + t.getLexema().toString() + "\n");
                         }
                         if (t.getType().equals("ULONG")) {
-                            this.code.append(t.getLexema() + " DD " + t.getLexema().toString() + "\n");
+                            this.code.append("@" + t.getLexema() + " DD " + t.getLexema().toString() + "\n");
                         }
                         break;
 
@@ -222,11 +223,22 @@ public class Generador {
 
             String tipoRetorno = tablita.getTypeFuncion(nombreFuncion);
 
-            if (tipoRetorno.equals("UINT"))
-                codigoFuncion.append("MOV retUINT_").append(nombreFuncion).append(", ").append(terceto.getArg1().toItemString().toString()).append("\n");
+            TablaRegistros tablaUtilizar = getTablaRegistros(tipoRetorno);
+            int reg = tablaUtilizar.getFreeRegister();
+            tablaUtilizar.occupyRegister(reg);
+            String registroUtilizar = getRegistro_x86(tipoRetorno, reg);
 
-            if (tipoRetorno.equals("ULONG"))
-                codigoFuncion.append("MOV retULONG_").append(nombreFuncion).append(", ").append(terceto.getArg1().toItemString().toString()).append("\n");
+            if (tipoRetorno.equals("UINT")) {
+                codigoFuncion.append("MOV " + registroUtilizar + ", " + terceto.getArg1().toItemString().toString() + "\n");
+                codigoFuncion.append("MOV retUINT_").append(nombreFuncion).append(", ").append(registroUtilizar).append("\n");
+            }
+
+            if (tipoRetorno.equals("ULONG")) {
+                codigoFuncion.append("MOV " + registroUtilizar + ", " + terceto.getArg1().toItemString().toString() + "\n");
+                codigoFuncion.append("MOV retULONG_").append(nombreFuncion).append(", ").append(registroUtilizar).append("\n");
+            }
+
+            tablaUtilizar.freeRegister(reg);
 
             nombreFuncion = "";
             codigoFuncion.append("RET\n");
@@ -336,7 +348,28 @@ public class Generador {
         terceto.setAssociatedRegister(registroUtilizar);
 
         codigo.append(terceto.getNumero()).append("}MOV ").append(registroUtilizar).append(", ").append(terceto.getArg1().toString()).append("\n");
-        codigo.append(terceto.getNumero()).append("}").append(getOperacion(terceto.getOperador())).append(" ").append(registroUtilizar).append(", ").append(terceto.getArg2().toString()).append("\n");
+
+        String operacion = getOperacion(terceto.getOperador());
+        String segundoElemento = terceto.getArg2().toString();
+        if (operacion.equals("MULT") || operacion.equals("DIV")) {
+            String aux = "MUL";
+
+            if (operacion.equals("DIV"))
+                aux = "DIV";
+
+            int segundoReg = tablaUtilizar.getFreeRegister();
+            tablaUtilizar.occupyRegister(segundoReg);
+            String segundoRegistro = getRegistro_x86(constantType, segundoReg);
+
+            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
+            codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
+
+            tablaUtilizar.freeRegister(segundoReg);
+
+            return;
+        }
+
+        codigo.append(terceto.getNumero()).append("}").append(operacion).append(" ").append(registroUtilizar).append(", ").append(segundoElemento).append("\n");
     }
 
     // Operación entre: REGISTRO y VAR/CTE
@@ -361,15 +394,54 @@ public class Generador {
             tablaUtilizar.occupyRegister(reg);
             registroUtilizar = getRegistro_x86(terceto1.getTipo(), reg);
 
-            codigo.append(terceto.getNumero()).append("}").append(getOperacion(terceto.getOperador())).append(" ").append(variableRetorno).append(", ").append(terceto.getArg2().toString()).append("\n");
-            codigo.append(terceto.getNumero()).append("}MOV ").append(registroUtilizar).append(", ").append(variableRetorno).append("\n");
+            String operacion = getOperacion(terceto.getOperador());
+            if (operacion.equals("MULT") || operacion.equals("DIV")) {
+                if (operacion.equals("MULT"))
+                    operacion = "MUL";
+
+                codigo.append(terceto.getNumero() + "}MOV " + registroUtilizar + ", " + variableRetorno + "\n");
+
+                int reg2 = tablaUtilizar.getFreeRegister();
+                tablaUtilizar.occupyRegister(reg2);
+                String reg2_x86 = getRegistro_x86(terceto.getTipo(), reg2);
+
+                codigo.append(terceto.getNumero() + "}MOV " + reg2_x86 + ", " + terceto.getArg2().toString() + "\n");
+                codigo.append(terceto.getNumero() + "}" + operacion + " " + reg2_x86 + "\n");
+
+                tablaUtilizar.freeRegister(reg2);
+
+            } else {
+                codigo.append(terceto.getNumero()).append("}").append(getOperacion(terceto.getOperador())).append(" ").append(variableRetorno).append(", ").append(terceto.getArg2().toString()).append("\n");
+                codigo.append(terceto.getNumero()).append("}MOV ").append(registroUtilizar).append(", ").append(variableRetorno).append("\n");
+            }
 
             terceto.setAssociatedRegister(registroUtilizar);
 
             return;
         }
 
-        // Agrego código assembler asociado
+        String operacion = getOperacion(terceto.getOperador());
+        String segundoElemento = terceto.getArg2().toString();
+        if (operacion.equals("MULT") || operacion.equals("DIV")) {
+            String aux = "MUL";
+
+            if (operacion.equals("DIV"))
+                aux = "DIV";
+
+            TablaRegistros tablaUtilizar = getTablaRegistros(terceto1.getTipo());
+
+            int segundoReg = tablaUtilizar.getFreeRegister();
+            tablaUtilizar.occupyRegister(segundoReg);
+            String segundoRegistro = getRegistro_x86(terceto1.getTipo(), segundoReg);
+
+            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
+            codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
+
+            tablaUtilizar.freeRegister(segundoReg);
+
+            return;
+        }
+
         codigo.append(terceto.getNumero()).append("}").append(getOperacion(terceto.getOperador())).append(" ").append(registroUtilizar).append(", ").append(terceto.getArg2().toString()).append("\n");
     }
 
@@ -476,7 +548,25 @@ public class Generador {
             String registroUtilizar = getRegistro_x86(terceto2.getTipo(), reg);
 
             codigo.append(terceto.getNumero() + "}MOV " + registroUtilizar + ", " + variableRetorno + "\n");
-            codigo.append(terceto.getNumero() + "}" + getOperacion(terceto.getOperador()) + " " + registroUtilizar + ", " + terceto.getArg1().toItemString() + "\n");
+
+            String operacion = getOperacion(terceto.getOperador());
+            if (operacion.equals("MULT") || operacion.equals("DIV")) {
+
+                if (operacion.equals("MULT"))
+                    operacion = "MUL";
+
+                int regAux = tablaUtilizar.getFreeRegister();
+                tablaUtilizar.occupyRegister(regAux);
+                String regAux86 = getRegistro_x86(terceto.getTipo(), regAux);
+
+                codigo.append(terceto.getNumero() + "}MOV " + regAux86 + ", " + terceto.getArg1().toItemString() + "\n");
+                codigo.append(terceto.getNumero() + "}" + operacion + " " + regAux86 + "\n");
+
+                tablaUtilizar.freeRegister(regAux);
+            } else {
+                codigo.append(terceto.getNumero() + "}" + operacion + " " + registroUtilizar + ", " + terceto.getArg1().toItemString() + "\n");
+            }
+
 
             terceto.setAssociatedRegister(registroUtilizar);
 

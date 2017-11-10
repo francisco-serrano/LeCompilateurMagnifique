@@ -1,0 +1,15 @@
+[Sentencia IF con comparación entre expresiones aritméticas como condición, con bloque ELSE. Incluir emisión de mensajes en ambos bloques.]
+
+var1: UINT.
+var1 = 10.
+IF (3 * 8 > var1 / 2) THEN
+    BEGIN
+        var1 = 25.
+        OUT('Rama if').
+    END
+ELSE
+    BEGIN
+        var1 = 100.
+        OUT('Rama else').
+    END
+END_IF

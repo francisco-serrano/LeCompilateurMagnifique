@@ -23,27 +23,24 @@ public class Main {
     private static final String DIR_MATRIZ_ACC_SEMANTICAS = "matriz-acc-semanticas.txt";
 
     /*
+        // RESULTADOS DE LOS TEST
+        TODO: test-8 --> Se generan las labels dos veces
+        TODO: test-9 --> No se imprimen todas las labels (PROBLEMA)
 
         // COSAS IMPORTANTES
         TODO: Agregar los chequeos en tiempo de ejecucion
-        TODO: Ver la sintaxis de la multiplicación -> ES MUY BARDERA (VER ejemplo2.asm)
-        TODO: Agregar soporte para llamadas a función.
+        TODO: Bajar StringBuilder a un archivo
+        TODO: Pasar código a JAVA 7
 
-        TODO: Chequear que la instrucción MOV no puede usarse para mover variables
-        TODO: NO USAR JAVA 8
+        // DUDAS
+        TODO: Chequear si están bien los jump
+        TODO: Se podían hacer llamadas a función en una comparación??? (En lo posible hacernos los boludos...)
 
         // COSAS MENORES
         TODO: Preguntar si las constantes hay que definirlas en la tabla de símbolos
         TODO: Chequear lo del LABEL_END que aparece dos veces
         TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
-        TODO: Definir si el método redefined y varDefined se pueden juntar
-        TODO: Acomodar los nombres de los métodos (poner todos en declarar en vez de definir)
-
-        // ACOMODAR
-        TODO: Estandarizar la salida por consola
-        TODO: JavaDoc -> Clase Lexer
-        TODO: JavaDoc -> Acciones Semánticas
-        TODO: JavaDoc -> Parser (Dejarlo para el final del trabajo)
+        TODO: Generar JavaDoc
      */
 
     /**
@@ -52,6 +49,7 @@ public class Main {
      */
     public static void main(String[] args) {
         runInDevelopmentMode("archivo-prueba7.txt");
+//        runInDevelopmentMode("./casos-prueba/Generacion_codigo14.txt");
     }
 
     /**

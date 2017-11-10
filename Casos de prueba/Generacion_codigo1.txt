@@ -1,6 +1,0 @@
-[Sentencia de asignación]
-
-var1 : ULONG.
-var2 : UINT.
-var1 = 111076.
-var2 = 100.

@@ -1,0 +1,10 @@
+[Nombres de función como operandos de expresiones, sin los paréntesis que indican la invocación de una función.]
+
+UINT FUNCTION funcion {
+	var1 : UINT.
+	var1 = 100.
+	RETURN (var1).
+}
+
+var : UINT.
+var = 3 + funcion.
