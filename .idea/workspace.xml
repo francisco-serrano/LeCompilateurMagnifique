@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7def4df5-f3c8-4cc5-ac56-e99cc50296e4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gitignore" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asm_ejemplos/ejemplo2.exe" afterPath="$PROJECT_DIR$/asm_ejemplos/ejemplo2.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asm_ejemplos/ejemplo2.obj" afterPath="$PROJECT_DIR$/asm_ejemplos/ejemplo2.obj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/generadorcodigo/Generador.class" afterPath="$PROJECT_DIR$/target/classes/generadorcodigo/Generador.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/generadorcodigo/TablaRegistros.class" afterPath="$PROJECT_DIR$/target/classes/generadorcodigo/TablaRegistros.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/lexer/TablaSimbolos.class" afterPath="$PROJECT_DIR$/target/classes/lexer/TablaSimbolos.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/lexer/Terceto.class" afterPath="$PROJECT_DIR$/target/classes/lexer/Terceto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/archivo-prueba7.txt" afterPath="$PROJECT_DIR$/archivo-prueba7.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/generadorcodigo/Generador.java" afterPath="$PROJECT_DIR$/src/main/java/generadorcodigo/Generador.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/generadorcodigo/TablaRegistros.java" afterPath="$PROJECT_DIR$/src/main/java/generadorcodigo/TablaRegistros.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lexer/TablaSimbolos.java" afterPath="$PROJECT_DIR$/src/main/java/lexer/TablaSimbolos.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lexer/Terceto.java" afterPath="$PROJECT_DIR$/src/main/java/lexer/Terceto.java" />
-    </list>
+    <list default="true" id="7def4df5-f3c8-4cc5-ac56-e99cc50296e4" name="Default" comment="" />
     <ignored path="LeCompilateurMagnifique.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -51,8 +35,8 @@
       <file leaf-file-name="Generador.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/generadorcodigo/Generador.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1431">
-              <caret line="443" column="76" lean-forward="true" selection-start-line="443" selection-start-column="76" selection-end-line="443" selection-end-column="76" />
+            <state relative-caret-position="269">
+              <caret line="543" column="52" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="851" selection-end-column="0" />
               <folding>
                 <element signature="method#applySituacionBF#0;class#Generador#0" expanded="false" />
                 <element signature="method#applySituacionBI#0;class#Generador#0" expanded="false" />
@@ -514,12 +498,12 @@
       <updated>1510162539618</updated>
       <workItem from="1510196241488" duration="18580000" />
       <workItem from="1510258050031" duration="5855000" />
-      <workItem from="1510268363854" duration="24939000" />
+      <workItem from="1510268363854" duration="25060000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49374000" />
+    <option name="totallyTimeSpent" value="49495000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -542,7 +526,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.57348704" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3223684" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32132566" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21482602" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -865,8 +849,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/generadorcodigo/Generador.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1431">
-          <caret line="443" column="76" lean-forward="true" selection-start-line="443" selection-start-column="76" selection-end-line="443" selection-end-column="76" />
+        <state relative-caret-position="269">
+          <caret line="543" column="52" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="851" selection-end-column="0" />
           <folding>
             <element signature="method#applySituacionBF#0;class#Generador#0" expanded="false" />
             <element signature="method#applySituacionBI#0;class#Generador#0" expanded="false" />
