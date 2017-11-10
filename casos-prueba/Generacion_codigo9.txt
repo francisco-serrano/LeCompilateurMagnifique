@@ -1,12 +1,15 @@
 [Sentencia IF ELSE anidada en el/los bloques de la sentencia de control asignada como tema particular.]
 
 var1 : UINT.
-var1 = 3.
+var1 = 40.
     WHILE (var1 > 30) DO
   		BEGIN
-			IF (var1 > 2) THEN
+			IF (var1 > 50) THEN
 			    var1 = 25.
 			ELSE
+			BEGIN
 			    OUT('Rama else').
+			    var1 = var1 + 5.
+			END
 			END_IF
 		END

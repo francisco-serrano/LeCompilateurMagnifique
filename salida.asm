@@ -11,12 +11,11 @@ includelib C:\masm32\lib\user32.lib
 includelib C:\masm32\lib\masm32.lib 
 
 .data 
-@3 DW 3
-@2 DW 2
-@1 DW 1
+@40 DW 40
 @30 DW 30
+@50 DW 50
 @25 DW 25
-Rama_if db "Rama if", 0 
+@5 DW 5
 Rama_else db "Rama else", 0 
 var1@main DW ?
 tempAX DW ?
@@ -30,33 +29,28 @@ tempEDX DD ?
 
 .code
 start:
-MOV AX, 3
+MOV AX, 40
 MOV var1@main, AX
-MOV AX, var1@main
-MOV BX, 2
-CMP AX, BX
-JLE Label10
-Label4:
-MOV AX, var1@main
-MOV BX, 2
-CMP AX, BX
-JLE Label9
-invoke MessageBox, NULL, addr Rama_if, addr Rama_if, MB_OK
-MOV AX, 1
-MOV var1@main, AX
-JMP Label4
-Label9:
-JMP Label15
-Label10:
+Label2:
 MOV AX, var1@main
 MOV BX, 30
 CMP AX, BX
-JGE Label15
-invoke MessageBox, NULL, addr Rama_else, addr Rama_else, MB_OK
+JLE Label12
+MOV AX, var1@main
+MOV BX, 50
+CMP AX, BX
+JLE Label8
 MOV AX, 25
 MOV var1@main, AX
-JMP Label10
-Label15:
+JMP Label11
+Label8:
+invoke MessageBox, NULL, addr Rama_else, addr Rama_else, MB_OK
+MOV AX, var1@main
+ADD AX, 5
+MOV var1@main, AX
+Label11:
+JMP Label2
+Label12:
 JMP @LABEL_END
 JMP @LABEL_END
 

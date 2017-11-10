@@ -210,7 +210,7 @@ public class Generador {
         // SALIDA POR PANTALLA (OUT)
         if (terceto.getOperador().equals("PRINT")) {
             String auxiliar = terceto.getArg1().toString().replace("'", "").replace(" ", "_");
-            code.append("invoke MessageBox, NULL, addr ").append(auxiliar).append(", addr ").append(auxiliar).append(", MB_OK\n");
+            code.append(terceto.getNumero() + "}invoke MessageBox, NULL, addr ").append(auxiliar).append(", addr ").append(auxiliar).append(", MB_OK\n");
         }
 
         // COMPARACION

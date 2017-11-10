@@ -23,9 +23,6 @@ public class Main {
     private static final String DIR_MATRIZ_ACC_SEMANTICAS = "matriz-acc-semanticas.txt";
 
     /*
-        // RESULTADOS DE LOS TEST
-        TODO: test-9 --> No se imprimen todas las labels (PROBLEMA)
-
         // COSAS IMPORTANTES
         TODO: Agregar los chequeos en tiempo de ejecucion
         TODO: Pasar código a JAVA 7
@@ -45,7 +42,7 @@ public class Main {
      */
     public static void main(String[] args) {
 //        runInDevelopmentMode("archivo-prueba7.txt");
-        runInDevelopmentMode("./casos-prueba/Generacion_codigo8.txt");
+        runInDevelopmentMode("./casos-prueba/Generacion_codigo9.txt");
     }
 
     /**
