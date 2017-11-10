@@ -1,0 +1,14 @@
+[Sentencia IF con bloque ELSE con emisión de mensaje en ambos bloques]
+var1: UINT.
+var1 = 10.
+IF (var1 > 2) THEN
+    BEGIN
+        var1 = 25.
+        OUT('Rama if').
+    END
+ELSE
+    BEGIN
+        var1 = 100.
+        OUT('Rama else').
+    END
+END_IF

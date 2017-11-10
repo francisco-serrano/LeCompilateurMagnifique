@@ -1,0 +1,4 @@
+[Variables no declaradas]
+var1, var2 : UINT.
+
+var3 = 1234.

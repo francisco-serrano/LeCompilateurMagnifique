@@ -1,0 +1,9 @@
+[Sentencia de control asignada como tema particular. Con emisión de mensaje que permite observar, en ejecución, el flujo de control.]
+
+var1 : UINT.
+var1 = 1000.
+WHILE (var1 < 3000) DO
+    BEGIN
+        OUT('dentro del while').
+        var1 = 400 + 200.
+    END

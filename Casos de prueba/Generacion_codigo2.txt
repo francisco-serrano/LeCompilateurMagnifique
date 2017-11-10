@@ -1,0 +1,3 @@
+[Sentencia de emisión de mensajes por pantalla]
+OUT ('mensaje de salida').
+OUT('segundo mensaje').
