@@ -4,10 +4,10 @@ var1 : UINT.
 var1 = 3.
 IF (var1 > 2) THEN
     BEGIN
-        WHILE (var1 > 30) DO
+        WHILE (var1 > 2) DO
     		BEGIN
         		OUT('Rama if').
-        		var1 = 40.
+        		var1 = 1.
     		END
     END
 ELSE

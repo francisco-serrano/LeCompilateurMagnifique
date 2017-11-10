@@ -24,12 +24,10 @@ public class Main {
 
     /*
         // RESULTADOS DE LOS TEST
-        TODO: test-8 --> Se generan las labels dos veces
         TODO: test-9 --> No se imprimen todas las labels (PROBLEMA)
 
         // COSAS IMPORTANTES
         TODO: Agregar los chequeos en tiempo de ejecucion
-        TODO: Bajar StringBuilder a un archivo
         TODO: Pasar código a JAVA 7
 
         // DUDAS
@@ -47,7 +45,7 @@ public class Main {
      */
     public static void main(String[] args) {
 //        runInDevelopmentMode("archivo-prueba7.txt");
-        runInDevelopmentMode("./casos-prueba/Generacion_codigo14.txt");
+        runInDevelopmentMode("./casos-prueba/Generacion_codigo8.txt");
     }
 
     /**

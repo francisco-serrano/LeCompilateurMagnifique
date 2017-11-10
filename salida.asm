@@ -11,12 +11,14 @@ includelib C:\masm32\lib\user32.lib
 includelib C:\masm32\lib\masm32.lib 
 
 .data 
-@1234 DW 1234
-@100 DW 100
+@3 DW 3
+@2 DW 2
+@1 DW 1
+@30 DW 30
+@25 DW 25
+Rama_if db "Rama if", 0 
+Rama_else db "Rama else", 0 
 var1@main DW ?
-var2@main DW ?
-var3@main@aa DW ?
-retUINT_aa DW ?
 tempAX DW ?
 tempBX DW ?
 tempCX DW ?
@@ -28,33 +30,40 @@ tempEDX DD ?
 
 .code
 start:
-MOV AX, 100
+MOV AX, 3
 MOV var1@main, AX
-CALL @FUNCTION_aa
 MOV AX, var1@main
-SUB AX, retUINT_aa
-MOV var2@main, AX
+MOV BX, 2
+CMP AX, BX
+JLE Label10
+Label4:
+MOV AX, var1@main
+MOV BX, 2
+CMP AX, BX
+JLE Label9
+invoke MessageBox, NULL, addr Rama_if, addr Rama_if, MB_OK
+MOV AX, 1
+MOV var1@main, AX
+JMP Label4
+Label9:
+JMP Label15
+Label10:
+MOV AX, var1@main
+MOV BX, 30
+CMP AX, BX
+JGE Label15
+invoke MessageBox, NULL, addr Rama_else, addr Rama_else, MB_OK
+MOV AX, 25
+MOV var1@main, AX
+JMP Label10
+Label15:
 JMP @LABEL_END
 JMP @LABEL_END
 
-
-@FUNCTION_aa:
-MOV AX, 1234
-MOV var3@main@aa, AX
-MOV AX, 100
-MOV retUINT_aa, AX
-RET
 
 @LABEL_END:
 invoke ExitProcess, 0
 end start
-
-@FUNCTION_aa:
-MOV AX, 1234
-MOV var3@main@aa, AX
-MOV AX, 100
-MOV retUINT_aa, AX
-RET
 
 @LABEL_END:
 invoke ExitProcess, 0

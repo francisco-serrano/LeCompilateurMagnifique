@@ -921,7 +921,7 @@ public class Generador {
     }
 
     private List<String> intercalarLabels(List<String> listita) {
-        listaDireccionesSalto = listaDireccionesSalto.stream().sorted().collect(Collectors.toList());
+        listaDireccionesSalto = listaDireccionesSalto.stream().sorted().distinct().collect(Collectors.toList());
 
         List<String> auxLista = new ArrayList<>();
         auxLista.addAll(listita);
