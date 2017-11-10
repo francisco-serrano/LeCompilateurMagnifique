@@ -32,6 +32,7 @@ public class Main {
 
         // COSAS MENORES
         TODO: Chequear lo del LABEL_END que aparece dos veces
+        TODO: Estandarizar la salida de los errores
         TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
         TODO: Generar JavaDoc
      */
@@ -41,8 +42,8 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-//        runInDevelopmentMode("archivo-prueba7.txt");
-        runInDevelopmentMode("./casos-prueba/Generacion_codigo9.txt");
+        runInDevelopmentMode("archivo-prueba7.txt");
+//        runInDevelopmentMode("./casos-prueba/Generacion_codigo9.txt");
     }
 
     /**

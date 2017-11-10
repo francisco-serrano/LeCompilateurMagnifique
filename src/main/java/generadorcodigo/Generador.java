@@ -71,6 +71,13 @@ public class Generador {
         listaInstrucciones = eliminarNumeros(listaInstrucciones);
         listaInstFunc = eliminarNumeros(listaInstFunc);
 
+        listaInstFunc.add("@LABEL_OVF_PRODUCTO:");
+        listaInstFunc.add("invoke MessageBox, NULL, addr mensaje_overflow_producto, addr mensaje_overflow_producto, MB_OK");
+        listaInstFunc.add("JMP @LABEL_END");
+
+        listaInstFunc.add("@LABEL_DIV_CERO:");
+        listaInstFunc.add("invoke MessageBox, NULL, addr mensaje_division_cero, addr mensaje_division_cero, MB_OK");
+
         listaInstFunc.add("@LABEL_END:");
         listaInstFunc.add("invoke ExitProcess, 0");
         listaInstFunc.add("end start");
@@ -157,6 +164,9 @@ public class Generador {
         code.append("tempEBX DD ?\n");
         code.append("tempECX DD ?\n");
         code.append("tempEDX DD ?\n");
+
+        code.append("mensaje_division_cero db \"HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> DIVIDIR POR CERO VIOLA EL CODIGO ESTETICO Y MORAL\", 0\n");
+        code.append("mensaje_overflow_producto db \"HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> OVERFLOW EN PRODUCTO\", 0\n");
     }
 
     private void assembleTerceto(Terceto terceto) {
@@ -382,6 +392,7 @@ public class Generador {
 
             codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
             codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
+            codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
 
             tablaUtilizar.freeRegister(segundoReg);
 
@@ -426,6 +437,7 @@ public class Generador {
 
                 codigo.append(terceto.getNumero() + "}MOV " + reg2_x86 + ", " + terceto.getArg2().toString() + "\n");
                 codigo.append(terceto.getNumero() + "}" + operacion + " " + reg2_x86 + "\n");
+                codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
 
                 tablaUtilizar.freeRegister(reg2);
 
@@ -455,6 +467,7 @@ public class Generador {
 
             codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
             codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
+            codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
 
             tablaUtilizar.freeRegister(segundoReg);
 
@@ -530,7 +543,26 @@ public class Generador {
             codigo.append(terceto.getNumero() + "}CALL @FUNCTION_" + nombreFuncion + "\n");
             recoverRegisters(terceto2.getTipo());
 
-            codigo.append(terceto.getNumero() + "}" + getOperacion(terceto.getOperador()) + " " + terceto1.getAssociatedRegister() + ", " + variableRetorno + "\n");
+            String operacion = getOperacion(terceto.getOperador());
+
+            if (operacion.equals("MULT") || operacion.equals("DIV")) {
+
+                if (operacion.equals("MULT"))
+                    operacion = "MUL";
+
+                TablaRegistros tablaUtilizar = getTablaRegistros(terceto2.getTipo());
+                int reg = tablaUtilizar.getFreeRegister();
+                tablaUtilizar.occupyRegister(reg);
+                String registroUtilizar = getRegistro_x86(terceto2.getTipo(), reg);
+
+                codigo.append(terceto.getNumero() + "}MOV " + registroUtilizar + ", " + variableRetorno + "\n");
+                codigo.append(terceto.getNumero() + "}" + operacion + " " + registroUtilizar + "\n");
+                codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+
+                tablaUtilizar.freeRegister(reg);
+            } else {
+                codigo.append(terceto.getNumero() + "}" + getOperacion(terceto.getOperador()) + " " + terceto1.getAssociatedRegister() + ", " + variableRetorno + "\n");
+            }
 
             terceto.setAssociatedRegister(terceto1.getAssociatedRegister());
 
@@ -580,6 +612,7 @@ public class Generador {
 
                 codigo.append(terceto.getNumero() + "}MOV " + regAux86 + ", " + terceto.getArg1().toItemString() + "\n");
                 codigo.append(terceto.getNumero() + "}" + operacion + " " + regAux86 + "\n");
+                codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
 
                 tablaUtilizar.freeRegister(regAux);
             } else {
