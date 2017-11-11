@@ -24,6 +24,7 @@ public class Main {
 
     /*
         // COSAS IMPORTANTES
+        TODO: Agregar chequeo de overflow en multiplicación
         TODO: Agregar chequeo de división por cero
         TODO: Pasar código a JAVA 7
 
@@ -44,7 +45,7 @@ public class Main {
      */
     public static void main(String[] args) {
 //        runInDevelopmentMode("archivo-prueba7.txt");
-        runInDevelopmentMode("./casos-prueba/Generacion_codigo14.txt");
+        runInDevelopmentMode("./casos-prueba/Generacion_codigo6.txt");
 //        runInDevelopmentMode("test-arreglar-2.txt");
     }
 

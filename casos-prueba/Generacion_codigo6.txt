@@ -2,7 +2,7 @@
 
 var1: UINT.
 var1 = 10.
-IF (3 * 8 > var1 / 2) THEN
+IF (6 > var1 / 2) THEN
     BEGIN
         var1 = 25.
         OUT('Rama if').

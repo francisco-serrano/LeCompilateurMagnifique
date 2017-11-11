@@ -74,6 +74,9 @@ public class Generador {
         listaInstrucciones = reemplazarMultDiv(listaInstrucciones);
         listaInstFunc = reemplazarMultDiv(listaInstFunc);
 
+        listaInstrucciones = hacerQueFunqueLaDivision(listaInstrucciones);
+        listaInstFunc = hacerQueFunqueLaDivision(listaInstFunc);
+
 //        agregarControlOVF_Producto();
 
         listaInstFunc.add("@LABEL_OVF_PRODUCTO:");
@@ -124,6 +127,50 @@ public class Generador {
         }
 
         return auxListaInstrucciones;
+    }
+
+    private List<String> hacerQueFunqueLaDivision(List<String> victima) {
+        List<String> listaRetornar = new ArrayList<>();
+
+        for (int i = 0; i < victima.size(); i++) {
+            String potencialVictima = victima.get(i);
+
+            String operacion = Splitter.on(" ").splitToList(potencialVictima).get(0);
+
+            if (operacion.equals("DIV")) {
+                String tipoValor = getTipo(Integer.valueOf(Splitter.on("@").splitToList(potencialVictima).get(1)));
+
+                if (tipoValor.equals("UINT")) {
+                    listaRetornar.add("MOV tempDX, DX");
+                    listaRetornar.add("MOV DX, 0");
+                    listaRetornar.add(potencialVictima);
+                    listaRetornar.add("MOV DX, tempDX");
+                }
+
+                if (tipoValor.equals("ULONG")) {
+                    listaRetornar.add("MOV tempEDX, EDX");
+                    listaRetornar.add("MOV EDX, 0");
+                    listaRetornar.add(potencialVictima);
+                    listaRetornar.add("MOV EDX, tempEDX");
+                }
+
+                continue;
+            }
+
+            listaRetornar.add(potencialVictima);
+        }
+
+        return listaRetornar;
+    }
+
+    private String getTipo(long valor) {
+        if (valor >= 0 && valor <= 65535)
+            return "UINT";
+
+        if (valor >= 65536 && valor <= 4294967295d)
+            return "ULONG";
+
+        throw new RuntimeException("TIPO NO RECONOCIDOOOOOOOOO");
     }
 
     public void buildFile(String nombreArchivo) {
