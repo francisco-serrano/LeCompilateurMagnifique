@@ -1,4 +1,3 @@
-import com.google.common.base.Joiner;
 import generadorcodigo.Generador;
 import lexer.*;
 import parser.Parser;
@@ -24,9 +23,9 @@ public class Main {
 
     /*
         // COSAS IMPORTANTES
-        TODO: Agregar chequeo de overflow en multiplicación
-        TODO: Agregar chequeo de división por cero
-        TODO: Pasar código a JAVA 7
+        TODO: Chequear que se rompe al llamar funciones como divisores.
+        TODO: Agregar chequeo de división por cero.
+        TODO: Pasar código a JAVA 7.
 
         // DUDAS
         TODO: Se podían hacer llamadas a función en una comparación??? (En lo posible hacernos los boludos...)

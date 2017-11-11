@@ -1,7 +1,13 @@
 var1 : UINT.
 
-var1 = 100 * 20000.
+UINT FUNCTION aa {
+	RETURN(0).
+}
 
-IF (var1 == 20) THEN
-	OUT('HOLIZ').
+var1 = 100 / 0.
+
+IF (var1 == 100) THEN
+	OUT('ENTRA AL IF').
+ELSE
+	OUT('ENTRA AL ELSE').
 END_IF

@@ -80,6 +80,9 @@ public class Generador {
         listaInstrucciones = agregarControlOVF_Producto(listaInstrucciones);
         listaInstFunc = agregarControlOVF_Producto(listaInstFunc);
 
+        listaInstrucciones = agregarControlDivision(listaInstrucciones);
+        listaInstFunc = agregarControlDivision(listaInstFunc);
+
         listaInstFunc.add("@LABEL_OVF_PRODUCTO:");
         listaInstFunc.add("invoke MessageBox, NULL, addr mensaje_overflow_producto, addr mensaje_overflow_producto, MB_OK");
         listaInstFunc.add("JMP @LABEL_END");
@@ -139,7 +142,16 @@ public class Generador {
             String operacion = Splitter.on(" ").splitToList(potencialVictima).get(0);
 
             if (operacion.equals("DIV")) {
-                String tipoValor = getTipo(Integer.valueOf(Splitter.on("@").splitToList(potencialVictima).get(1)));
+                String tipoValor;
+
+                if (potencialVictima.contains("UINT")) {
+                    tipoValor = "UINT";
+                    potencialVictima = potencialVictima.replace("@", "");
+                } else if (potencialVictima.contains("ULONG")) {
+                    tipoValor = "ULONG";
+                    potencialVictima = potencialVictima.replace("@", "");
+                } else
+                    tipoValor = getTipo(Integer.valueOf(Splitter.on("@").splitToList(potencialVictima).get(1)));
 
                 if (tipoValor.equals("UINT")) {
                     listaRetornar.add("MOV tempDX, DX");
@@ -175,6 +187,49 @@ public class Generador {
             if (operacion.equals("MUL")) {
                 listaRetornar.add("JO @LABEL_OVF_PRODUCTO\n");
             }
+        }
+
+        return listaRetornar;
+    }
+
+    private List<String> agregarControlDivision(List<String> lista) {
+        List<String> listaRetornar = new ArrayList<>();
+
+        for (String elem : lista) {
+            String operacion = Splitter.on(" ").splitToList(elem).get(0);
+
+            if (operacion.equals("DIV")) {
+                String divisor = Splitter.on(" ").splitToList(elem).get(1);
+
+                // Me fijo si el valor viene de una constante
+                if (divisor.contains("@")) {
+                    String tipo = getTipo(new Long(divisor.replace("@", "")));
+
+                    if (tipo.equals("UINT")) {
+                        listaRetornar.add("CMP DX, " + divisor);
+                        listaRetornar.add("JZ @LABEL_DIV_CERO");
+                    }
+
+                    if (tipo.equals("ULONG")) {
+                        listaRetornar.add("CMP EDX, " + divisor);
+                        listaRetornar.add("JZ @LABEL_DIV_CERO");
+                    }
+                }
+
+                // Me fijo si el valor viene del retorno de una función UINT
+                if (divisor.contains("retUINT_")) {
+                    listaRetornar.add("CMP DX, " + divisor);
+                    listaRetornar.add("JZ @LABEL_DIV_CERO");
+                }
+
+                // Me fijo si el valor viene del retorno de una función ULONG
+                if (divisor.contains("retULONG_")) {
+                    listaRetornar.add("CMP EDX, " + divisor);
+                    listaRetornar.add("JZ @LABEL_DIV_CERO");
+                }
+            }
+
+            listaRetornar.add(elem);
         }
 
         return listaRetornar;
