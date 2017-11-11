@@ -13,6 +13,11 @@ import java.util.Scanner;
  * cancelar la ejecución, ingresar "EXIT". En caso de producirse errores durante la etapa de compilación, se informarán
  * los mismos por consola. En caso de querer volver a compilar, se debe ejecutar nuevamente el archivo por lotes.
  *
+ * Para iniciar la ejecución, abrir el archivo por lotes "run-compiler.bat" para mayor facilidad de uso.
+ *
+ * Otra alternativa de ejecución es, dentro de una consola, correr el siguiente comando:
+ * "java -jar LeCompilateurMagnifique.jar"
+ *
  * @author Bianco Martín, Di Pietro Esteban, Serrano Francisco
  */
 public class Main {

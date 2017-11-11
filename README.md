@@ -3,6 +3,8 @@ Trabajo de cursada para Diseño de Compiladores
 
 # Funcionamiento
 
-La aplicación está basada en una CLI en la que se ingresa la ruta del archivo a compilar, para que posteriormente al dar `ENTER` se proceda a realizar efectivamente la compilación. Una vez finalizado el proceso para el archivo ingresado, se otorga la posibilidad de ingresar otro archivo para luego proceder de forma análoga.
+El funcionamiento se basa en una CLI en la que se solicita ingresar por consola el archivo a compilar, en caso de cancelar la ejecución, ingresar _EXIT_. En caso de producirse errores durante la etapa de compilación, se informarán los mismos por consola. En caso de querer volver a compilar, se debe ejecutar nuevamente el archivo por lotes.
 
-En caso de ingresar _EXIT_, se da por finalizada la ejecución del compilador.
+Para iniciar la ejecución, abrir el archivo por lotes _run-compiler.bat_ para mayor facilidad de uso.
+
+Otra alternativa de ejecución es, dentro de una consola, correr el siguiente comando: _java -jar LeCompilateurMagnifique.jar_
