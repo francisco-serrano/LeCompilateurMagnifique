@@ -147,11 +147,15 @@ public class Main {
 
         System.out.println("NO HAY ERRORES");
 
+        System.out.println("\nTERCETOS");
+        for (Terceto terceto : parser.getTercetos())
+            System.out.println(terceto);
+
         Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
         generador.generateAssembler();
 
         generador.buildFile(fileDir + ".asm");
-        System.out.println("Se generó el código assembler, identificado como --> " + fileDir + ".asm");
+        System.out.println("\nSe generó el código assembler, identificado como --> " + fileDir + ".asm");
     }
 }
 
