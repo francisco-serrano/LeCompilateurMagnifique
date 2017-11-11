@@ -1,8 +1,5 @@
 package lexer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Clase que representa al elemento que contiene los lexemas dentro de una tabla de símbolos. En caso de que el lexema
  * pertenezca a un token de tipo identificador, tendrán relevancia los campos "declared" y "type", para posteriormente

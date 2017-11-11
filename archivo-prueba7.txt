@@ -4,7 +4,7 @@ UINT FUNCTION aa {
 	RETURN(0).
 }
 
-var1 = 100 / 0.
+var1 = 100 / 1.
 
 IF (var1 == 100) THEN
 	OUT('ENTRA AL IF').

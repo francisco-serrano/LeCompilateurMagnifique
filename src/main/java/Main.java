@@ -23,8 +23,6 @@ public class Main {
 
     /*
         // COSAS IMPORTANTES
-        TODO: Chequear que se rompe al llamar funciones como divisores.
-        TODO: Agregar chequeo de división por cero.
         TODO: Pasar código a JAVA 7.
 
         // DUDAS

@@ -13,6 +13,7 @@ includelib C:\masm32\lib\masm32.lib
 .data 
 @0 DW 0
 @100 DW 100
+@1 DW 1
 ENTRA_AL_IF db "ENTRA AL IF", 0 
 ENTRA_AL_ELSE db "ENTRA AL ELSE", 0 
 var1@main DW ?
@@ -33,9 +34,9 @@ start:
 MOV AX, 100
 MOV tempDX, DX
 MOV DX, 0
-CMP DX, @0
+CMP DX, @1
 JZ @LABEL_DIV_CERO
-DIV @0
+DIV @1
 MOV DX, tempDX
 MOV var1@main, AX
 MOV AX, var1@main

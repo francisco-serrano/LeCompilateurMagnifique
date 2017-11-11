@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 public class Generador {
 
@@ -1254,7 +1254,11 @@ public class Generador {
     }
 
     private List<String> intercalarLabels(List<String> listita) {
-        listaDireccionesSalto = listaDireccionesSalto.stream().sorted().distinct().collect(Collectors.toList());
+//        listaDireccionesSalto = listaDireccionesSalto.stream().sorted().distinct().collect(Collectors.toList());
+
+        Collections.sort(listaDireccionesSalto);
+
+        listaDireccionesSalto = new ArrayList<>(new HashSet<>(listaDireccionesSalto));
 
         List<String> auxLista = new ArrayList<>();
         auxLista.addAll(listita);
@@ -1279,15 +1283,29 @@ public class Generador {
     }
 
     private List<String> eliminarNumeros(List<String> listita) {
-        listita = listita.stream().map((instruccion) -> {
-            List<String> aux = Splitter.on("}").splitToList(instruccion);
 
-            if (aux.size() == 2)
-                return aux.get(1);
+//        listita = listita.stream().map((instruccion) -> {
+//            List<String> aux = Splitter.on("}").splitToList(instruccion);
+//
+//            if (aux.size() == 2)
+//                return aux.get(1);
+//
+//            return instruccion;
+//        }).collect(Collectors.toList());
+//        return listita;
 
-            return instruccion;
-        }).collect(Collectors.toList());
+        List<String> result = new ArrayList<>();
 
-        return listita;
+        for (int i = 0; i < listita.size(); i++) {
+            String aux = listita.get(i);
+            if (aux.contains("}")) {
+                int indice = aux.indexOf("}");
+                aux = aux.substring(indice + 1);
+                result.add(aux);
+            } else
+                result.add(aux);
+        }
+
+        return result;
     }
 }
