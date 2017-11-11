@@ -29,7 +29,7 @@ declaracion : declaracion_funcion | declaracion_variables
 ;
 
 declaracion_variables : lista_var COLON tipo DOT { 
-													System.out.println("Declaración de Variables. Línea " + $2.ival); 
+													//System.out.println("Declaración de Variables. Línea " + $2.ival); 
 													uso = "variable";
 													
 													
@@ -62,7 +62,7 @@ declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval);
 																					uso = "nombre_funcion";
 
 																					if (!tablaSimbolos.functionDefined($3.sval)){
-																						System.out.println("Declaracion de funcion. Línea " + $2.ival);
+																						//System.out.println("Declaracion de funcion. Línea " + $2.ival);
 																						auxVariables.clear();
 																						auxVariables.add($3.sval);
 																						tablaSimbolos.defineVar(auxVariables, $1.sval, uso, ambitos.toString());
@@ -84,7 +84,7 @@ declaracion_funcion : tipo FUNCTION ID { ambitos.push($3.sval);
 																												uso = "nombre_funcion";
 
 																												if (!tablaSimbolos.functionDefined($4.sval)){
-																													System.out.println("Declaracion de funcion. Línea " + $3.ival);
+																													//System.out.println("Declaracion de funcion. Línea " + $3.ival);
 																													auxVariables.clear();
 																													auxVariables.add($4.sval);
 																													tablaSimbolos.defineVar(auxVariables, $1.sval, uso, ambitos.toString());
@@ -128,7 +128,7 @@ sentencia : asignacion | print | seleccion | iteracion | declaracion
 ;
 
 print : OUT OPEN_PAR CADENA CLOSE_PAR DOT { 
-											System.out.println("Sentencia OUT. Línea " + $1.ival); 
+											//System.out.println("Sentencia OUT. Línea " + $1.ival); 
 											Terceto t = new Terceto("PRINT", new ItemString($3.sval), new ItemString("-"), null);
 											
 											
@@ -141,7 +141,7 @@ print : OUT OPEN_PAR CADENA CLOSE_PAR DOT {
 	  | OUT OPEN_PAR expresion CLOSE_PAR DOT { yyerror("\tLínea " + $1.ival + ". Estructura OUT incorrecta. Sólo se pueden imprimir cadenas"); }
 ;
 
-asignacion : ID ASIGN expresion DOT { System.out.println("ASIGNACIÓN. Línea " + $1.ival);
+asignacion : ID ASIGN expresion DOT { //System.out.println("ASIGNACIÓN. Línea " + $1.ival);
 									  Item item2 = (Item)$3.obj;
 									  Terceto t = null;	
 									  if (! tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
@@ -176,11 +176,11 @@ bloque : declaracion_variables | asignacion | print | seleccion | iteracion
 ;
 
 seleccion : seleccion_simple else bloque_sentencias END_IF { 
-																System.out.println("Línea " + $1.ival + ". Sentencia IF-ELSE"); 
+																//System.out.println("Línea " + $1.ival + ". Sentencia IF-ELSE"); 
 																((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg1(new ItemString("[" + (tercetos.size() + 1) + "]"));
 															}
 		  | seleccion_simple END_IF { 
-										System.out.println("Línea " + $2.ival + ". Sentencia IF");
+										//System.out.println("Línea " + $2.ival + ". Sentencia IF");
 										((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 1) + "]"));
 										ItemString aux = new ItemString(("" + tercetos.size() + 1));
 									}
@@ -211,7 +211,7 @@ condicion_if : condicion {
 ;
 
 condicion : OPEN_PAR expresion comparador expresion CLOSE_PAR { 
-																System.out.println("Comparación. Línea " + $3.ival); 
+																//System.out.println("Comparación. Línea " + $3.ival); 
 																String tipo1=(String)(((Item)$2.obj).getTipo());
 																String tipo2=(String)(((Item)$4.obj).getTipo());
 				
@@ -235,7 +235,7 @@ condicion : OPEN_PAR expresion comparador expresion CLOSE_PAR {
 ;
 
 bloque_sentencias : bloque_simple 
-				  | BEGIN bloque_compuesto END { System.out.println("Línea " + $1.ival + ". Bloque compuesto"); }
+				  | BEGIN bloque_compuesto END
 				  | BEGIN bloque_compuesto error { yyerror("Línea " + $1.ival + ". Bloque compuesto. Falta END"); }
 ;
 
@@ -268,7 +268,7 @@ condicion_while : condicion {
 ;
 
 expresion : expresion ADD termino { 
-									System.out.println("SUMA. Línea " + $2.ival); 
+									//System.out.println("SUMA. Línea " + $2.ival); 
 									String tipo1 = (String)(((Item)$1.obj).getTipo());
 									String tipo2 = (String)(((Item)$3.obj).getTipo());
 									Item item1 = (Item)$1.obj;
@@ -282,7 +282,7 @@ expresion : expresion ADD termino {
 									$$.obj = new ItemTerceto(t); 
 								  } 
 		  | expresion SUB termino { 
-									System.out.println("RESTA. Línea " + $2.ival); 
+									//System.out.println("RESTA. Línea " + $2.ival); 
 									String tipo1 = (String)(((Item)$1.obj).getTipo());
 									String tipo2 = (String)(((Item)$3.obj).getTipo());
 									Item item1 = (Item)$1.obj;
@@ -299,7 +299,7 @@ expresion : expresion ADD termino {
 ;
 
 termino : termino MULT factor { 
-								System.out.println("MULTIPLICACION. Línea " + $2.ival); 
+								//System.out.println("MULTIPLICACION. Línea " + $2.ival); 
 								String tipo1 = (String)(((Item)$1.obj).getTipo());
 								String tipo2 = (String)(((Item)$3.obj).getTipo());
 								Item item1 = (Item)$1.obj;
@@ -313,7 +313,7 @@ termino : termino MULT factor {
 								$$.obj = new ItemTerceto(t);
 							  } 
 		| termino DIV factor { 
-								System.out.println("DIVISION. Línea " + $2.ival); 
+								//System.out.println("DIVISION. Línea " + $2.ival); 
 								String tipo1 = (String)(((Item)$1.obj).getTipo());
 								String tipo2 = (String)(((Item)$3.obj).getTipo());
 								Item item1 = (Item)$1.obj;
@@ -330,7 +330,7 @@ termino : termino MULT factor {
 ;
 
 factor : ID { 
-				System.out.println("Lectura de la variable " + $1.sval + ". Línea " + $1.ival); 
+				//System.out.println("Lectura de la variable " + $1.sval + ". Línea " + $1.ival); 
 
 				if (!tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction)){
 					if (tablaSimbolos.functionDefined($1.sval))
@@ -373,7 +373,7 @@ invocacion_funcion : ID OPEN_PAR CLOSE_PAR {
 												if (! tablaSimbolos.functionDefined($1.sval))
 													yyerror("\tError en la línea " + $1.ival + ": FUNCION NO DEFINIDA"); 
 
-												System.out.println("Invocación a función. Línea " + $1.ival); 
+												//System.out.println("Invocación a función. Línea " + $1.ival); 
 												String id = $1.sval;
 												ItemString itemString = new ItemString(id + "@" + ambitos.peek());
 												itemString.setTabla(tablaSimbolos);

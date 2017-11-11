@@ -49,6 +49,7 @@ Label9:
 invoke MessageBox, NULL, addr ENTRA_AL_ELSE, addr ENTRA_AL_ELSE, MB_OK
 Label10:
 JMP @LABEL_END
+JMP @LABEL_END
 
 
 @FUNCTION_aa:

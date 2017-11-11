@@ -727,7 +727,7 @@ boolean doaction;
 case 4:
 //#line 31 "gramatica.y"
 { 
-													System.out.println("Declaración de Variables. Línea " + val_peek(2).ival); 
+													/*System.out.println("Declaración de Variables. Línea " + $2.ival); */
 													uso = "variable";
 													
 													
@@ -783,7 +783,7 @@ case 13:
 																					uso = "nombre_funcion";
 
 																					if (!tablaSimbolos.functionDefined(val_peek(2).sval)){
-																						System.out.println("Declaracion de funcion. Línea " + val_peek(3).ival);
+																						/*System.out.println("Declaracion de funcion. Línea " + $2.ival);*/
 																						auxVariables.clear();
 																						auxVariables.add(val_peek(2).sval);
 																						tablaSimbolos.defineVar(auxVariables, val_peek(4).sval, uso, ambitos.toString());
@@ -815,7 +815,7 @@ case 16:
 																												uso = "nombre_funcion";
 
 																												if (!tablaSimbolos.functionDefined(val_peek(2).sval)){
-																													System.out.println("Declaracion de funcion. Línea " + val_peek(3).ival);
+																													/*System.out.println("Declaracion de funcion. Línea " + $3.ival);*/
 																													auxVariables.clear();
 																													auxVariables.add(val_peek(2).sval);
 																													tablaSimbolos.defineVar(auxVariables, val_peek(5).sval, uso, ambitos.toString());
@@ -864,7 +864,7 @@ break;
 case 28:
 //#line 130 "gramatica.y"
 { 
-											System.out.println("Sentencia OUT. Línea " + val_peek(4).ival); 
+											/*System.out.println("Sentencia OUT. Línea " + $1.ival); */
 											Terceto t = new Terceto("PRINT", new ItemString(val_peek(2).sval), new ItemString("-"), null);
 											
 											
@@ -890,7 +890,7 @@ case 32:
 break;
 case 33:
 //#line 144 "gramatica.y"
-{ System.out.println("ASIGNACIÓN. Línea " + val_peek(3).ival);
+{ /*System.out.println("ASIGNACIÓN. Línea " + $1.ival);*/
 									  Item item2 = (Item)val_peek(1).obj;
 									  Terceto t = null;	
 									  if (! tablaSimbolos.varDefined(val_peek(3).sval, ambitos.toString(), isMoveFunction))
@@ -923,14 +923,14 @@ break;
 case 42:
 //#line 178 "gramatica.y"
 { 
-																System.out.println("Línea " + val_peek(3).ival + ". Sentencia IF-ELSE"); 
+																/*System.out.println("Línea " + $1.ival + ". Sentencia IF-ELSE"); */
 																((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg1(new ItemString("[" + (tercetos.size() + 1) + "]"));
 															}
 break;
 case 43:
 //#line 182 "gramatica.y"
 { 
-										System.out.println("Línea " + val_peek(0).ival + ". Sentencia IF");
+										/*System.out.println("Línea " + $2.ival + ". Sentencia IF");*/
 										((Terceto)tercetos.get((pila.pop()).intValue() - 1)).setArg2(new ItemString("[" + (tercetos.size() + 1) + "]"));
 										ItemString aux = new ItemString(("" + tercetos.size() + 1));
 									}
@@ -961,7 +961,7 @@ break;
 case 47:
 //#line 213 "gramatica.y"
 { 
-																System.out.println("Comparación. Línea " + val_peek(2).ival); 
+																/*System.out.println("Comparación. Línea " + $3.ival); */
 																String tipo1=(String)(((Item)val_peek(3).obj).getTipo());
 																String tipo2=(String)(((Item)val_peek(1).obj).getTipo());
 				
@@ -988,10 +988,6 @@ break;
 case 49:
 //#line 234 "gramatica.y"
 { yyerror("Línea " + val_peek(1).ival + ". Condicion. Falta CLOSE_PAR"); }
-break;
-case 51:
-//#line 238 "gramatica.y"
-{ System.out.println("Línea " + val_peek(2).ival + ". Bloque compuesto"); }
 break;
 case 52:
 //#line 239 "gramatica.y"
@@ -1025,7 +1021,7 @@ break;
 case 62:
 //#line 270 "gramatica.y"
 { 
-									System.out.println("SUMA. Línea " + val_peek(1).ival); 
+									/*System.out.println("SUMA. Línea " + $2.ival); */
 									String tipo1 = (String)(((Item)val_peek(2).obj).getTipo());
 									String tipo2 = (String)(((Item)val_peek(0).obj).getTipo());
 									Item item1 = (Item)val_peek(2).obj;
@@ -1042,7 +1038,7 @@ break;
 case 63:
 //#line 284 "gramatica.y"
 { 
-									System.out.println("RESTA. Línea " + val_peek(1).ival); 
+									/*System.out.println("RESTA. Línea " + $2.ival); */
 									String tipo1 = (String)(((Item)val_peek(2).obj).getTipo());
 									String tipo2 = (String)(((Item)val_peek(0).obj).getTipo());
 									Item item1 = (Item)val_peek(2).obj;
@@ -1063,7 +1059,7 @@ break;
 case 65:
 //#line 301 "gramatica.y"
 { 
-								System.out.println("MULTIPLICACION. Línea " + val_peek(1).ival); 
+								/*System.out.println("MULTIPLICACION. Línea " + $2.ival); */
 								String tipo1 = (String)(((Item)val_peek(2).obj).getTipo());
 								String tipo2 = (String)(((Item)val_peek(0).obj).getTipo());
 								Item item1 = (Item)val_peek(2).obj;
@@ -1080,7 +1076,7 @@ break;
 case 66:
 //#line 315 "gramatica.y"
 { 
-								System.out.println("DIVISION. Línea " + val_peek(1).ival); 
+								/*System.out.println("DIVISION. Línea " + $2.ival); */
 								String tipo1 = (String)(((Item)val_peek(2).obj).getTipo());
 								String tipo2 = (String)(((Item)val_peek(0).obj).getTipo());
 								Item item1 = (Item)val_peek(2).obj;
@@ -1101,7 +1097,7 @@ break;
 case 68:
 //#line 332 "gramatica.y"
 { 
-				System.out.println("Lectura de la variable " + val_peek(0).sval + ". Línea " + val_peek(0).ival); 
+				/*System.out.println("Lectura de la variable " + $1.sval + ". Línea " + $1.ival); */
 
 				if (!tablaSimbolos.varDefined(val_peek(0).sval, ambitos.toString(), isMoveFunction)){
 					if (tablaSimbolos.functionDefined(val_peek(0).sval))
@@ -1143,7 +1139,7 @@ case 77:
 												if (! tablaSimbolos.functionDefined(val_peek(2).sval))
 													yyerror("\tError en la línea " + val_peek(2).ival + ": FUNCION NO DEFINIDA"); 
 
-												System.out.println("Invocación a función. Línea " + val_peek(2).ival); 
+												/*System.out.println("Invocación a función. Línea " + $1.ival); */
 												String id = val_peek(2).sval;
 												ItemString itemString = new ItemString(id + "@" + ambitos.peek());
 												itemString.setTabla(tablaSimbolos);
@@ -1154,7 +1150,7 @@ case 77:
 													
 											}
 break;
-//#line 1081 "Parser.java"
+//#line 1077 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
