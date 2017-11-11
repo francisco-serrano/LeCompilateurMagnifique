@@ -147,6 +147,8 @@ public class Main {
 
         System.out.println("NO HAY ERRORES");
 
+        System.out.println("\n" + tablaSimbolos);
+
         System.out.println("\nTERCETOS");
         for (Terceto terceto : parser.getTercetos())
             System.out.println(terceto);
