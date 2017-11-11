@@ -11,13 +11,10 @@ includelib C:\masm32\lib\user32.lib
 includelib C:\masm32\lib\masm32.lib 
 
 .data 
-@10 DW 10
-@6 DW 6
-@2 DW 2
-@25 DW 25
 @100 DW 100
-Rama_if db "Rama if", 0 
-Rama_else db "Rama else", 0 
+@20000 DW 20000
+@20 DW 20
+HOLIZ db "HOLIZ", 0 
 var1@main DW ?
 tempAX DW ?
 tempBX DW ?
@@ -32,25 +29,17 @@ mensaje_overflow_producto db "HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> OVERFL
 
 .code
 start:
-MOV AX, 10
+MOV AX, 100
+MUL @20000
+JO @LABEL_OVF_PRODUCTO
+
 MOV var1@main, AX
 MOV AX, var1@main
-MOV tempDX, DX
-MOV DX, 0
-DIV @2
-MOV DX, tempDX
-MOV BX, 6
-CMP BX, AX
-JLE Label8
-MOV AX, 25
-MOV var1@main, AX
-invoke MessageBox, NULL, addr Rama_if, addr Rama_if, MB_OK
-JMP Label10
-Label8:
-MOV AX, 100
-MOV var1@main, AX
-invoke MessageBox, NULL, addr Rama_else, addr Rama_else, MB_OK
-Label10:
+MOV BX, 20
+CMP AX, BX
+JNE Label6
+invoke MessageBox, NULL, addr HOLIZ, addr HOLIZ, MB_OK
+Label6:
 JMP @LABEL_END
 JMP @LABEL_END
 

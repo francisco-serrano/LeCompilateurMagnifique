@@ -77,7 +77,8 @@ public class Generador {
         listaInstrucciones = hacerQueFunqueLaDivision(listaInstrucciones);
         listaInstFunc = hacerQueFunqueLaDivision(listaInstFunc);
 
-//        agregarControlOVF_Producto();
+        listaInstrucciones = agregarControlOVF_Producto(listaInstrucciones);
+        listaInstFunc = agregarControlOVF_Producto(listaInstFunc);
 
         listaInstFunc.add("@LABEL_OVF_PRODUCTO:");
         listaInstFunc.add("invoke MessageBox, NULL, addr mensaje_overflow_producto, addr mensaje_overflow_producto, MB_OK");
@@ -158,6 +159,22 @@ public class Generador {
             }
 
             listaRetornar.add(potencialVictima);
+        }
+
+        return listaRetornar;
+    }
+
+    private List<String> agregarControlOVF_Producto(List<String> lista) {
+        List<String> listaRetornar = new ArrayList<>();
+
+        for (String elem : lista) {
+            String operacion = Splitter.on(" ").splitToList(elem).get(0);
+
+            listaRetornar.add(elem);
+
+            if (operacion.equals("MUL")) {
+                listaRetornar.add("JO @LABEL_OVF_PRODUCTO\n");
+            }
         }
 
         return listaRetornar;

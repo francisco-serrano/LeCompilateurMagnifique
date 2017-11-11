@@ -1,7 +1,7 @@
 var1 : UINT.
 
-var1 = 10 / 2.
+var1 = 100 * 20000.
 
-IF (var1 == 5) THEN
+IF (var1 == 20) THEN
 	OUT('HOLIZ').
 END_IF
