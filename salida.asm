@@ -1,6 +1,6 @@
 .386 
-.model flat, stdcall         ;Modelo de memoria 'pequeño' 
-.stack 200h                  ;Tamaño de la pila
+.model flat, stdcall         ;Modelo de memoria 'pequeÃ±o' 
+.stack 200h                  ;TamaÃ±o de la pila
 option casemap :none
 include C:\masm32\include\windows.inc 
 include C:\masm32\include\kernel32.inc 
@@ -48,7 +48,6 @@ JMP Label10
 Label9:
 invoke MessageBox, NULL, addr ENTRA_AL_ELSE, addr ENTRA_AL_ELSE, MB_OK
 Label10:
-JMP @LABEL_END
 JMP @LABEL_END
 
 

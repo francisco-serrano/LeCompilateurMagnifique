@@ -59,6 +59,8 @@ public class Generador {
 
         code.append("\n.code\nstart:\n");
 
+        tercetos.remove(tercetos.size() - 1); // BORRO EL ULTIMO TERCETO QUE ESTA DE MAS
+
         for (Terceto terceto : tercetos)
             assembleTerceto(terceto);
 
