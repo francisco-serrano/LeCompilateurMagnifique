@@ -350,5 +350,5 @@ public class TablaSimbolos {
         this.erroreLexicos.add(aux);
     }
 
-    public List<String> getErroreLexicos(){ return this.erroreLexicos; }
+    public List<String> getErroresLexicos(){ return this.erroreLexicos; }
 }
