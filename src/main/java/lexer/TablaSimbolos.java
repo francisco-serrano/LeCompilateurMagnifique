@@ -22,7 +22,7 @@ public class TablaSimbolos {
 
     private Multimap<String, Token> multimap = ArrayListMultimap.create();
     private List<String> reservedWords = Arrays.asList(arr_reservedWords);
-    private List<String> erroreLexicos = new ArrayList<>();
+    private List<String> erroresLexicos = new ArrayList<>();
 
     /**
      * Añade un lexema a la tabla de símbolos.
@@ -262,20 +262,29 @@ public class TablaSimbolos {
         return null;
     }
 
+    /**
+     * Retorna una lista de tokens a partir de un lexema determinado.
+     * @param lexema Lexema a buscar en la tabla de símbolos.
+     * @return Lista de tokens con el lexema deseado.
+     */
     public List<Token> getTokenList(String lexema){
         List<Token> lista = new ArrayList<>();
+
         for (Token token : multimap.get("ID")) {
             if (token.getLexema().equals(lexema))
                 lista.add(token);
         }
+
         for (Token token : multimap.get("CADENA")) {
             if (token.getLexema().equals(lexema))
                 lista.add(token);
         }
+
         for (Token token : multimap.get("CTE")) {
             if (token.getLexema().equals(lexema))
                 lista.add(token);
         }
+
         return lista;
     }
 
@@ -313,7 +322,11 @@ public class TablaSimbolos {
         return aux.toString();
     }
 
-
+    /**
+     * Retorna el tipo de retorno de una función.
+     * @param lexema Lexema que representa el nombre de la función sobre la que se quiere consultar.
+     * @return Tipo de retorno (UINT/ULONG).
+     */
     public String getTypeFuncion(String lexema){
         String tip="";
         for (Token token : multimap.get("ID")) {
@@ -324,8 +337,12 @@ public class TablaSimbolos {
         return tip;
     }
 
+    /**
+     * Retorna el tipo de valor de una variable.
+     * @param lexema Lexema que representa el nombre de la variable sobre la que se quiere consultar.
+     * @return Tipo de dato (UINT/ULONG).
+     */
     public String getVarType(String lexema) {
-
 
         for (Token token : multimap.get("ID")) {
             if (token.getLexema().equals(lexema) && token.getUso().equals("variable"))
@@ -335,20 +352,23 @@ public class TablaSimbolos {
         return null;
     }
 
-    public String getConstantType(String lexema) {
-        for (Token token : multimap.get("CTE")) {
-            if (token.getLexema().equals(lexema))
-                return token.getType();
-        }
-
-        return null;
-    }
-
+    /**
+     * Retorna el multimapa sobre el que se construye la tabla de símbolos.
+     * @return Multimapa sobre el que se construye la tabla de símbolos.
+     */
     public Multimap<String,Token> getTabla(){ return this.multimap; }
 
+    /**
+     * Asigna un determinado error a la lista interna de errores léxicos.
+     * @param aux Error a agregar a la lista.
+     */
     public void setErroresLexicos(String aux){
-        this.erroreLexicos.add(aux);
+        this.erroresLexicos.add(aux);
     }
 
-    public List<String> getErroresLexicos(){ return this.erroreLexicos; }
+    /**
+     * Retorna la lista interna de errores léxicos.
+     * @return Lista interna de errores léxicos.
+     */
+    public List<String> getErroresLexicos(){ return this.erroresLexicos; }
 }

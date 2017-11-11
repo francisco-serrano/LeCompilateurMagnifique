@@ -7,16 +7,24 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * <h3>
  * Clase utilizada para iniciar la ejecución del compilador.
+ * </h3>
+ *
  * <p>
  * El funcionamiento se basa en una CLI en la que se solicita ingresar por consola el archivo a compilar, en caso de
  * cancelar la ejecución, ingresar "EXIT". En caso de producirse errores durante la etapa de compilación, se informarán
  * los mismos por consola. En caso de querer volver a compilar, se debe ejecutar nuevamente el archivo por lotes.
+ * </p>
  *
+ * <p>
  * Para iniciar la ejecución, abrir el archivo por lotes "run-compiler.bat" para mayor facilidad de uso.
+ * </p>
  *
+ * <p>
  * Otra alternativa de ejecución es, dentro de una consola, correr el siguiente comando:
  * "java -jar LeCompilateurMagnifique.jar"
+ * </p>
  *
  * @author Bianco Martín, Di Pietro Esteban, Serrano Francisco
  */
@@ -30,10 +38,9 @@ public class Main {
         TODO: Se podían hacer llamadas a función en una comparación??? (En lo posible hacernos los boludos...)
 
         // COSAS MENORES
-        TODO: Chequear lo del LABEL_END que aparece dos veces
-        TODO: Corregir los textos de las excepciones
         TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
         TODO: Generar JavaDoc
+        TODO: Empaquetar todo
      */
 
     /**
@@ -42,8 +49,8 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-//        runInProductionMode();
-        runInDevelopmentMode("archivo-prueba7.txt");
+        runInProductionMode();
+//        runInDevelopmentMode("archivo-prueba7.txt");
     }
 
     /**
