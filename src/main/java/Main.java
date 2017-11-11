@@ -24,7 +24,7 @@ public class Main {
 
     /*
         // COSAS IMPORTANTES
-        TODO: Agregar los chequeos en tiempo de ejecucion
+        TODO: Agregar chequeo de división por cero
         TODO: Pasar código a JAVA 7
 
         // DUDAS
@@ -32,6 +32,7 @@ public class Main {
 
         // COSAS MENORES
         TODO: Chequear lo del LABEL_END que aparece dos veces
+        TODO: Corregir los textos de las excepciones
         TODO: Estandarizar la salida de los errores
         TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
         TODO: Generar JavaDoc
@@ -43,8 +44,8 @@ public class Main {
      */
     public static void main(String[] args) {
 //        runInDevelopmentMode("archivo-prueba7.txt");
-//        runInDevelopmentMode("./casos-prueba/Generacion_codigo9.txt");
-        runInDevelopmentMode("test-arreglar-1.txt");
+        runInDevelopmentMode("./casos-prueba/Generacion_codigo14.txt");
+//        runInDevelopmentMode("test-arreglar-2.txt");
     }
 
     /**

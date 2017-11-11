@@ -71,6 +71,11 @@ public class Generador {
         listaInstrucciones = eliminarNumeros(listaInstrucciones);
         listaInstFunc = eliminarNumeros(listaInstFunc);
 
+        listaInstrucciones = reemplazarMultDiv(listaInstrucciones);
+        listaInstFunc = reemplazarMultDiv(listaInstFunc);
+
+//        agregarControlOVF_Producto();
+
         listaInstFunc.add("@LABEL_OVF_PRODUCTO:");
         listaInstFunc.add("invoke MessageBox, NULL, addr mensaje_overflow_producto, addr mensaje_overflow_producto, MB_OK");
         listaInstFunc.add("JMP @LABEL_END");
@@ -81,6 +86,44 @@ public class Generador {
         listaInstFunc.add("@LABEL_END:");
         listaInstFunc.add("invoke ExitProcess, 0");
         listaInstFunc.add("end start");
+    }
+
+    private List<String> reemplazarMultDiv(List<String> listaIterar) {
+
+        List<String> auxListaInstrucciones = new ArrayList<>();
+
+        for (int i = 0; i < listaIterar.size(); i++) {
+            String linea = listaIterar.get(i);
+
+            String operacion = Splitter.on(" ").splitToList(linea).get(0);
+
+            if (operacion.equals("MULT") || operacion.equals("DIV")) {
+                String registro = Splitter.on(" ").splitToList(Splitter.on(", ").splitToList(linea).get(0)).get(1); // Obtengo el reg donde se almacena el resultado
+                String valor = Splitter.on(", ").splitToList(linea).get(1); // Obtengo el valor a almacenar en el registro
+
+                if (linea.contains("MULT"))
+                    operacion = "MUL";
+
+
+                if (registro.contains("A")) { // Quiere decir que estoy en AX/EAX
+                    auxListaInstrucciones.add(operacion + " @" + valor);
+                    continue;
+                }
+
+                if (!registro.contains("A")) { // Agrego las instrucciones de atrás para adelante porque se van intercalando
+                    auxListaInstrucciones.add("MOV tempAX, AX");
+                    auxListaInstrucciones.add("MOV AX, " + registro);
+                    auxListaInstrucciones.add(operacion + " @" + valor);
+                    auxListaInstrucciones.add("MOV " + registro + ", AX");
+                    auxListaInstrucciones.add("MOV AX, tempAX");
+                    continue;
+                }
+            }
+
+            auxListaInstrucciones.add(linea);
+        }
+
+        return auxListaInstrucciones;
     }
 
     public void buildFile(String nombreArchivo) {
@@ -165,6 +208,7 @@ public class Generador {
         code.append("tempECX DD ?\n");
         code.append("tempEDX DD ?\n");
 
+        // Variables con los mensajes a mostrar en caso de errores
         code.append("mensaje_division_cero db \"HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> DIVIDIR POR CERO VIOLA EL CODIGO ESTETICO Y MORAL\", 0\n");
         code.append("mensaje_overflow_producto db \"HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> OVERFLOW EN PRODUCTO\", 0\n");
     }
@@ -274,52 +318,8 @@ public class Generador {
         }
 
         // Llamadas a función, se hace backup de los registros
-        if (terceto.getOperador().equals("CALL")) {
-
-            if (terceto.getTipo().equals("UINT")) {
-                if (tablaRegistrosUINT.isOccupied(0)) {
-                    code.append("MOV tempAX, AX\n");
-                    seGuardoUINT[0] = true;
-                }
-
-                if (tablaRegistrosUINT.isOccupied(1)){
-                    code.append("MOV tempBX, BX\n");
-                    seGuardoUINT[1] = true;
-                }
-
-                if (tablaRegistrosUINT.isOccupied(2)){
-                    code.append("MOV tempCX, CX\n");
-                    seGuardoUINT[2] = true;
-                }
-
-                if (tablaRegistrosUINT.isOccupied(3)){
-                    code.append("MOV tempDX, DX\n");
-                    seGuardoUINT[3] = true;
-                }
-            }
-
-            if (terceto.getTipo().equals("ULONG")) {
-                if (tablaRegistrosULONG.isOccupied(0)) {
-                    code.append("MOV tempEAX, EAX\n");
-                    seGuardoULONG[0] = true;
-                }
-
-                if (tablaRegistrosULONG.isOccupied(1)) {
-                    code.append("MOV tempEBX, EBX\n");
-                    seGuardoULONG[1] = true;
-                }
-
-                if (tablaRegistrosULONG.isOccupied(2)) {
-                    code.append("MOV tempECX, ECX\n");
-                    seGuardoULONG[2] = true;
-                }
-
-                if (tablaRegistrosULONG.isOccupied(3)) {
-                    code.append("MOV tempEDX, EDX\n");
-                    seGuardoULONG[3] = true;
-                }
-            }
-        }
+        if (terceto.getOperador().equals("CALL"))
+            backupRegisters(terceto.getTipo());
 
         // Terceto de término de programa
         if (terceto.getOperador().equals("END"))
@@ -367,67 +367,107 @@ public class Generador {
     private void applySituacion_1(Terceto terceto) {
         StringBuilder codigo = getCodeSection();
 
-        String constantType = terceto.getTipo();
-        TablaRegistros tablaUtilizar = getTablaRegistros(constantType);
-
-        int reg = tablaUtilizar.getFreeRegister();
-        tablaUtilizar.occupyRegister(reg);
-
-        String registroUtilizar = getRegistro_x86(constantType, reg);
-        terceto.setAssociatedRegister(registroUtilizar);
-
-        codigo.append(terceto.getNumero()).append("}MOV ").append(registroUtilizar).append(", ").append(terceto.getArg1().toString()).append("\n");
+        String tipo = terceto.getTipo();
+        TablaRegistros tablaUtilizar = getTablaRegistros(tipo);
 
         String operacion = getOperacion(terceto.getOperador());
+        String primerElemento = terceto.getArg1().toString();
         String segundoElemento = terceto.getArg2().toString();
-        if (operacion.equals("MULT") || operacion.equals("DIV")) {
-            String aux = "MUL";
 
-            if (operacion.equals("DIV"))
-                aux = "DIV";
+        int reg_1 = tablaUtilizar.getFreeRegister();
+        tablaUtilizar.occupyRegister(reg_1);
+        String registro_x86_1 = getRegistro_x86(tipo, reg_1);
+        terceto.setAssociatedRegister(registro_x86_1);
 
-            int segundoReg = tablaUtilizar.getFreeRegister();
-            tablaUtilizar.occupyRegister(segundoReg);
-            String segundoRegistro = getRegistro_x86(constantType, segundoReg);
+        codigo.append(terceto.getNumero()).append("}MOV ").append(registro_x86_1).append(", ").append(primerElemento).append("\n");
 
-//            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
+//        if (operacion.equals("MULT") || operacion.equals("DIV")) {
+//
+//            if (operacion.equals("MULT"))
+//                operacion = "MUL";
+//
+//            if (registro_x86_1.equals("AX") || registro_x86_1.equals("EAX")) {
+//                codigo.append(terceto.getNumero() + "}" + operacion + " @" + segundoElemento + "\n");
+//
+//                if (operacion.equals("MUL"))
+//                    codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+//
+//                return;
+//            }
+//
+//            // El registro asignado es BX, CX, o DX
+//            if (!registro_x86_1.contains("E")) {
+//                codigo.append(terceto.getNumero() + "}MOV tempAX, AX\n");
+//                codigo.append(terceto.getNumero() + "}MOV AX, " + registro_x86_1 + "\n");
+//                codigo.append(terceto.getNumero() + "}" + operacion + " @" + segundoElemento + "\n");
+//
+//                if (operacion.equals("MUL"))
+//                    codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+//
+//                codigo.append(terceto.getNumero() + "}MOV " + registro_x86_1 + ", AX\n");
+//                codigo.append(terceto.getNumero() + "}MOV AX, tempAX\n");
+//
+//                return;
+//
+//            }
+//
+//            // El registro asignado es EBX, ECX, EDX
+//            if (registro_x86_1.contains("E")) {
+//                codigo.append(terceto.getNumero() + "}MOV tempEAX, EAX\n");
+//                codigo.append(terceto.getNumero() + "}MOV EAX, " + registro_x86_1 + "\n");
+//                codigo.append(terceto.getNumero() + "}" + operacion + " @" + segundoElemento + "\n");
+//
+//                if (operacion.equals("MUL"))
+//                    codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+//
+//                codigo.append(terceto.getNumero() + "}MOV " + registro_x86_1 + ", EAX\n");
+//                codigo.append(terceto.getNumero() + "}MOV EAX, tempEAX\n");
+//
+//                return;
+//            }
+////            int segundoReg = tablaUtilizar.getFreeRegister();
+////            tablaUtilizar.occupyRegister(segundoReg);
+////            String segundoRegistro = getRegistro_x86(constantType, segundoReg);
+////
+//////            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
+////
+////            // INICIO CODIGO AUXILIAR PARA QUE NO SE PISE LO QUE HAY EN AX/EAX
+////            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
+////                codigo.append(terceto.getNumero() + "}MOV tempAX, AX\n");
+////            }
+////
+////            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
+////                codigo.append(terceto.getNumero() + "}MOV tempEAX, EAX\n");
+////            }
+////            // ---------------------------------------------------------------
+////
+////            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
+////            codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
+////
+////
+////            // Inicio código auxiliar para recuperar lo que había en AX/EAX
+////            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
+////                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", AX\n");
+////                codigo.append(terceto.getNumero() + "}MOV AX, tempAX\n");
+////            }
+////
+////            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
+////                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", EAX\n");
+////                codigo.append(terceto.getNumero() + "}MOV EAX, tempEAX\n");
+////            }
+////
+////            terceto.setAssociatedRegister(registroUtilizar);
+////            // ------------------------------------------------------------
+////
+////            codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+////
+//////            tablaUtilizar.freeRegister(segundoReg);
+//
+//            return;
+//        }
 
-            // INICIO CODIGO AUXILIAR PARA QUE NO SE PISE LO QUE HAY EN AX/EAX
-            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
-                codigo.append(terceto.getNumero() + "}MOV tempAX, AX\n");
-            }
 
-            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
-                codigo.append(terceto.getNumero() + "}MOV tempEAX, EAX\n");
-            }
-            // ---------------------------------------------------------------
-
-            codigo.append(terceto.getNumero() + "}MOV AX, " + segundoElemento + "\n");
-            codigo.append(terceto.getNumero() + "}" + aux + " " + registroUtilizar + "\n");
-
-
-            // Inicio código auxiliar para recuperar lo que había en AX/EAX
-            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
-                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", AX\n");
-                codigo.append(terceto.getNumero() + "}MOV AX, tempAX\n");
-            }
-
-            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
-                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", EAX\n");
-                codigo.append(terceto.getNumero() + "}MOV EAX, tempEAX\n");
-            }
-
-            terceto.setAssociatedRegister(segundoRegistro);
-            // ------------------------------------------------------------
-
-            codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
-
-//            tablaUtilizar.freeRegister(segundoReg);
-
-            return;
-        }
-
-        codigo.append(terceto.getNumero()).append("}").append(operacion).append(" ").append(registroUtilizar).append(", ").append(segundoElemento).append("\n");
+        codigo.append(terceto.getNumero()).append("}").append(operacion).append(" ").append(registro_x86_1).append(", ").append(segundoElemento).append("\n");
     }
 
     // Operación entre: REGISTRO y VAR/CTE
@@ -453,79 +493,121 @@ public class Generador {
             registroUtilizar = getRegistro_x86(terceto1.getTipo(), reg);
 
             String operacion = getOperacion(terceto.getOperador());
-            if (operacion.equals("MULT") || operacion.equals("DIV")) {
-                if (operacion.equals("MULT"))
-                    operacion = "MUL";
-
-                codigo.append(terceto.getNumero() + "}MOV " + registroUtilizar + ", " + variableRetorno + "\n");
-
-                int reg2 = tablaUtilizar.getFreeRegister();
-                tablaUtilizar.occupyRegister(reg2);
-                String reg2_x86 = getRegistro_x86(terceto.getTipo(), reg2);
-
-                codigo.append(terceto.getNumero() + "}MOV " + reg2_x86 + ", " + terceto.getArg2().toString() + "\n");
-                codigo.append(terceto.getNumero() + "}" + operacion + " " + reg2_x86 + "\n");
-                codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
-
-                tablaUtilizar.freeRegister(reg2);
-
-            } else {
-                codigo.append(terceto.getNumero()).append("}").append(getOperacion(terceto.getOperador())).append(" ").append(variableRetorno).append(", ").append(terceto.getArg2().toString()).append("\n");
-                codigo.append(terceto.getNumero()).append("}MOV ").append(registroUtilizar).append(", ").append(variableRetorno).append("\n");
-            }
+//            if (operacion.equals("MULT") || operacion.equals("DIV")) {
+//                if (operacion.equals("MULT"))
+//                    operacion = "MUL";
+//
+//                codigo.append(terceto.getNumero() + "}MOV " + registroUtilizar + ", " + variableRetorno + "\n");
+//
+//                int reg2 = tablaUtilizar.getFreeRegister();
+//                tablaUtilizar.occupyRegister(reg2);
+//                String reg2_x86 = getRegistro_x86(terceto.getTipo(), reg2);
+//
+//                codigo.append(terceto.getNumero() + "}MOV " + reg2_x86 + ", " + terceto.getArg2().toString() + "\n");
+//                codigo.append(terceto.getNumero() + "}" + operacion + " " + reg2_x86 + "\n");
+//
+//                if (operacion.equals("MUL"))
+//                    codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+//
+//                tablaUtilizar.freeRegister(reg2);
+//
+//            } else {
+            codigo.append(terceto.getNumero()).append("}").append(getOperacion(terceto.getOperador())).append(" ").append(variableRetorno).append(", ").append(terceto.getArg2().toString()).append("\n");
+            codigo.append(terceto.getNumero()).append("}MOV ").append(registroUtilizar).append(", ").append(variableRetorno).append("\n");
+//            }
 
             terceto.setAssociatedRegister(registroUtilizar);
 
             return;
         }
 
-        String operacion = getOperacion(terceto.getOperador());
-        String segundoElemento = terceto.getArg2().toString();
-        if (operacion.equals("MULT") || operacion.equals("DIV")) {
-            String aux = "MUL";
-
-            if (operacion.equals("DIV"))
-                aux = "DIV";
-
-            TablaRegistros tablaUtilizar = getTablaRegistros(terceto1.getTipo());
-
-            int segundoReg = tablaUtilizar.getFreeRegister();
-            tablaUtilizar.occupyRegister(segundoReg);
-            String segundoRegistro = getRegistro_x86(terceto1.getTipo(), segundoReg);
-
-            // INICIO CODIGO AUXILIAR PARA QUE NO SE PISE LO QUE HAY EN AX/EAX
-            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
-                codigo.append(terceto.getNumero() + "}MOV tempAX, AX\n");
-                codigo.append(terceto.getNumero() + "}MOV AX, " + terceto1.getAssociatedRegister() + "\n");
-            }
-
-            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
-                codigo.append(terceto.getNumero() + "}MOV tempEAX, EAX\n");
-            }
-            // ---------------------------------------------------------------
-
-            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
-            codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
-            codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
-
-            // Inicio código auxiliar para recuperar lo que había en AX/EAX
-            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
-                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", AX\n");
-                codigo.append(terceto.getNumero() + "}MOV AX, tempAX\n");
-            }
-
-            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
-                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", EAX\n");
-                codigo.append(terceto.getNumero() + "}MOV EAX, tempEAX\n");
-            }
-
-            terceto.setAssociatedRegister(segundoRegistro);
-            // ------------------------------------------------------------
-
-            tablaUtilizar.freeRegister(segundoReg);
-
-            return;
-        }
+//        String operacion = getOperacion(terceto.getOperador());
+//        Terceto primerElemento = ((ItemTerceto) terceto.getArg1()).getArg();
+//        String segundoElemento = terceto.getArg2().toString();
+//        if (operacion.equals("MULT") || operacion.equals("DIV")) {
+////            String aux = "MUL";
+////
+////            if (operacion.equals("DIV"))
+////                aux = "DIV";
+////
+////            TablaRegistros tablaUtilizar = getTablaRegistros(terceto1.getTipo());
+////
+////            int segundoReg = tablaUtilizar.getFreeRegister();
+////            tablaUtilizar.occupyRegister(segundoReg);
+////            String segundoRegistro = getRegistro_x86(terceto1.getTipo(), segundoReg);
+////
+////            // INICIO CODIGO AUXILIAR PARA QUE NO SE PISE LO QUE HAY EN AX/EAX
+////            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
+////                codigo.append(terceto.getNumero() + "}MOV tempAX, AX\n");
+////                codigo.append(terceto.getNumero() + "}MOV AX, " + terceto1.getAssociatedRegister() + "\n");
+////            }
+////
+////            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
+////                codigo.append(terceto.getNumero() + "}MOV tempEAX, EAX\n");
+////            }
+////            // ---------------------------------------------------------------
+////
+////            codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", " + segundoElemento + "\n");
+////            codigo.append(terceto.getNumero() + "}" + aux + " " + segundoRegistro + "\n");
+////            codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+////
+////            // Inicio código auxiliar para recuperar lo que había en AX/EAX
+////            if (!registroUtilizar.equals("AX") && !registroUtilizar.contains("E")) {
+////                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", AX\n");
+////                codigo.append(terceto.getNumero() + "}MOV AX, tempAX\n");
+////            }
+////
+////            if (!registroUtilizar.equals("EAX") && registroUtilizar.contains("E")) {
+////                codigo.append(terceto.getNumero() + "}MOV " + segundoRegistro + ", EAX\n");
+////                codigo.append(terceto.getNumero() + "}MOV EAX, tempEAX\n");
+////            }
+////
+////            terceto.setAssociatedRegister(segundoRegistro);
+////            // ------------------------------------------------------------
+////
+////            tablaUtilizar.freeRegister(segundoReg);
+//            if (operacion.equals("MULT"))
+//                operacion = "MUL";
+//
+//
+//            if (primerElemento.getAssociatedRegister().contains("A")) {
+//                codigo.append(terceto.getNumero() + "}" + operacion + " @" + segundoElemento + "\n");
+//                return;
+//            }
+//
+//            if (!primerElemento.getAssociatedRegister().contains("A")) {
+//
+//                if (!primerElemento.getAssociatedRegister().contains("E")) {
+//                    codigo.append(terceto.getNumero() + "}MOV tempAX, AX\n");
+//                    codigo.append(terceto.getNumero() + "}MOV AX, " + primerElemento.getAssociatedRegister() + "\n");
+//                    codigo.append(terceto.getNumero() + "}" + operacion + " @" + segundoElemento + "\n");
+//
+//                    if (operacion.equals("MUL"))
+//                        codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+//
+//                    codigo.append(terceto.getNumero() + "}MOV " + primerElemento.getAssociatedRegister() + ", AX\n");
+//                    codigo.append(terceto.getNumero() + "}MOV AX, tempAX\n");
+//
+//                    return;
+//                }
+//
+//                if (!primerElemento.getAssociatedRegister().contains("E")) {
+//                    codigo.append(terceto.getNumero() + "}MOV tempEAX, EAX\n");
+//                    codigo.append(terceto.getNumero() + "}MOV EAX, " + primerElemento.getAssociatedRegister() + "\n");
+//                    codigo.append(terceto.getNumero() + "}" + operacion + " @" + segundoElemento + "\n");
+//
+//                    if (operacion.equals("MUL"))
+//                        codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+//
+//                    codigo.append(terceto.getNumero() + "}MOV " + primerElemento.getAssociatedRegister() + ", EAX\n");
+//                    codigo.append(terceto.getNumero() + "}MOV EAX, tempEAX\n");
+//
+//                    return;
+//                }
+//            }
+//
+//            throw new RuntimeException("WOOOOOOOOO");
+//        }
 
         codigo.append(terceto.getNumero()).append("}").append(getOperacion(terceto.getOperador())).append(" ").append(registroUtilizar).append(", ").append(terceto.getArg2().toString()).append("\n");
     }
@@ -598,24 +680,24 @@ public class Generador {
 
             String operacion = getOperacion(terceto.getOperador());
 
-            if (operacion.equals("MULT") || operacion.equals("DIV")) {
-
-                if (operacion.equals("MULT"))
-                    operacion = "MUL";
-
-                TablaRegistros tablaUtilizar = getTablaRegistros(terceto2.getTipo());
-                int reg = tablaUtilizar.getFreeRegister();
-                tablaUtilizar.occupyRegister(reg);
-                String registroUtilizar = getRegistro_x86(terceto2.getTipo(), reg);
-
-                codigo.append(terceto.getNumero() + "}MOV " + registroUtilizar + ", " + variableRetorno + "\n");
-                codigo.append(terceto.getNumero() + "}" + operacion + " " + registroUtilizar + "\n");
-                codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
-
-                tablaUtilizar.freeRegister(reg);
-            } else {
-                codigo.append(terceto.getNumero() + "}" + getOperacion(terceto.getOperador()) + " " + terceto1.getAssociatedRegister() + ", " + variableRetorno + "\n");
-            }
+//            if (operacion.equals("MULT") || operacion.equals("DIV")) {
+//
+//                if (operacion.equals("MULT"))
+//                    operacion = "MUL";
+//
+//                TablaRegistros tablaUtilizar = getTablaRegistros(terceto2.getTipo());
+//                int reg = tablaUtilizar.getFreeRegister();
+//                tablaUtilizar.occupyRegister(reg);
+//                String registroUtilizar = getRegistro_x86(terceto2.getTipo(), reg);
+//
+//                codigo.append(terceto.getNumero() + "}MOV " + registroUtilizar + ", " + variableRetorno + "\n");
+//                codigo.append(terceto.getNumero() + "}" + operacion + " " + registroUtilizar + "\n");
+//                codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+//
+//                tablaUtilizar.freeRegister(reg);
+//            } else {
+            codigo.append(terceto.getNumero() + "}" + getOperacion(terceto.getOperador()) + " " + terceto1.getAssociatedRegister() + ", " + variableRetorno + "\n");
+//            }
 
             terceto.setAssociatedRegister(terceto1.getAssociatedRegister());
 
@@ -654,23 +736,23 @@ public class Generador {
             codigo.append(terceto.getNumero() + "}MOV " + registroUtilizar + ", " + variableRetorno + "\n");
 
             String operacion = getOperacion(terceto.getOperador());
-            if (operacion.equals("MULT") || operacion.equals("DIV")) {
-
-                if (operacion.equals("MULT"))
-                    operacion = "MUL";
-
-                int regAux = tablaUtilizar.getFreeRegister();
-                tablaUtilizar.occupyRegister(regAux);
-                String regAux86 = getRegistro_x86(terceto.getTipo(), regAux);
-
-                codigo.append(terceto.getNumero() + "}MOV " + regAux86 + ", " + terceto.getArg1().toItemString() + "\n");
-                codigo.append(terceto.getNumero() + "}" + operacion + " " + regAux86 + "\n");
-                codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
-
-                tablaUtilizar.freeRegister(regAux);
-            } else {
-                codigo.append(terceto.getNumero() + "}" + operacion + " " + registroUtilizar + ", " + terceto.getArg1().toItemString() + "\n");
-            }
+//            if (operacion.equals("MULT") || operacion.equals("DIV")) {
+//
+//                if (operacion.equals("MULT"))
+//                    operacion = "MUL";
+//
+//                int regAux = tablaUtilizar.getFreeRegister();
+//                tablaUtilizar.occupyRegister(regAux);
+//                String regAux86 = getRegistro_x86(terceto.getTipo(), regAux);
+//
+//                codigo.append(terceto.getNumero() + "}MOV " + regAux86 + ", " + terceto.getArg1().toItemString() + "\n");
+//                codigo.append(terceto.getNumero() + "}" + operacion + " " + regAux86 + "\n");
+//                codigo.append(terceto.getNumero() + "}JO @LABEL_OVF_PRODUCTO\n");
+//
+//                tablaUtilizar.freeRegister(regAux);
+//            } else {
+            codigo.append(terceto.getNumero() + "}" + operacion + " " + registroUtilizar + ", " + terceto.getArg1().toItemString() + "\n");
+//            }
 
 
             terceto.setAssociatedRegister(registroUtilizar);
@@ -949,6 +1031,52 @@ public class Generador {
             return 3;
 
         throw new RuntimeException("Registro x86 con formato desconocido");
+    }
+
+    private void backupRegisters(String type) {
+        if (type.equals("UINT")) {
+            if (tablaRegistrosUINT.isOccupied(0)) {
+                code.append("MOV tempAX, AX\n");
+                seGuardoUINT[0] = true;
+            }
+
+            if (tablaRegistrosUINT.isOccupied(1)) {
+                code.append("MOV tempBX, BX\n");
+                seGuardoUINT[1] = true;
+            }
+
+            if (tablaRegistrosUINT.isOccupied(2)) {
+                code.append("MOV tempCX, CX\n");
+                seGuardoUINT[2] = true;
+            }
+
+            if (tablaRegistrosUINT.isOccupied(3)) {
+                code.append("MOV tempDX, DX\n");
+                seGuardoUINT[3] = true;
+            }
+        }
+
+        if (type.equals("ULONG")) {
+            if (tablaRegistrosULONG.isOccupied(0)) {
+                code.append("MOV tempEAX, EAX\n");
+                seGuardoULONG[0] = true;
+            }
+
+            if (tablaRegistrosULONG.isOccupied(1)) {
+                code.append("MOV tempEBX, EBX\n");
+                seGuardoULONG[1] = true;
+            }
+
+            if (tablaRegistrosULONG.isOccupied(2)) {
+                code.append("MOV tempECX, ECX\n");
+                seGuardoULONG[2] = true;
+            }
+
+            if (tablaRegistrosULONG.isOccupied(3)) {
+                code.append("MOV tempEDX, EDX\n");
+                seGuardoULONG[3] = true;
+            }
+        }
     }
 
     private void recoverRegisters(String type) {

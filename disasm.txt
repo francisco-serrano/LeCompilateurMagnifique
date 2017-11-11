@@ -1,0 +1,167 @@
+C:\Users\Pancho\Documents\FACULTAD\4° Año 2° Cuatrimestre\Diseño de Compiladores\Le Compilateur Magnifique\salida.exe   (hex)           (dec)
+
+.EXE size (bytes)                    490            1168
+Minimum load size (bytes)            450            1104
+Overlay number                         0               0
+Initial CS:IP                  0000:0000
+Initial SS:SP                  0000:00B8             184
+Minimum allocation (para)              0               0
+Maximum allocation (para)           FFFF           65535
+Header size (para)                     4               4
+Relocation table offset               40              64
+Relocation entries                     0               0
+
+Portable Executable starts at                 b0
+Signature                               00004550 (PE)
+Machine                                     014C (Intel 386)
+Sections                                    0003
+Time Date Stamp                         5A061D9D Fri Nov 10 16:43:57 2017
+Symbol Table                            00000000
+Number of Symbols                       00000000
+Optional header size                        00E0
+Characteristics                             010F
+	Relocation information stripped
+	Executable Image
+	Line numbers stripped
+	Local symbols stripped
+	32 bit word machine
+Magic                                       010B
+Linker Version                              5.12
+Size of Code                            00000200
+Size of Initialized Data                00000400
+Size of Uninitialized Data              00000000
+Address of Entry Point                  00001000
+Base of Code                            00001000
+Base of Data                            00002000
+Image Base                              00400000
+Section Alignment                       00001000
+File Alignment                          00000200
+Operating System Version                    4.00
+Image Version                               0.00
+Subsystem Version                           4.00
+reserved                                00000000
+Image Size                              00004000
+Header Size                             00000400
+Checksum                                00000000
+Subsystem                                   0002 (Windows)
+DLL Characteristics                         0000
+Size Of Stack Reserve                   00100000
+Size Of Stack Commit                    00001000
+Size Of Heap Reserve                    00100000
+Size Of Heap Commit                     00001000
+Loader Flags                            00000000
+Number of Directories                   00000010
+
+Directory Name                          VirtAddr  VirtSize
+--------------------------------------  --------  --------
+Export                                  00000000  00000000
+Import                                  00002010  0000003C
+Resource                                00000000  00000000
+Exception                               00000000  00000000
+Security                                00000000  00000000
+Base Relocation                         00000000  00000000
+Debug                                   00000000  00000000
+Decription/Architecture                 00000000  00000000
+Machine Value (MIPS GP)                 00000000  00000000
+Thread Storage                          00000000  00000000
+Load Configuration                      00000000  00000000
+Bound Import                            00000000  00000000
+Import Address Table                    00002000  00000010
+Delay Import                            00000000  00000000
+COM Runtime Descriptor                  00000000  00000000
+(reserved)                              00000000  00000000
+
+Section Table
+-------------
+01  .text   	Virtual Address         00001000
+		Virtual Size            00000076
+		Raw Data Offset         00000400
+		Raw Data Size           00000200
+		Relocation Offset       00000000
+		Relocation Count        0000
+		Line Number Offset      00000000
+		Line Number Count       0000
+		Characteristics         60000020
+			Code
+			Executable
+			Readable
+
+02  .rdata  	Virtual Address         00002000
+		Virtual Size            00000092
+		Raw Data Offset         00000600
+		Raw Data Size           00000200
+		Relocation Offset       00000000
+		Relocation Count        0000
+		Line Number Offset      00000000
+		Line Number Count       0000
+		Characteristics         40000040
+			Initialized Data
+			Readable
+
+03  .data   	Virtual Address         00003000
+		Virtual Size            000000C6
+		Raw Data Offset         00000800
+		Raw Data Size           00000200
+		Relocation Offset       00000000
+		Relocation Count        0000
+		Line Number Offset      00000000
+		Line Number Count       0000
+		Characteristics         C0000040
+			Initialized Data
+			Readable
+			Writeable
+
+
+ Imp Addr Hint Import Name from kernel32.dll - Not Bound
+ -------- ---- ---------------------------------------------------------------
+ 00002000   9B ExitProcess
+
+ Imp Addr Hint Import Name from user32.dll - Not Bound
+ -------- ---- ---------------------------------------------------------------
+ 00002008  1B1 MessageBoxA
+
+IAT Entry
+
+ 00000000: 0000205C 00000000 - 00002078 00000000 
+
+Disassembly
+
+00401000                    start:
+00401000 66B83200               mov     ax,32h
+00401004 66A30D304000           mov     [40300Dh],ax
+0040100A 66B81900               mov     ax,19h
+0040100E 66BB0200               mov     bx,2
+00401012 66F7E3                 mul     bx
+00401015 7023                   jo      loc_0040103A
+00401017 668B0D0D304000         mov     cx,[40300Dh]
+0040101E 663BC8                 cmp     cx,ax
+00401021 7513                   jnz     loc_00401036
+00401023 6A00                   push    0
+00401025 6806304000             push    403006h
+0040102A 6806304000             push    403006h
+0040102F 6A00                   push    0
+00401031 E83A000000             call    fn_00401070
+00401036                    loc_00401036:
+00401036 EB2A                   jmp     loc_00401062
+00401038 EB28                   jmp     loc_00401062
+0040103A                    loc_0040103A:
+0040103A 6A00                   push    0
+0040103C 6885304000             push    403085h
+00401041 6885304000             push    403085h
+00401046 6A00                   push    0
+00401048 E823000000             call    fn_00401070
+0040104D EB13                   jmp     loc_00401062
+0040104F 6A00                   push    0
+00401051 6827304000             push    403027h
+00401056 6827304000             push    403027h
+0040105B 6A00                   push    0
+0040105D E80E000000             call    fn_00401070
+00401062                    loc_00401062:
+00401062 6A00                   push    0
+00401064 E801000000             call    fn_0040106A
+00401069 CC                     int     3
+0040106A                    fn_0040106A:
+0040106A FF2500204000           jmp     dword ptr [ExitProcess]
+00401070                    fn_00401070:
+00401070 FF2508204000           jmp     dword ptr [MessageBoxA]
+

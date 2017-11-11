@@ -13,9 +13,11 @@ includelib C:\masm32\lib\masm32.lib
 .data 
 @50 DW 50
 @100 DW 100
-@2 DW 2
-vavava db "vavava", 0 
+QUINCE_PESOS db "QUINCE PESOS", 0 
 var1@main DW ?
+var2@main DW ?
+var3@main@aa DW ?
+retUINT_aa DW ?
 tempAX DW ?
 tempBX DW ?
 tempCX DW ?
@@ -29,20 +31,28 @@ mensaje_overflow_producto db "HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> OVERFL
 
 .code
 start:
-MOV AX, 50
-MOV var1@main, AX
 MOV AX, 100
-MOV AX, BX
-DIV AX
-JO @LABEL_OVF_PRODUCTO
-MOV CX, var1@main
-CMP CX, BX
-JNE Label6
-invoke MessageBox, NULL, addr vavava, addr vavava, MB_OK
-Label6:
+MOV var1@main, AX
+CALL @FUNCTION_aa
+MOV AX, var1@main
+SUB AX, retUINT_aa
+MOV var2@main, AX
+MOV AX, var1@main
+MOV BX, var2@main
+CMP AX, BX
+JLE Label11
+invoke MessageBox, NULL, addr QUINCE_PESOS, addr QUINCE_PESOS, MB_OK
+Label11:
 JMP @LABEL_END
 JMP @LABEL_END
 
+
+@FUNCTION_aa:
+MOV AX, 50
+MOV var3@main@aa, AX
+MOV AX, var3@main@aa
+MOV retUINT_aa, AX
+RET
 
 @LABEL_OVF_PRODUCTO:
 invoke MessageBox, NULL, addr mensaje_overflow_producto, addr mensaje_overflow_producto, MB_OK
@@ -52,6 +62,13 @@ invoke MessageBox, NULL, addr mensaje_division_cero, addr mensaje_division_cero,
 @LABEL_END:
 invoke ExitProcess, 0
 end start
+
+@FUNCTION_aa:
+MOV AX, 50
+MOV var3@main@aa, AX
+MOV AX, var3@main@aa
+MOV retUINT_aa, AX
+RET
 
 @LABEL_OVF_PRODUCTO:
 invoke MessageBox, NULL, addr mensaje_overflow_producto, addr mensaje_overflow_producto, MB_OK

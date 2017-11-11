@@ -8,3 +8,7 @@ UINT FUNCTION aa {
 
 var1 = 100.
 var2 = var1 - aa().
+
+IF (var2 == 0) THEN
+	OUT('Buenas noches me llamo Ruben').
+END_IF
