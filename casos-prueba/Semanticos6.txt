@@ -10,3 +10,7 @@ UINT FUNCTION aa {
 var1 = 50.
 aa : UINT.
 aa = var1.
+
+IF (aa == 50) THEN
+    OUT('Esta bien el ejemplo').
+END_IF
