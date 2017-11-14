@@ -4,10 +4,18 @@ UINT FUNCTION aa {
 	RETURN(0).
 }
 
-var1 = 100 / 1.
+var1 = 100 * 2.
 
-IF (var1 == 100) THEN
+IF (var1 == 200) THEN
 	OUT('ENTRA AL IF').
 ELSE
 	OUT('ENTRA AL ELSE').
+END_IF
+
+var2 : UINT.
+
+var2 = 25 * 4.
+
+IF (var2 > 99) THEN
+	OUT('ENTRA AL SEGUNDO IF').
 END_IF

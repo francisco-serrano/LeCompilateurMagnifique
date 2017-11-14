@@ -29,7 +29,6 @@ public class TablaRegistros {
      * @return Entero con el índice del registro libre.
      */
     public int getFreeRegister() {
-        String aux = "R";
         for (int i = 0; i < registroOcupado.length; i++) {
             if (!registroOcupado[i])
                 return i;

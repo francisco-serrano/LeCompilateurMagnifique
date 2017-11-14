@@ -69,8 +69,8 @@ public class Generador {
         listaInstrucciones = reemplazarMultDiv(listaInstrucciones);
         listaInstFunc = reemplazarMultDiv(listaInstFunc);
 
-        listaInstrucciones = hacerQueFunqueLaDivision(listaInstrucciones);
-        listaInstFunc = hacerQueFunqueLaDivision(listaInstFunc);
+        listaInstrucciones = prepararDividendos(listaInstrucciones);
+        listaInstFunc = prepararDividendos(listaInstFunc);
 
         listaInstrucciones = agregarControlOVF_Producto(listaInstrucciones);
         listaInstFunc = agregarControlOVF_Producto(listaInstFunc);
@@ -128,42 +128,42 @@ public class Generador {
         return auxListaInstrucciones;
     }
 
-    private List<String> hacerQueFunqueLaDivision(List<String> victima) {
+    private List<String> prepararDividendos(List<String> lista) {
         List<String> listaRetornar = new ArrayList<>();
 
-        for (String potencialVictima : victima) {
-            String operacion = Splitter.on(" ").splitToList(potencialVictima).get(0);
+        for (String elementoLista : lista) {
+            String operacion = Splitter.on(" ").splitToList(elementoLista).get(0);
 
             if (operacion.equals("DIV")) {
                 String tipoValor;
 
-                if (potencialVictima.contains("UINT")) {
+                if (elementoLista.contains("UINT")) {
                     tipoValor = "UINT";
-                    potencialVictima = potencialVictima.replace("@", "");
-                } else if (potencialVictima.contains("ULONG")) {
+                    elementoLista = elementoLista.replace("@", "");
+                } else if (elementoLista.contains("ULONG")) {
                     tipoValor = "ULONG";
-                    potencialVictima = potencialVictima.replace("@", "");
+                    elementoLista = elementoLista.replace("@", "");
                 } else
-                    tipoValor = getTipo(Integer.valueOf(Splitter.on("@").splitToList(potencialVictima).get(1)));
+                    tipoValor = getTipo(Integer.valueOf(Splitter.on("@").splitToList(elementoLista).get(1)));
 
                 if (tipoValor.equals("UINT")) {
                     listaRetornar.add("MOV tempDX, DX");
                     listaRetornar.add("MOV DX, 0");
-                    listaRetornar.add(potencialVictima);
+                    listaRetornar.add(elementoLista);
                     listaRetornar.add("MOV DX, tempDX");
                 }
 
                 if (tipoValor.equals("ULONG")) {
                     listaRetornar.add("MOV tempEDX, EDX");
                     listaRetornar.add("MOV EDX, 0");
-                    listaRetornar.add(potencialVictima);
+                    listaRetornar.add(elementoLista);
                     listaRetornar.add("MOV EDX, tempEDX");
                 }
 
                 continue;
             }
 
-            listaRetornar.add(potencialVictima);
+            listaRetornar.add(elementoLista);
         }
 
         return listaRetornar;
@@ -246,8 +246,6 @@ public class Generador {
             e.printStackTrace();
         }
 
-        assert writer != null;
-
         writer.println(Joiner.on("\n").join(getListaInstrucciones()));
 
         writer.close();
@@ -322,8 +320,8 @@ public class Generador {
         code.append("tempEDX DD ?\n");
 
         // Variables con los mensajes a mostrar en caso de errores
-        code.append("mensaje_division_cero db \"HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> DIVIDIR POR CERO VIOLA EL CODIGO ESTETICO Y MORAL\", 0\n");
-        code.append("mensaje_overflow_producto db \"HOLA SOY UN ERROR EN TIEMPO DE EJECUCION -> OVERFLOW EN PRODUCTO\", 0\n");
+        code.append("mensaje_division_cero db \"ERROR EN TIEMPO DE EJECUCION -> DIVISION POR CERO\", 0\n");
+        code.append("mensaje_overflow_producto db \"ERROR EN TIEMPO DE EJECUCION -> OVERFLOW EN PRODUCTO\", 0\n");
     }
 
     private void assembleTerceto(Terceto terceto) {
@@ -335,8 +333,6 @@ public class Generador {
         if (listaOperadores.contains(terceto.getOperador())) {
 
             String situacion = getSituacionAritmetica(terceto);
-
-            assert situacion != null;
 
             switch (situacion) {
                 case "SITUACION_UNO":
@@ -355,7 +351,7 @@ public class Generador {
                     applySituacion_4b(terceto);
                     break;
                 default:
-                    throw new RuntimeException("BAILA COMO EL PAPUU");
+                    throw new RuntimeException("Situación (" + situacion + ") no reconocida");
             }
         }
 
@@ -824,7 +820,7 @@ public class Generador {
             return;
         }
 
-        throw new RuntimeException("CORTASTE TODA LA LOZ");
+        throw new RuntimeException("Operación de comparación no reconocida -> " + terceto);
     }
 
     private void applySituacionBF(Terceto terceto) {
@@ -871,7 +867,7 @@ public class Generador {
             case "/":
                 return "DIV";
             default:
-                throw new IllegalArgumentException("QUE ONDA BIGOTEEEEEE");
+                throw new IllegalArgumentException("Operador no reconocido --> " + operador);
         }
     }
 
@@ -900,7 +896,7 @@ public class Generador {
             case 3:
                 return aux + "DX";
             default:
-                throw new RuntimeException("HOLAAAAAA");
+                throw new RuntimeException("Registro no reconocido --> " + registro);
         }
     }
 

@@ -4,7 +4,6 @@ import parser.Parser;
 
 import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * <h3>
@@ -34,13 +33,12 @@ public class Main {
     private static final String DIR_MATRIZ_ACC_SEMANTICAS = "matriz-acc-semanticas.txt";
 
     /*
-        // DUDAS
-        TODO: Se podían hacer llamadas a función en una comparación??? (En lo posible hacernos los boludos...)
-
         // COSAS MENORES
         TODO: Una vez generado el assembler, agregar comentarios a cada línea generada para explicar un poco la movida
         TODO: Generar JavaDoc
         TODO: Empaquetar todo
+
+        TODO: Chequear errores semánticos 6 y 7
      */
 
     /**
@@ -49,8 +47,15 @@ public class Main {
      * @param args Argumentos de la aplicación enviados por la línea de comandos.
      */
     public static void main(String[] args) {
-        runInProductionMode();
-        //runInDevelopmentMode("archivo-prueba7.txt");
+
+//        runCompiler("casos-prueba/Semanticos11.txt");
+        runCompiler("archivo-prueba7.txt");
+
+//        try {
+//            runCompiler(args[0]);
+//        } catch (IndexOutOfBoundsException e) {
+//            System.err.println("Se debe pasar un archivo como parámetro por la línea de comandos");
+//        }
     }
 
     /**
@@ -59,7 +64,7 @@ public class Main {
      *
      * @param fileDir Ruta del archivo a compilar.
      */
-    private static void runInDevelopmentMode(String fileDir) {
+    private static void runCompiler(String fileDir) {
         TablaSimbolos tablaSimbolos = new TablaSimbolos();
 
         Lexer lexer;
@@ -99,65 +104,7 @@ public class Main {
         for (String inst : generador.getListaInstrucciones())
             System.out.println(inst);
 
-        generador.buildFile("salida.asm");
-    }
-
-    /**
-     * Método privado auxiliar para testear el compilador en producción. Esto es con un bucle, solicitando al
-     * usuario ingresar la ruta del archivo por línea de comandos.
-     */
-    private static void runInProductionMode() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Ingrese ruta del archivo (EXIT para salir): ");
-        String fileDir = scanner.nextLine();
-
-        if (fileDir.equalsIgnoreCase("EXIT"))
-            return;
-
-        TablaSimbolos tablaSimbolos = new TablaSimbolos();
-
-        Lexer lexer;
-        try {
-            lexer = new Lexer(fileDir, DIR_MATRIZ_ESTADOS, DIR_MATRIZ_ACC_SEMANTICAS, tablaSimbolos);
-        } catch (FileNotFoundException e) {
-            System.err.println("\nArchivo no encontrado");
-            return;
-        }
-
-        Parser parser = new Parser();
-        parser.setLexico(lexer);
-        parser.setTablaSimbolos(tablaSimbolos);
-
-        int resultadoParsing = parser.yyparse();
-
-        System.out.println("\nRESULTADO DEL PARSING: " + resultadoParsing);
-
-        System.out.println("\nERRORES");
-        List<String> erroresLexicos = tablaSimbolos.getErroresLexicos();
-        if (erroresLexicos.size() != 0) {
-            for (String errorlexico : erroresLexicos)
-                System.out.println(errorlexico);
-            for (String error : parser.getErrores())
-                System.out.println(error);
-        }
-
-        if (resultadoParsing == 1 || parser.getErrores().size() != 0)
-            return;
-
-        System.out.println("NO HAY ERRORES");
-
-        System.out.println("\n" + tablaSimbolos);
-
-        System.out.println("\nTERCETOS");
-        for (Terceto terceto : parser.getTercetos())
-            System.out.println(terceto);
-
-        Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
-        generador.generateAssembler();
-
         generador.buildFile(fileDir + ".asm");
-        System.out.println("\nSe generó el código assembler, identificado como --> " + fileDir + ".asm");
     }
 }
 

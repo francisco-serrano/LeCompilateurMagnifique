@@ -15,10 +15,15 @@ includelib C:\masm32\lib\masm32.lib
 @100 DW 100
 @2 DW 2
 @200 DW 200
+@25 DW 25
+@4 DW 4
+@99 DW 99
 ENTRA_AL_IF db "ENTRA AL IF", 0 
 ENTRA_AL_ELSE db "ENTRA AL ELSE", 0 
+ENTRA_AL_SEGUNDO_IF db "ENTRA AL SEGUNDO IF", 0 
 var1@main DW ?
 retUINT_aa DW ?
+var2@main DW ?
 tempAX DW ?
 tempBX DW ?
 tempCX DW ?
@@ -46,6 +51,17 @@ JMP Label10
 Label9:
 invoke MessageBox, NULL, addr ENTRA_AL_ELSE, addr ENTRA_AL_ELSE, MB_OK
 Label10:
+MOV AX, 25
+MUL @4
+JO @LABEL_OVF_PRODUCTO
+
+MOV var2@main, AX
+MOV AX, var2@main
+MOV BX, 99
+CMP AX, BX
+JLE Label15
+invoke MessageBox, NULL, addr ENTRA_AL_SEGUNDO_IF, addr ENTRA_AL_SEGUNDO_IF, MB_OK
+Label15:
 JMP @LABEL_END
 JMP @LABEL_END
 
