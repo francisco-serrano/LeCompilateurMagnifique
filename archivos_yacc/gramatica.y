@@ -147,7 +147,7 @@ asignacion : ID ASIGN expresion DOT { //System.out.println("ASIGNACIÓN. Línea 
 									  if (! tablaSimbolos.varDefined($1.sval, ambitos.toString(), isMoveFunction))
 									  	  yyerror("\tError en la línea " + $1.ival + ": VARIABLE NO DEFINIDA EN EL AMBITO -> " + ambitos.toString());
 									  else {
-										  String tipoAsignacion = tablaSimbolos.getToken($1.sval.toLowerCase()).getType();
+										  String tipoAsignacion = tablaSimbolos.getTokenAmb($1.sval.toLowerCase(),ambitos.toString()).getType();
 										  String tipoExpresion = (String)(((Item)$3.obj).getTipo());
 										  if (!tipoAsignacion.equals(tipoExpresion))
                                               yyerror("Línea " + $2.ival + ". Tipos incompatibles en la asignación");

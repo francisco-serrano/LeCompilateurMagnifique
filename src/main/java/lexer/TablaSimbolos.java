@@ -122,7 +122,7 @@ public class TablaSimbolos {
      * @return Booleano indicando si la variable sería redefinida en el ámbito provisto.
      */
     private boolean redefined(String lexema, String ambito) {
-        Token token = getToken(lexema, ambito);
+        Token token = getTokenAmb(lexema, ambito);
 
         return token != null && token.getUso().equals("variable") && token.getAmbito().equals(ambito);
     }
@@ -144,7 +144,7 @@ public class TablaSimbolos {
      * @return Booleano indicando si la variable está definida en el ámbito local actual.
      */
     public boolean varDefinedLocalScope(String lexema, String ambito) {
-        Token token = getToken(lexema, ambito);
+        Token token = getTokenAmb(lexema, ambito);
 
         return token != null;
     }
@@ -294,7 +294,7 @@ public class TablaSimbolos {
      * @param ambito Ambito con el que se idenficia al token a retornar.
      * @return Token solicitado.
      */
-    private Token getToken(String lexema, String ambito) {
+    public Token getTokenAmb(String lexema, String ambito) {
         for (Token token : multimap.get("ID"))
             if (token.getLexema().equals(lexema) && token.getAmbito().equals(ambito))
                 return token;

@@ -896,7 +896,7 @@ case 33:
 									  if (! tablaSimbolos.varDefined(val_peek(3).sval, ambitos.toString(), isMoveFunction))
 									  	  yyerror("\tError en la línea " + val_peek(3).ival + ": VARIABLE NO DEFINIDA EN EL AMBITO -> " + ambitos.toString());
 									  else {
-										  String tipoAsignacion = tablaSimbolos.getToken(val_peek(3).sval.toLowerCase()).getType();
+										  String tipoAsignacion = tablaSimbolos.getTokenAmb(val_peek(3).sval.toLowerCase(),ambitos.toString()).getType();
 										  String tipoExpresion = (String)(((Item)val_peek(1).obj).getTipo());
 										  if (!tipoAsignacion.equals(tipoExpresion))
                                               yyerror("Línea " + val_peek(2).ival + ". Tipos incompatibles en la asignación");

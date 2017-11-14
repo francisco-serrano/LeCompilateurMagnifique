@@ -48,8 +48,8 @@ public class Main {
      */
     public static void main(String[] args) {
 
-//        runCompiler("casos-prueba/Semanticos11.txt");
-        runCompiler("archivo-prueba7.txt");
+        runCompiler("casos-prueba/Semanticos7.txt");
+//        runCompiler("archivo-prueba7.txt");
 
 //        try {
 //            runCompiler(args[0]);
@@ -98,13 +98,13 @@ public class Main {
         for (Terceto terceto : parser.getTercetos())
             System.out.println(terceto);
 
-        System.out.println("\nASSEMBLER");
+        /*System.out.println("\nASSEMBLER");
         Generador generador = new Generador(parser.getTercetos(), tablaSimbolos);
         generador.generateAssembler();
         for (String inst : generador.getListaInstrucciones())
             System.out.println(inst);
 
-        generador.buildFile(fileDir + ".asm");
+        generador.buildFile(fileDir + ".asm");*/
     }
 }
 

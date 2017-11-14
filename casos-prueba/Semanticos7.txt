@@ -1,6 +1,6 @@
 [Variable con el mismo nombre en el ámbito global y dentro de funciones]
 var1, var2, var5: UINT.
-var4 : ULONG.
+var3 , var4 : ULONG.
 
 UINT FUNCTION aa {
 	var3 : UINT.
@@ -12,8 +12,8 @@ UINT FUNCTION aa {
 
 UINT MOVE FUNCTION bb{
 	var3 : UINT.
-	return (10).
+	RETURN (10).
 }
 
-var3 : ULONG.
-var3 = 1234.
+
+var3 = var4.
