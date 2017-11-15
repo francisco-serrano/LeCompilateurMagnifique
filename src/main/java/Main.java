@@ -48,8 +48,8 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        runCompiler("casos-prueba/Semanticos6.txt");
-//        runCompiler("archivo-prueba7.txt");
+//        runCompiler("casos-prueba/Semanticos6.txt");
+        runCompiler("test14-m.txt");
 
 //        try {
 //            runCompiler(args[0]);

@@ -106,16 +106,20 @@ public class Generador {
                 if (linea.contains("MULT"))
                     operacion = "MUL";
 
+                if (!valor.contains("@")) // Quiere decir que se trata de una constante
+                    valor = new StringBuilder(valor).insert(0, "@").toString();
 
                 if (registro.contains("A")) { // Quiere decir que estoy en AX/EAX
-                    auxListaInstrucciones.add(operacion + " @" + valor);
+//                    auxListaInstrucciones.add(operacion + " @" + valor);
+                    auxListaInstrucciones.add(operacion + " " + valor);
                     continue;
                 }
 
                 if (!registro.contains("A")) { // Agrego las instrucciones de atrás para adelante porque se van intercalando
                     auxListaInstrucciones.add("MOV tempAX, AX");
                     auxListaInstrucciones.add("MOV AX, " + registro);
-                    auxListaInstrucciones.add(operacion + " @" + valor);
+//                    auxListaInstrucciones.add(operacion + " @" + valor);
+                    auxListaInstrucciones.add(operacion + " " + valor);
                     auxListaInstrucciones.add("MOV " + registro + ", AX");
                     auxListaInstrucciones.add("MOV AX, tempAX");
                     continue;
@@ -177,9 +181,8 @@ public class Generador {
 
             listaRetornar.add(elem);
 
-            if (operacion.equals("MUL")) {
-                listaRetornar.add("JO @LABEL_OVF_PRODUCTO\n");
-            }
+            if (operacion.equals("MUL"))
+                listaRetornar.add("JO @LABEL_OVF_PRODUCTO");
         }
 
         return listaRetornar;

@@ -1,0 +1,15 @@
+var1, var2: UINT.
+
+var1 = 2.
+var2 = 3.
+
+var1 = var1 * var2.
+var2 = var2 * 2.
+
+IF (var1 == 6) THEN
+	OUT('entra al primer if').
+END_IF
+
+IF (var2 == 6) THEN
+	OUT('entra al segundo if').
+END_IF
